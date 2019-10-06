@@ -42,16 +42,20 @@ class HomeBanner extends Component {
                                     Room <span className="blue-text">Controller</span>
                                 </h1>
                                 {!this.state.isLogin && 
-                                    <React.Fragment>
+                                    <div>
                                         <h2>Đăng ký</h2>
                                         <RegisterForm onSubmit={this.handleRegister}/>
-                                </React.Fragment>}
+                                </div>}
                                 {this.state.isLogin && 
-                                    <React.Fragment>
-                                        <h2>Đăng nhập</h2>
-                                        <p>hoặc <span className="blue-text"><strong onClick={this.handleLogin}>đăng ký</strong></span></p>
+                                    <div>
+                                        <div>
+                                            <h2>Đăng nhập</h2>
+                                            <p>hoặc <span className="blue-text">
+                                                <a onClick={this.handleLogin}>đăng ký</a>
+                                            </span></p>
+                                        </div>
                                         <LoginForm onSubmit={this.handleLogin}/>
-                                </React.Fragment>}
+                                </div>}
                             </div>
                         </div>
                         <div className="col-lg-6 col-md-6"></div>

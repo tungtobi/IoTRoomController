@@ -4,7 +4,7 @@ import { Form, Button } from 'react-bootstrap';
 class LoginForm extends Component {
     render() { 
         return (
-            <Form>
+            <Form onSubmit={this.props.onSubmit}>
                 <Form.Group controlId="formBasicEmail">
                     <Form.Label>Địa chỉ email</Form.Label>
                     <Form.Control type="email" placeholder="email" />
@@ -19,7 +19,7 @@ class LoginForm extends Component {
                 <Form.Group controlId="formBasicCheckbox">
                     <Form.Check type="checkbox" label="Lưu tài khoản" />
                 </Form.Group>
-                <Button variant="primary" type="submit">
+                <Button variant="primary" type="submit" on>
                     Đăng nhập
                 </Button>
             </Form>

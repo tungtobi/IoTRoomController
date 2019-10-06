@@ -1,0 +1,395 @@
+/*--------------------------- Color variations ----------------------*/
+/* Medium Layout: 1280px */
+/* Tablet Layout: 768px */
+/* Mobile Layout: 320px */
+/* Wide Mobile Layout: 480px */
+/* =================================== */
+/*  Basic Style 
+/* =================================== */
+
+body {
+  color: #777777;
+  font-family: "Roboto", sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.625em;
+  position: relative; 
+}
+
+.no-padding {
+  padding: 0; 
+}
+
+/* =================================== */
+/*  Start Banner Area CSS
+/* =================================== */
+.home-banner-area {
+  background: url(../img/background.png) no-repeat center;
+  background-size: cover; 
+}
+
+.home-banner-area .fullscreen {
+  height: 100vh !important; 
+} 
+
+@media (max-width: 1440px) {
+  .home-banner-area .fullscreen {
+    height: 750px !important; 
+  } 
+}
+
+@media (max-width: 768px) {
+  .home-banner-area .fullscreen {
+    height: 700px !important; 
+  } 
+}
+
+@media (max-width: 768px) {
+  .home-banner-left {
+    text-align: center; 
+  } 
+}
+
+.home-banner-left h1 {
+  color: #000000;
+  font-size: 48px;
+  margin-bottom: 50px; 
+}
+.home-banner-left h1 span {
+  color: #4ba0f9; 
+}
+
+@media (max-width: 768px) {
+  .home-banner-left h1 br {
+    display: none; 
+  } 
+}
+
+@media (max-width: 992px) {
+  .home-banner-left h1 {
+    font-size: 45px; 
+  } 
+}
+
+@media (max-width: 768px) {
+.home-banner-left h1 {
+    font-size: 36px; 
+  } 
+}
+  
+@media (max-width: 414px) {
+  .home-banner-left h1 {
+    font-size: 30px; 
+  } 
+}
+
+@media (max-width: 800px) {
+  .home-banner-left {
+    margin-top: 30px; 
+  } 
+}
+
+@media (max-width: 991px) {
+  .home-banner-right {
+    display: none !important; 
+  } 
+}
+
+.banner_area {
+  position: relative;
+  z-index: 1;
+  min-height: 420px; 
+}
+
+.banner_area .banner_inner {
+  position: relative;
+  background-size: cover;
+  background-position: right;
+  width: 100%;
+  min-height: 420px;
+  z-index: 1; 
+}
+    
+.banner_area .banner_inner .banner_content h2 {
+  color: #222222;
+  font-size: 48px;
+  margin-bottom: 0px;
+  font-weight: 700; 
+}
+ 
+@media (max-width: 767px) {
+  .banner_area .banner_inner .banner_content h2 {
+    font-size: 30px; 
+  } 
+}
+
+.banner_area .banner_inner .banner_content .page_link a {
+  font-size: 14px;
+  color: #222222;
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+  margin-right: 30px;
+  position: relative;
+  text-transform: capitalize; 
+}
+
+.banner_area .banner_inner .banner_content .page_link a:before {
+  content: "\f178";
+  font: normal normal normal 14px/1 FontAwesome;
+  position: absolute;
+  right: -25px;
+  top: 50%;
+  transform: translateY(-50%); 
+}
+
+.banner_area .banner_inner .banner_content .page_link a:last-child {
+  margin-right: 0px; 
+}
+
+.banner_area .banner_inner .banner_content .page_link a:last-child:before {
+  display: none; 
+}
+
+/* =================================== */
+/*  End Banner Area CSS */
+
+/* =================================== */
+/*  Start Footer Area CSS
+/* =================================== */
+.footer-area {
+  min-height: 100%;
+  background: #1e1c27; 
+}
+
+.footer-area h6 {
+  color: #fff;
+  margin-bottom: 25px;
+  font-size: 18px;
+  font-weight: 600; 
+}
+
+@media (max-width: 991px) {
+  .footer-area .col-lg-3:nth-child(3) .single-footer-widget, .footer-area .col-lg-3:nth-child(4) .single-footer-widget {
+    margin-bottom: 0; 
+  } 
+}
+
+@media (max-width: 570px) {
+  .footer-area .col-lg-3:nth-child(3) .single-footer-widget {
+    margin-bottom: 40px; 
+  } 
+}
+
+.copy-right-text i,
+.copy-right-text a {
+  color: #4ba0f9; 
+}
+
+.instafeed {
+  margin: 0px -24px;
+  padding: 0 15px; 
+}
+
+@media (max-width: 767px) {
+  .instafeed {
+    margin: -16px; 
+  } 
+}
+
+@media (max-width: 575px) {
+  .instafeed {
+    margin: 0px;
+    padding: 0; 
+  } 
+}
+
+.instafeed li {
+  overflow: hidden;
+  width: 25%; 
+}
+
+.instafeed li img {
+  margin: 5px; 
+}
+
+@media (max-width: 575px) {
+  .footer-social {
+    margin-top: 15px; 
+  } 
+}
+
+.footer-social a {
+  padding-left: 25px;
+  -webkit-transition: all 0.3s ease 0s;
+  -moz-transition: all 0.3s ease 0s;
+  -o-transition: all 0.3s ease 0s;
+  transition: all 0.3s ease 0s; 
+}
+
+@media (max-width: 575px) {
+  .footer-social a:first-child {
+    padding-left: 0; 
+  } 
+}
+
+.footer-social a:hover i {
+  color: #4ba0f9; 
+}
+
+.footer-social i {
+  color: #cccccc;
+  -webkit-transition: all 0.3s ease 0s;
+  -moz-transition: all 0.3s ease 0s;
+  -o-transition: all 0.3s ease 0s;
+  transition: all 0.3s ease 0s; 
+}
+
+@media (max-width: 991px) {
+  .footer-social {
+    text-align: left; 
+  } 
+}
+
+.footer-top {
+  padding: 120px 0px; 
+}
+
+@media (max-width: 991px) {
+  .single-footer-widget {
+    margin-bottom: 40px; 
+  } 
+}
+
+.single-footer-widget .footer-nav li {
+  list-style: none;
+  margin-bottom: 12px; 
+}
+
+@media (max-width: 991px) {
+  .single-footer-widget .footer-nav li {
+    margin-bottom: 3px; 
+  } 
+}
+
+.single-footer-widget .footer-nav li a {
+  color: #777777; 
+}
+    
+.single-footer-widget .footer-nav li a:hover {
+  color: #ffffff; 
+}
+
+.single-footer-widget input {
+  border: 1px solid rgba(238, 238, 238, 0.15);
+  width: 80% !important;
+  font-weight: 300;
+  background: #2d2d3c;
+  color: #ffffff;
+  padding-left: 20px;
+  border-radius: 0;
+  font-size: 14px;
+  border-right: 0px; 
+}
+
+.single-footer-widget input:focus {
+  box-shadow: none;
+  color: #ffffff;
+  background: #222222; 
+}
+
+.single-footer-widget 
+.info {
+  position: absolute;
+  margin-top: 20%;
+  color: #fff;
+  font-size: 12px;
+  background: transparent; 
+}
+
+.single-footer-widget .info.valid {
+  color: green; 
+}
+
+.single-footer-widget .info.error {
+  color: red; 
+}
+
+.single-footer-widget .click-btn {
+  color: #fff;
+  border-radius: 0;
+  border-top-left-radius: 0px;
+  border-bottom-left-radius: 0px;
+  padding: 6px 12px;
+  border: 0; }
+
+.single-footer-widget .click-btn:focus {
+  box-shadow: none; 
+}
+
+.single-footer-widget .click-btn i {
+  color: #fff; 
+}
+
+.single-footer-widget ::-moz-selection {
+  /* Code for Firefox */
+  background-color: #191919 !important;
+  color: #ffffff; 
+}
+
+.single-footer-widget ::selection {
+  background-color: #191919 !important;
+  color: #ffffff; 
+}
+
+.single-footer-widget ::-webkit-input-placeholder {
+  /* WebKit, Blink, Edge */
+  color: #ffffff;
+  font-weight: 300; 
+}
+
+.single-footer-widget :-moz-placeholder {
+  /* Mozilla Firefox 4 to 18 */
+  color: #ffffff;
+  opacity: 1;
+  font-weight: 300; 
+}
+
+.single-footer-widget ::-moz-placeholder {
+  /* Mozilla Firefox 19+ */
+  color: #ffffff;
+  opacity: 1;
+  font-weight: 300; 
+}
+
+.single-footer-widget :-ms-input-placeholder {
+  /* Internet Explorer 10-11 */
+  color: #ffffff;
+  font-weight: 300; 
+}
+
+  .single-footer-widget ::-ms-input-placeholder {
+  /* Microsoft Edge */
+  color: #ffffff;
+  font-weight: 300; 
+}
+
+.footer-bottom {
+  padding: 26px 0px;
+  border-top: 1px solid #333333; 
+}
+@media (max-width: 380px) {
+  .footer-bottom {
+    text-align: left !important; 
+  } 
+}
+
+.footer-text a,
+.footer-text i {
+  color: #4ba0f9; 
+}
+
+/* =================================== */
+/*  End Footer Area CSS
+/* =================================== */
+
+/*# sourceMappingURL=main.css.map */

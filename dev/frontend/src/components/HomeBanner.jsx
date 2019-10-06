@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './HomeBanner.css';
 import RegisterForm from './RegisterForm';
 import LoginForm from './LoginForm';
+import { Button } from 'react-bootstrap'
 
 class HomeBanner extends Component {
     constructor(props) {
@@ -10,10 +11,20 @@ class HomeBanner extends Component {
             isLogin: true
         }
 
-        this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleLogin = this.handleLogin.bind(this);
+        this.handleRegister = this.handleRegister.bind(this);
     }
 
-    handleSubmit() {
+    handleLogin() {
+        this.changeState();
+        
+    }
+
+    handleRegister() {
+        this.changeState();
+    }
+
+    changeState() {
         this.setState(prevState => ({
             isLogin: !prevState.isLogin
         }));
@@ -27,12 +38,20 @@ class HomeBanner extends Component {
                         <div className="col-lg-6 col-md-12 home-banner-left d-flex fullscreen">
                             <div>
                                 <h1>
-                                    Smart <span>IoT </span><br/>
-                                    Room <span>Controller</span>
+                                    Smart <span className="blue-text">IoT </span><br/>
+                                    Room <span className="blue-text">Controller</span>
                                 </h1>
-                                <h2>{ this.state.isLogin ? "Đăng nhập" : "Đăng ký" }</h2>
-                                { !this.state.isLogin && <RegisterForm onSubmit={this.handleSubmit}/> }
-                                { this.state.isLogin && <LoginForm onSubmit={this.handleSubmit}/> }
+                                {!this.state.isLogin && 
+                                    <React.Fragment>
+                                        <h2>Đăng ký</h2>
+                                        <RegisterForm onSubmit={this.handleRegister}/>
+                                </React.Fragment>}
+                                {this.state.isLogin && 
+                                    <React.Fragment>
+                                        <h2>Đăng nhập</h2>
+                                        <p>hoặc <span className="blue-text"><strong onClick={this.handleLogin}>đăng ký</strong></span></p>
+                                        <LoginForm onSubmit={this.handleLogin}/>
+                                </React.Fragment>}
                             </div>
                         </div>
                         <div className="col-lg-6 col-md-6"></div>

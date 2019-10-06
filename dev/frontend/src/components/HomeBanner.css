@@ -53,18 +53,16 @@ body {
 .home-banner-left h1 {
   color: #000000;
   font-size: 48px;
-  margin-top: 15vh;
+  margin-top: 12vh;
   margin-bottom: 50px; 
   font-weight: bold;
 }
 
 .home-banner-left h2 {
-  color: #4ba0f9;
   font-size: 30px;
-  margin-bottom: 24px;
 }
 
-.home-banner-left h1 span {
+.blue-text {
   color: #4ba0f9; 
 }
 
@@ -205,11 +203,6 @@ body {
   } 
 }
 
-.copy-right-text i,
-.copy-right-text a {
-  color: #4ba0f9; 
-}
-
 .instafeed {
   margin: 0px -24px;
   padding: 0 15px; 
@@ -255,10 +248,6 @@ body {
   .footer-social a:first-child {
     padding-left: 0; 
   } 
-}
-
-.footer-social a:hover i {
-  color: #4ba0f9; 
 }
 
 .footer-social i {
@@ -406,11 +395,6 @@ body {
   .footer-bottom {
     text-align: left !important; 
   } 
-}
-
-.footer-text a,
-.footer-text i {
-  color: #4ba0f9; 
 }
 
 /* =================================== */

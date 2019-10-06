@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import './HomeBanner.css';
-import LoginForm from './LoginForm'
 import RegisterForm from './RegisterForm';
 
 class HomeBanner extends Component {
@@ -13,7 +12,7 @@ class HomeBanner extends Component {
                             <div>
                                 <h1>
                                     Smart <span>IoT</span><br/>
-                                    Room Controller<br/>
+                                    Room <span>Controller</span>
                                 </h1>
                                 <RegisterForm/>
                             </div>

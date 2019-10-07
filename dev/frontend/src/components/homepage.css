@@ -30,36 +30,46 @@ body {
 
 .home-banner-area .fullscreen {
   height: 100vh !important; 
-} 
+}
+
+.carousel-item {
+  max-width: 374px;
+  min-height: 405px;
+}
 
 @media (max-width: 1440px) {
   .home-banner-area .fullscreen {
-    height: 750px !important; 
+    /* height: 750px !important;  */
   } 
 }
 
 @media (max-width: 768px) {
   .home-banner-area .fullscreen {
-    height: 700px !important; 
+    /* height: 700px !important;  */
   } 
 }
 
 @media (max-width: 768px) {
-  .home-banner-left {
+  .home-banner-left h1 {
     text-align: center; 
   } 
+}
+
+i.blue-text:hover {
+  text-decoration: underline;
 }
 
 .home-banner-left h1 {
   color: #000000;
   font-size: 48px;
-  margin-top: 12vh;
+  /* margin-top: 12vh; */
   margin-bottom: 50px; 
   font-weight: bold;
 }
 
 .home-banner-left h2 {
   font-size: 30px;
+  margin-bottom: 0px;
 }
 
 .blue-text {

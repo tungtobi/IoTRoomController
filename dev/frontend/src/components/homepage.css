@@ -28,7 +28,7 @@ body {
   background-size: cover; 
 }
 
-.home-banner-area .fullscreen {
+.fullscreen {
   height: 100vh !important; 
 }
 
@@ -118,7 +118,7 @@ i.blue-text:hover {
 
 @media (max-width: 800px) {
   .home-banner-left {
-    margin-top: 30px; 
+    /* margin-top: 30px;  */
   } 
 }
 

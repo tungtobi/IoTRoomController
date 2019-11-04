@@ -28,39 +28,60 @@ body {
   background-size: cover; 
 }
 
-.home-banner-area .fullscreen {
+.fullscreen {
   height: 100vh !important; 
-} 
+}
+
+.carousel-item {
+  max-width: 374px;
+  min-height: 405px;
+}
 
 @media (max-width: 1440px) {
   .home-banner-area .fullscreen {
-    height: 750px !important; 
+    /* height: 750px !important;  */
   } 
 }
 
 @media (max-width: 768px) {
   .home-banner-area .fullscreen {
-    height: 700px !important; 
+    /* height: 700px !important;  */
   } 
 }
 
 @media (max-width: 768px) {
-  .home-banner-left {
+  .home-banner-left h1 {
     text-align: center; 
   } 
+}
+
+i.blue-text:hover {
+  text-decoration: underline;
 }
 
 .home-banner-left h1 {
   color: #000000;
   font-size: 48px;
+  /* margin-top: 12vh; */
   margin-bottom: 50px; 
+  font-weight: bold;
 }
-.home-banner-left h1 span {
+
+.home-banner-left h2 {
+  font-size: 30px;
+  margin-bottom: 0px;
+}
+
+.blue-text {
   color: #4ba0f9; 
 }
 
 @media (max-width: 768px) {
   .home-banner-left h1 br {
+    display: none; 
+  } 
+
+  .home-banner-left h2 br {
     display: none; 
   } 
 }
@@ -69,11 +90,19 @@ body {
   .home-banner-left h1 {
     font-size: 45px; 
   } 
+
+  .home-banner-left h2 {
+    font-size: 36px; 
+  } 
 }
 
 @media (max-width: 768px) {
-.home-banner-left h1 {
+  .home-banner-left h1 {
     font-size: 36px; 
+  } 
+
+  .home-banner-left h2 {
+    font-size: 30px; 
   } 
 }
   
@@ -81,11 +110,15 @@ body {
   .home-banner-left h1 {
     font-size: 30px; 
   } 
+
+  .home-banner-left h2 {
+    font-size: 24px; 
+  } 
 }
 
 @media (max-width: 800px) {
   .home-banner-left {
-    margin-top: 30px; 
+    /* margin-top: 30px;  */
   } 
 }
 
@@ -180,11 +213,6 @@ body {
   } 
 }
 
-.copy-right-text i,
-.copy-right-text a {
-  color: #4ba0f9; 
-}
-
 .instafeed {
   margin: 0px -24px;
   padding: 0 15px; 
@@ -230,10 +258,6 @@ body {
   .footer-social a:first-child {
     padding-left: 0; 
   } 
-}
-
-.footer-social a:hover i {
-  color: #4ba0f9; 
 }
 
 .footer-social i {
@@ -381,11 +405,6 @@ body {
   .footer-bottom {
     text-align: left !important; 
   } 
-}
-
-.footer-text a,
-.footer-text i {
-  color: #4ba0f9; 
 }
 
 /* =================================== */

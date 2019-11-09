@@ -1,0 +1,16 @@
+.avatar {
+    min-height: 190px;    
+    position: relative;
+    max-width: 100%;
+    max-height: 100%;
+    display: block;
+}
+
+.avatar div {
+    margin: 0;
+    top: 50%;
+    left: 50%;
+    position: absolute;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}

@@ -1,0 +1,10 @@
+.menu-horizontal {
+    background: #007bff;
+    width: 10%;
+    height: 1080px;
+    float: left;
+}
+
+.chuaNghiRaTen {
+    width: 90%;
+}

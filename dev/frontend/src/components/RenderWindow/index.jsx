@@ -2,15 +2,18 @@ import React, { Component } from "react";
 import DevicesManager from "../DevicesManager/index";
 import DevicesScenario from "../DevicesScenario/index";
 import DevicesHistory from "../DevicesHistory/index";
+import RoomStatus from "../RoomStatus/index";
 import "./index.css";
-
 class RenderWindow extends Component {
   state = {};
   render() {
     if (this.props.nameWindow === "Room Status") {
       return (
         <span>
-          <a>Room status</a>
+          <RoomStatus
+            roomStatusLabels={this.props.roomStatusLabels}
+            roomStatusData={this.props.roomStatusData}
+          ></RoomStatus>
         </span>
       );
     } else if (this.props.nameWindow === "Devices") {

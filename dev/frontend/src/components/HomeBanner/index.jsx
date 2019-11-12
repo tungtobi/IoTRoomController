@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import './homepage.css';
-import RegisterForm from './RegisterForm';
-import LoginForm from './LoginForm';
-import Slider from 'react-slick';
+import './style.css';
+import RegisterForm from '../RegisterForm';
+import LoginForm from '../LoginForm';
 import { Carousel } from 'react-bootstrap';
 
 class HomeBanner extends Component {
@@ -47,15 +46,7 @@ class HomeBanner extends Component {
         })
     }
 
-    render() {
-        const settings = {
-            dots: false,
-            infinite: true,
-            speed: 500,
-            slidesToShow: 1,
-            slidesToScroll: 1
-        };
-        
+    render() {        
         return (
             <section className="home-banner-area">
                 <div className="container">
@@ -81,21 +72,6 @@ class HomeBanner extends Component {
                                         />
                                     </Carousel.Item>
                                 </Carousel>
-
-                                {/* {
-                                    !this.state.isLogin && 
-                                    <RegisterForm 
-                                        onChangeView={this.changeState} 
-                                        onSubmit={this.handleRegister}
-                                    />
-                                }
-                                {
-                                    this.state.isLogin && 
-                                    <LoginForm 
-                                        onChangeView={this.changeState} 
-                                        onSubmit={this.handleLogin}
-                                    />
-                                } */}
                             </div>
                         </div>
                         <div className="col-lg-6 col-md-6"></div>

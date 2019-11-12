@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Form, Button } from 'react-bootstrap';
-import './homepage.css';
+import '../HomeBanner/style.css';
 
 class LoginForm extends Component {
     render() { 

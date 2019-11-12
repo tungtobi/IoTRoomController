@@ -37,17 +37,17 @@ body {
   min-height: 405px;
 }
 
-@media (max-width: 1440px) {
+/* @media (max-width: 1440px) {
   .home-banner-area .fullscreen {
-    /* height: 750px !important;  */
+    height: 750px !important; 
   } 
-}
+} */
 
-@media (max-width: 768px) {
+/* @media (max-width: 768px) {
   .home-banner-area .fullscreen {
-    /* height: 700px !important;  */
+    height: 700px !important; 
   } 
-}
+} */
 
 @media (max-width: 768px) {
   .home-banner-left h1 {
@@ -116,11 +116,11 @@ i.blue-text:hover {
   } 
 }
 
-@media (max-width: 800px) {
+/* @media (max-width: 800px) {
   .home-banner-left {
-    /* margin-top: 30px;  */
+    margin-top: 30px; 
   } 
-}
+} */
 
 @media (max-width: 991px) {
   .home-banner-right {

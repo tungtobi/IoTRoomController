@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Chart from "react-apexcharts";
 import "./index.css";
 
-class Dashboard extends Component {
+class ChartStatus extends Component {
   render() {
     return (
       <div className="app devices">
@@ -22,4 +22,4 @@ class Dashboard extends Component {
   }
 }
 
-export default Dashboard;
+export default ChartStatus;

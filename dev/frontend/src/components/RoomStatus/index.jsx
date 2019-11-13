@@ -1,31 +1,31 @@
 import React, { Component } from "react";
-import Dashboard from "../Dashboard/index";
+import ChartStatus from "../ChartStatus/index";
 import "./index.css";
 class RoomStatus extends Component {
   state = {};
   render() {
     return (
-      <div className="dashboard">
+      <div className="">
         <div className="card">
-          <Dashboard
+          <ChartStatus
             title={this.props.roomStatusData.AQI.title}
             options={this.props.roomStatusData.AQI.options}
             series={this.props.roomStatusData.AQI.series}
-          ></Dashboard>
+          ></ChartStatus>
         </div>
         <div className="card">
-          <Dashboard
+          <ChartStatus
             title={this.props.roomStatusData.Temperature.title}
             options={this.props.roomStatusData.Temperature.options}
             series={this.props.roomStatusData.Temperature.series}
-          ></Dashboard>
+          ></ChartStatus>
         </div>
         <div className="card">
-          <Dashboard
+          <ChartStatus
             title={this.props.roomStatusData.Humidity.title}
             options={this.props.roomStatusData.Humidity.options}
             series={this.props.roomStatusData.Humidity.series}
-          ></Dashboard>
+          ></ChartStatus>
         </div>
       </div>
     );

@@ -7,7 +7,7 @@ class Navbar extends Component {
         return (
             <nav className="navbar navbar-light bg-light">
                 <span className="navbar-brand">
-                    <a href="#">Dashboard</a>
+                    <a>Dashboard</a>
                     <a> > {this.props.nameWindow}</a>
                 </span>
                 <span className="form-inline">

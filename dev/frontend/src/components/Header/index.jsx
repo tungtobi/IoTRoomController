@@ -113,6 +113,15 @@ class Header extends Component {
       Temperature: {
         title: "Temperature",
         options: {
+          legend: {
+            float: false,
+            position: "bottom", // whether to position legends in 1 of 4
+            // direction - top, bottom, left, right
+            horizontalAlign: "center", // when position top/bottom, you can
+            // specify whether to align legends
+            // left, right or center
+            verticalAlign: "middle"
+          },
           xaxis: {
             categories: [
               "10 - 11",

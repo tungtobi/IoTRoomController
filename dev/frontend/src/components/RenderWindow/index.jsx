@@ -9,12 +9,10 @@ class RenderWindow extends Component {
   render() {
     if (this.props.nameWindow === "Room Status") {
       return (
-        <span>
-          <RoomStatus
-            roomStatusLabels={this.props.roomStatusLabels}
-            roomStatusData={this.props.roomStatusData}
-          ></RoomStatus>
-        </span>
+        <RoomStatus
+          roomStatusLabels={this.props.roomStatusLabels}
+          roomStatusData={this.props.roomStatusData}
+        ></RoomStatus>
       );
     } else if (this.props.nameWindow === "Devices") {
       return (

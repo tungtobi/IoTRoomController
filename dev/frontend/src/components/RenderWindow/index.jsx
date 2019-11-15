@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-import DevicesManager from "../DevicesManager/index";
-import DevicesScenario from "../DevicesScenario/index";
-import DevicesHistory from "../DevicesHistory/index";
-import RoomStatus from "../RoomStatus/index";
+import DevicesManager from "../DevicesManager";
+import DevicesScenario from "../DevicesScenario";
+import DevicesHistory from "../DevicesHistory";
+import RoomStatus from "../RoomStatus";
 import "./index.css";
 class RenderWindow extends Component {
   state = {};
@@ -10,6 +10,7 @@ class RenderWindow extends Component {
     if (this.props.nameWindow === "Room Status") {
       return (
         <RoomStatus
+          indexes={this.props.indexes}
           roomStatusLabels={this.props.roomStatusLabels}
           roomStatusData={this.props.roomStatusData}
         ></RoomStatus>

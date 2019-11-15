@@ -1,13 +1,13 @@
 import React, { Component } from "react";
-import ChartsPanel from "../ChartsPanel/index";
-import IndexesPanel from "../IndexesPanel/index";
+import ChartsPanel from "../ChartsPanel";
+import IndexesPanel from "../IndexesPanel";
 import "./index.css";
 class RoomStatus extends Component {
   state = {};
   render() {
     return (
       <div>
-        <IndexesPanel></IndexesPanel>
+        <IndexesPanel indexes={this.props.indexes}></IndexesPanel>
         <ChartsPanel
           roomStatusLabels={this.props.roomStatusLabels}
           roomStatusData={this.props.roomStatusData}

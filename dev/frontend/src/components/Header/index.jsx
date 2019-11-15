@@ -199,7 +199,24 @@ class Header extends Component {
           }
         ]
       }
-    }
+    },
+    indexes: [
+      {
+        title: "AQI",
+        index: "99 PM2.5",
+        icon: "fas fa-wind item-icon-green p-3"
+      },
+      {
+        title: "Humidity",
+        index: "30 %",
+        icon: "fas fa-temperature-low item-icon-red p-3"
+      },
+      {
+        title: "Temperature",
+        index: "29 &deg;C",
+        icon: "fas fa-tint item-icon-orange p-3"
+      }
+    ]
   };
 
   removeDeviceList = seria => {
@@ -245,6 +262,7 @@ class Header extends Component {
             devicesHistory={this.state.devicesHistory}
             roomStatusLabels={this.state.roomStatusLabels}
             roomStatusData={this.state.roomStatusData}
+            indexes={this.state.indexes}
             removeDeviceList={this.removeDeviceList}
             removeDeviceScenario={this.removeDeviceScenario}
             removeDeviceHistory={this.removeDeviceHistory}

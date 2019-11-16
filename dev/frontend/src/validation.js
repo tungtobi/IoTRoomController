@@ -9,9 +9,7 @@ export default function handleInput(name, value, targetValue = null) {
       valid = value.length >= 6;
       break;
     case "cfPassword":
-      let targetValid = value.match(/^[a-zA-Z0-9.\-_$@*!]{3,30}$/)
-        ? true
-        : false;
+      let targetValid = value.length >= 6;
       valid = value === targetValue && targetValid;
       break;
     case "name":

@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import "./style.css";
-import RegisterForm from "../RegisterForm";
+// import RegisterForm from "../RegisterForm";
 import LoginForm from "../LoginForm";
-import { Carousel } from "react-bootstrap";
+// import { Carousel } from "react-bootstrap";
 import DeviceEditorModal from "../DeviceEditorModal";
 
 class HomeBanner extends Component {
@@ -57,17 +57,17 @@ class HomeBanner extends Component {
     }));
   }
 
-  toggleCarousel = direction => {
-    let index = this.state.index;
+  // toggleCarousel = direction => {
+  //   let index = this.state.index;
 
-    if (direction === "next") index++;
-    else if (direction === "prev") index--;
+  //   if (direction === "next") index++;
+  //   else if (direction === "prev") index--;
 
-    this.setState({
-      direction,
-      index
-    });
-  };
+  //   this.setState({
+  //     direction,
+  //     index
+  //   });
+  // };
 
   render() {
     return (
@@ -81,7 +81,11 @@ class HomeBanner extends Component {
                   <br />
                   Room <span className="blue-text">Controller</span>
                 </h1>
-                <Carousel
+                <LoginForm
+                  // onChangeView={() => this.toggleCarousel("next")}
+                  onSubmit={this.handleLogin}
+                />
+                {/* <Carousel
                   indicators={false}
                   controls={false}
                   activeIndex={this.state.index}
@@ -100,8 +104,7 @@ class HomeBanner extends Component {
                       onSubmit={this.handleRegister}
                     />
                   </Carousel.Item>
-                </Carousel>
-
+                </Carousel> */}
                 {/* <CenteredAlert
                   title="Are you sure?"
                   btnName="Delete"

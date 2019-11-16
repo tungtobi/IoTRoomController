@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Button } from "react-bootstrap";
 
 class Navbar extends Component {
   state = {};
@@ -17,6 +18,9 @@ class Navbar extends Component {
           >
             <i className="fas fa-bell"></i>
           </button>
+          <Button variant="link">
+            <i className="fas fa-bell" />
+          </Button>
           <button
             style={{ color: "#007bff" }}
             type="button"

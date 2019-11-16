@@ -9,9 +9,12 @@ class LoginForm extends Component {
         <Form.Label style={{ marginBottom: "24px" }}>
           <h2>Đăng nhập</h2>
           <small>
-            Nếu bạn chưa có tài khoản hãy{" "}
+            Nếu bạn chưa có tài khoản hãy liên hệ admin để{" "}
             <span>
-              <i className="blue-text" onClick={this.props.onChangeView}>
+              <i
+                className="blue-text"
+                // onClick={this.props.onChangeView}
+              >
                 đăng ký
               </i>
             </span>

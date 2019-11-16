@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Modal } from "react-bootstrap";
+import "./style.css";
 
 class CenteredModal extends Component {
   constructor(props) {
@@ -19,12 +20,11 @@ class CenteredModal extends Component {
     return (
       <Modal
         {...this.props}
-        size="lg"
-        aria-labelledby="contained-modal-title-vcenter"
+        // aria-labelledby="contained-modal-title-vcenter"
         centered
       >
         <Modal.Header closeButton>
-          <Modal.Title id="contained-modal-title-vcenter">
+          <Modal.Title /*id="contained-modal-title-vcenter"*/>
             {this.getTitle()}
           </Modal.Title>
         </Modal.Header>

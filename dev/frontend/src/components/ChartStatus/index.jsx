@@ -11,7 +11,7 @@ class ChartStatus extends Component {
           options={this.props.options}
           series={this.props.series}
           type="area"
-          width="500px"
+          width="100%"
         />
       </div>
     );

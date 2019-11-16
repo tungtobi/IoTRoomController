@@ -1,11 +1,12 @@
-.panel { 
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    flex: 1 0 auto;
-    justify-content: center;
+.panel {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  flex: 1 0 auto;
+  justify-content: center;
 }
 
 .panel-item {
-    margin: 1.5%;
+  margin: 1.5%;
+  width: 30%;
 }

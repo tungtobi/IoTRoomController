@@ -1,6 +1,7 @@
 import React, { Component } from "react";
-import Avatar from "../Avatar/index";
-import Menu from "../Menu/index";
+import Avatar from "../Avatar";
+import Menu from "../Menu";
+import "./index.css";
 class Leftbar extends Component {
   state = {
     menuItems: this.props.menuItems,
@@ -9,7 +10,7 @@ class Leftbar extends Component {
   };
   render() {
     return (
-      <div className="bg-primary">
+      <div className="bg-primary leftbar">
         <Avatar avatar={this.state.avatar}></Avatar>
         <Menu
           menuItems={this.state.menuItems}

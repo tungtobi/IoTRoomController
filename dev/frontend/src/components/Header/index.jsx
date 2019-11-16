@@ -107,6 +107,115 @@ class Header extends Component {
           }
         ]
       }
+    ],
+    roomStatusLabels: ["Temperature", "Humidity", "AQI"],
+    roomStatusData: {
+      Temperature: {
+        title: "Temperature",
+        options: {
+          legend: {
+            float: false,
+            position: "bottom", // whether to position legends in 1 of 4
+            // direction - top, bottom, left, right
+            horizontalAlign: "center", // when position top/bottom, you can
+            // specify whether to align legends
+            // left, right or center
+            verticalAlign: "middle"
+          },
+          xaxis: {
+            categories: [
+              "10 - 11",
+              "11 - 11",
+              "12 - 11",
+              "13 - 11",
+              "14 - 11",
+              "15 - 11",
+              "16 - 11",
+              "17 - 11",
+              "18 - 11",
+              "19 - 11"
+            ]
+          }
+        },
+        fill: {
+          type: "gradient",
+          gradient: {
+            shadeIntensity: 1,
+            opacityFrom: 0.7,
+            opacityTo: 0.9,
+            stops: [0, 90, 100]
+          }
+        },
+        series: [
+          {
+            name: "series-1",
+            data: [30, 40, 45, 50, 49, 60, 70, 91, 56, 35]
+          }
+        ]
+      },
+      Humidity: {
+        title: "Humidity",
+        options: {
+          xaxis: {
+            categories: [1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998]
+          }
+        },
+        fill: {
+          type: "gradient",
+          gradient: {
+            shadeIntensity: 1,
+            opacityFrom: 0.7,
+            opacityTo: 0.9,
+            stops: [0, 90, 100]
+          }
+        },
+        series: [
+          {
+            name: "series-1",
+            data: [30, 40, 45, 50, 49, 60, 70, 91]
+          }
+        ]
+      },
+      AQI: {
+        title: "AQI",
+        options: {
+          xaxis: {
+            categories: [1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998]
+          }
+        },
+        fill: {
+          type: "gradient",
+          gradient: {
+            shadeIntensity: 1,
+            opacityFrom: 0.7,
+            opacityTo: 0.9,
+            stops: [0, 90, 100]
+          }
+        },
+        series: [
+          {
+            name: "series-1",
+            data: [30, 40, 45, 50, 49, 60, 70, 91]
+          }
+        ]
+      }
+    },
+    indexes: [
+      {
+        title: "AQI",
+        index: "99 PM2.5",
+        icon: "fas fa-wind item-icon-green p-3"
+      },
+      {
+        title: "Humidity",
+        index: "30 %",
+        icon: "fas fa-temperature-low item-icon-red p-3"
+      },
+      {
+        title: "Temperature",
+        index: "29 &deg;C",
+        icon: "fas fa-tint item-icon-orange p-3"
+      }
     ]
   };
 
@@ -145,12 +254,15 @@ class Header extends Component {
         <span className="chuaNghiRaTen">
           <Navbar nameWindow={this.state.nameWindow}></Navbar>
         </span>
-        <span className="float-righ">
+        <span className="chuaNghiRaTen">
           <RenderWindow
             nameWindow={this.state.nameWindow}
             devicesList={this.state.devicesList}
             devicesScenario={this.state.devicesScenario}
             devicesHistory={this.state.devicesHistory}
+            roomStatusLabels={this.state.roomStatusLabels}
+            roomStatusData={this.state.roomStatusData}
+            indexes={this.state.indexes}
             removeDeviceList={this.removeDeviceList}
             removeDeviceScenario={this.removeDeviceScenario}
             removeDeviceHistory={this.removeDeviceHistory}

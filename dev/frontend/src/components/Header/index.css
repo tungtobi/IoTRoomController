@@ -7,4 +7,5 @@
 
 .chuaNghiRaTen {
     width: 90%;
+    overflow: hidden !important;
 }

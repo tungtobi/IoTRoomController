@@ -22,8 +22,6 @@ class DeviceAdditionForm extends Component {
     this.setState({
       nameValid: valid
     });
-
-    console.log(this.state.nameValid);
   }
 
   render() {

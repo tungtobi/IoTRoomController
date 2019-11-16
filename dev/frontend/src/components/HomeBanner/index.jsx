@@ -38,6 +38,8 @@ class HomeBanner extends Component {
   }
 
   handleLogin() {
+    console.log("authen");
+
     this.showModal();
   }
 

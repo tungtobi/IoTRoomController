@@ -15,7 +15,7 @@ ReactDOM.render(
         <HomeBanner />
       </Route>
       <Route path="/dashboard">
-        <Header />
+        <Header/>
       </Route>
     </Switch>
   </Router>,

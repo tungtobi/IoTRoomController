@@ -1,0 +1,21 @@
+.navbar-height {
+    height: 100px;
+}
+
+.navbar-icon {
+    font-size: 200%;
+    color: #c6c6c6;
+    
+}
+
+.navbar-icon:hover {
+    color: #999;
+}
+
+.navbar-padding {
+    padding: 0.5%;
+}
+
+.navbar-white {
+    background-color: #fff !important;
+}

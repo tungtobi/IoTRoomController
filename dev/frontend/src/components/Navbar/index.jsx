@@ -1,33 +1,24 @@
 import React, { Component } from "react";
 import { Button } from "react-bootstrap";
+import "./index.css";
 
 class Navbar extends Component {
   state = {};
   render() {
     return (
-      <nav className="navbar navbar-light bg-light">
-        <span className="navbar-brand">
-          <a>Dashboard</a>
-          <a> > {this.props.nameWindow}</a>
+      <nav className="navbar navbar-light navbar-white">
+        <span className="navbar-brand navbar-padding">
+          <h2 className="font-weight-light navbar-padding">
+            Dashboard > {this.props.nameWindow}
+          </h2>
         </span>
-        <span className="form-inline">
-          <button
-            style={{ color: "#007bff" }}
-            type="button"
-            className="btn btn-link"
-          >
-            <i className="fas fa-bell"></i>
-          </button>
+        <span className="form-inline navbar-padding">
           <Button variant="link">
-            <i className="fas fa-bell" />
+            <i className="fas fa-bell navbar-icon" />
           </Button>
-          <button
-            style={{ color: "#007bff" }}
-            type="button"
-            className="btn btn-link"
-          >
-            <i className="fas fa-user-circle"></i>
-          </button>
+          <Button variant="link">
+            <i className="fas fa-user-circle navbar-icon" />
+          </Button>
         </span>
       </nav>
     );

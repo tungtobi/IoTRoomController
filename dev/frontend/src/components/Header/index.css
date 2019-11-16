@@ -9,3 +9,7 @@
     width: 90%;
     overflow: hidden !important;
 }
+
+.background-light {
+    background-color: #f8f9fa !important;
+}

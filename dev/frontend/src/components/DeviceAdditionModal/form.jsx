@@ -46,8 +46,7 @@ class DeviceAdditionForm extends Component {
             isInvalid={!this.state.nameValid}
           />
           <Form.Control.Feedback type="invalid">
-            Tên đăng nhập có độ dài 3-30 ký tự và không được chứa các ký tự đặc
-            biệt
+            Tên có độ dài 3-30 ký tự và không được chứa các ký tự đặc biệt
           </Form.Control.Feedback>
         </Form.Group>
         <Form.Group controlId="accounts">

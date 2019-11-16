@@ -1,32 +1,36 @@
 import React, { Component } from "react";
 import { Form, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import handeInput from "../../validation";
+import handleInput from "../../validation";
 import "../HomeBanner/style.css";
 
 class LoginForm extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
       usernameValid: null,
       passwordValid: null
     };
+
+    this.handleChange = this.handleChange.bind(this);
   }
 
   handleChange(event) {
     const name = event.target.name;
     const value = event.target.value;
 
-    const valid = handeInput(name, value);
+    const valid = handleInput(name, value);
+
     this.setState({
-      nameValid: valid
+      [name + "Valid"]: valid
     });
   }
 
   render() {
     return (
       <Form>
-        <Form.Label style={{ marginBottom: "24px" }}>
+        <Form.Label className="mb-4">
           <h2>Đăng nhập</h2>
           <small>
             Nếu bạn chưa có tài khoản hãy liên hệ admin để{" "}
@@ -42,9 +46,13 @@ class LoginForm extends Component {
             placeholder="username"
             name="username"
             onChange={this.handleChange}
-            isInvalid={!this.state.usernameValid === false}
+            isInvalid={this.state.usernameValid === false}
             required
           />
+          <Form.Control.Feedback type="invalid">
+            Tên đăng nhập có độ dài 3-30 ký tự và không được chứa các ký tự đặc
+            biệt
+          </Form.Control.Feedback>
         </Form.Group>
         <Form.Group>
           <Form.Label>Mật khẩu</Form.Label>
@@ -53,9 +61,13 @@ class LoginForm extends Component {
             placeholder="password"
             name="password"
             onChange={this.handleChange}
-            isInvalid={!this.state.passwordValid === false}
+            isInvalid={this.state.passwordValid === false}
             required
           />
+
+          <Form.Control.Feedback type="invalid">
+            Mật khẩu có đội dài tối thiểu 6 ký tự
+          </Form.Control.Feedback>
         </Form.Group>
         <Form.Group>
           <Form.Check type="checkbox" label="Lưu tài khoản" />

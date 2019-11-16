@@ -1,9 +1,11 @@
 import React, { Component } from "react";
 import "./style.css";
-// import RegisterForm from "../RegisterForm";
 import LoginForm from "../LoginForm";
-// import { Carousel } from "react-bootstrap";
-import DeviceEditorModal from "../DeviceEditorModal";
+// import DeviceEditorModal from "../DeviceEditorModal";
+import DeviceAdditionModal from "../DeviceAdditionModal";
+import AccountAdditionModal from "../AccountAdditionModal";
+import ScenarioAdditionModal from "../ScenarioAdditionModal";
+import AccountEditorModal from "../AccountEditorModal";
 
 class HomeBanner extends Component {
   constructor(props) {
@@ -13,9 +15,7 @@ class HomeBanner extends Component {
       index: 0,
       direction: null,
       isLogin: true,
-      modal: {
-        show: false
-      }
+      showModal: false
     };
 
     this.showModal = this.showModal.bind(this);
@@ -27,26 +27,18 @@ class HomeBanner extends Component {
 
   showModal() {
     this.setState({
-      modal: {
-        show: true
-      }
+      showModal: true
     });
   }
 
   closeModal() {
     this.setState({
-      modal: {
-        show: false
-      }
+      showModal: false
     });
   }
 
   handleLogin() {
-    console.log(this);
-
     this.showModal();
-
-    console.log(this);
   }
 
   handleRegister() {}
@@ -56,18 +48,6 @@ class HomeBanner extends Component {
       isLogin: !prevState.isLogin
     }));
   }
-
-  // toggleCarousel = direction => {
-  //   let index = this.state.index;
-
-  //   if (direction === "next") index++;
-  //   else if (direction === "prev") index--;
-
-  //   this.setState({
-  //     direction,
-  //     index
-  //   });
-  // };
 
   render() {
     return (
@@ -81,48 +61,16 @@ class HomeBanner extends Component {
                   <br />
                   Room <span className="blue-text">Controller</span>
                 </h1>
-                <LoginForm
-                  // onChangeView={() => this.toggleCarousel("next")}
-                  onSubmit={this.handleLogin}
-                />
-                {/* <Carousel
-                  indicators={false}
-                  controls={false}
-                  activeIndex={this.state.index}
-                  direction={this.state.direction}
-                  onSelect={this.toggleCarousel}
-                >
-                  <Carousel.Item>
-                    <LoginForm
-                      onChangeView={() => this.toggleCarousel("next")}
-                      onSubmit={this.handleLogin}
-                    />
-                  </Carousel.Item>
-                  <Carousel.Item>
-                    <RegisterForm
-                      onChangeView={() => this.toggleCarousel("prev")}
-                      onSubmit={this.handleRegister}
-                    />
-                  </Carousel.Item>
-                </Carousel> */}
-                {/* <CenteredAlert
-                  title="Are you sure?"
-                  btnName="Delete"
-                  danger
-                  show={this.state.modal.show}
-                  onHide={this.closeModal}
-                >
-                  <h3>YESSSSSSSSSSSSS</h3>
-                </CenteredAlert> */}
-                <DeviceEditorModal
-                  show={this.state.modal.show}
-                  onHide={this.closeModal}
-                />
+                <LoginForm onSubmit={this.handleLogin} />
               </div>
             </div>
             <div className="col-lg-6 col-md-12" />
           </div>
         </div>
+        <AccountEditorModal
+          show={this.state.showModal}
+          onHide={this.closeModal}
+        />
       </section>
     );
   }

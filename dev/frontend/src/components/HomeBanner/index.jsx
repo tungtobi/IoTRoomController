@@ -3,9 +3,7 @@ import "./style.css";
 import RegisterForm from "../RegisterForm";
 import LoginForm from "../LoginForm";
 import { Carousel } from "react-bootstrap";
-import DeviceAdditionModal from "../DeviceAdditionModal";
-import ScenarioAdditionForm from "../ScenarioAdditionModal";
-import ScenarioAdditionModal from "../ScenarioAdditionModal";
+import DeviceEditorModal from "../DeviceEditorModal";
 
 class HomeBanner extends Component {
   constructor(props) {
@@ -88,6 +86,7 @@ class HomeBanner extends Component {
                   controls={false}
                   activeIndex={this.state.index}
                   direction={this.state.direction}
+                  onSelect={this.toggleCarousel}
                 >
                   <Carousel.Item>
                     <LoginForm
@@ -103,7 +102,16 @@ class HomeBanner extends Component {
                   </Carousel.Item>
                 </Carousel>
 
-                <ScenarioAdditionModal
+                {/* <CenteredAlert
+                  title="Are you sure?"
+                  btnName="Delete"
+                  danger
+                  show={this.state.modal.show}
+                  onHide={this.closeModal}
+                >
+                  <h3>YESSSSSSSSSSSSS</h3>
+                </CenteredAlert> */}
+                <DeviceEditorModal
                   show={this.state.modal.show}
                   onHide={this.closeModal}
                 />

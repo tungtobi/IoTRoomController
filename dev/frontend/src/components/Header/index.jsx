@@ -11,10 +11,22 @@ class Header extends Component {
     isShowDevEditModal: false,
     nameWindow: "Room Status",
     menuItems: [
-      { link: "/", icon: "fas fa-chart-line", nameItem: "Room Status" },
-      { link: "/devices", icon: "fas fa-tv", nameItem: "Devices" },
-      { link: "/history", icon: "fas fa-history", nameItem: "History" },
-      { link: "/account", icon: "fas fa-user-circle", nameItem: "Account" }
+      {
+        link: "/dashboard",
+        icon: "fas fa-chart-line",
+        nameItem: "Room Status"
+      },
+      { link: "/dashboard/devices", icon: "fas fa-tv", nameItem: "Devices" },
+      {
+        link: "/dashboard/history",
+        icon: "fas fa-history",
+        nameItem: "History"
+      },
+      {
+        link: "/dashboard/account",
+        icon: "fas fa-user-circle",
+        nameItem: "Account"
+      }
     ],
     avatar: {
       src:
@@ -254,7 +266,7 @@ class Header extends Component {
 
   render() {
     return (
-      <div>
+      <div className="background-light">
         {/* Device addition modal */}
         <DeviceEditorModal
           show={this.state.isShowDevEditModal}

@@ -4,10 +4,6 @@ import { Button, ButtonToolbar } from "react-bootstrap";
 import DeviceAdditionForm from "./form";
 
 class DeviceAdditionModal extends CenteredModal {
-  constructor(props) {
-    super(props);
-  }
-
   getTitle() {
     return "Add a new device";
   }

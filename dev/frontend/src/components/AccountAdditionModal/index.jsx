@@ -4,10 +4,6 @@ import { Button, ButtonToolbar } from "react-bootstrap";
 import AccountAdditionForm from "./form";
 
 class AccountAdditionModal extends CenteredModal {
-  constructor(props) {
-    super(props);
-  }
-
   getTitle() {
     return "Add a new account";
   }

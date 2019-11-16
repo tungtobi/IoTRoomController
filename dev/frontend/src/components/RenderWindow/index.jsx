@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { Switch, Route } from "react-router-dom";
 import DevicesManager from "../DevicesManager";
 import DevicesScenario from "../DevicesScenario";
 import DevicesHistory from "../DevicesHistory";
@@ -18,14 +18,14 @@ class RenderWindow extends Component {
             of them to render at a time
           */}
         <Switch>
-          <Route exact path="/">
+          <Route exact path="/dashboard">
             <RoomStatus
               indexes={this.props.indexes}
               roomStatusLabels={this.props.roomStatusLabels}
               roomStatusData={this.props.roomStatusData}
             ></RoomStatus>
           </Route>
-          <Route path="/devices">
+          <Route path="/dashboard/devices">
             <div className="p-4 devices">
               <span className="card">
                 <h5 className="card-title m-2">Devices Manager</h5>
@@ -43,7 +43,7 @@ class RenderWindow extends Component {
               </span>
             </div>
           </Route>
-          <Route path="/history">
+          <Route path="/dashboard/history">
             <div className="p-4 devices">
               {this.props.devicesHistory.map(item => (
                 <span className="card mb-4">
@@ -56,7 +56,7 @@ class RenderWindow extends Component {
               ))}
             </div>
           </Route>
-          <Route path="/account">
+          <Route path="/dashboard/account">
             <span>Account</span>
           </Route>
         </Switch>

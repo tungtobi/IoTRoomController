@@ -6,7 +6,7 @@ class Navbar extends Component {
   state = {};
   render() {
     return (
-      <nav className="navbar navbar-light bg-light navbar-height">
+      <nav className="navbar navbar-light navbar-white">
         <span className="navbar-brand navbar-padding">
           <h2 className="font-weight-light navbar-padding">
             Dashboard > {this.props.nameWindow}

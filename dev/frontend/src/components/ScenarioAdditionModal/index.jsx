@@ -4,10 +4,6 @@ import { Button, ButtonToolbar } from "react-bootstrap";
 import ScenarioAdditionForm from "./form";
 
 class ScenarioAdditionModal extends CenteredModal {
-  constructor(props) {
-    super(props);
-  }
-
   getTitle() {
     return "Add a new scenario";
   }

@@ -64,7 +64,6 @@ class LoginForm extends Component {
             isInvalid={this.state.passwordValid === false}
             required
           />
-
           <Form.Control.Feedback type="invalid">
             Mật khẩu có đội dài tối thiểu 6 ký tự
           </Form.Control.Feedback>

@@ -213,7 +213,7 @@ class Header extends Component {
       },
       {
         title: "Temperature",
-        index: "29 &deg;C",
+        index: "29 °C",
         icon: "fas fa-tint item-icon-orange p-3"
       }
     ]

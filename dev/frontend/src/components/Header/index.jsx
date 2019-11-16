@@ -1,17 +1,20 @@
 import React, { Component } from "react";
-import Navbar from "../Navbar/index";
-import Leftbar from "../Leftbar/index";
-import RenderWindow from "../RenderWindow/index";
+import Navbar from "../Navbar";
+import Leftbar from "../Leftbar";
+import RenderWindow from "../RenderWindow";
+import DeviceAdditionModal from "../DeviceAdditionModal";
+import DeviceEditorModal from "../DeviceEditorModal";
 import "./index.css";
 
 class Header extends Component {
   state = {
+    isShowDevEditModal: false,
     nameWindow: "Room Status",
     menuItems: [
-      { link: "#", icon: "fas fa-chart-line", nameItem: "Room Status" },
-      { link: "#", icon: "fas fa-tv", nameItem: "Devices" },
-      { link: "#", icon: "fas fa-history", nameItem: "History" },
-      { link: "#", icon: "fas fa-user-circle", nameItem: "Account" }
+      { link: "/", icon: "fas fa-chart-line", nameItem: "Room Status" },
+      { link: "/devices", icon: "fas fa-tv", nameItem: "Devices" },
+      { link: "/history", icon: "fas fa-history", nameItem: "History" },
+      { link: "/account", icon: "fas fa-user-circle", nameItem: "Account" }
     ],
     avatar: {
       src:
@@ -219,6 +222,14 @@ class Header extends Component {
     ]
   };
 
+  showDevEditModal() {
+    this.setState({ isShowDevEditModal: true });
+  }
+
+  hideDevEditModal() {
+    this.setState({ isShowDevEditModal: false });
+  }
+
   removeDeviceList = seria => {
     const devicesList = this.state.devicesList.filter(d => d.seria !== seria);
     this.setState({ devicesList });
@@ -244,6 +255,12 @@ class Header extends Component {
   render() {
     return (
       <div>
+        {/* Device addition modal */}
+        <DeviceEditorModal
+          show={this.state.isShowDevEditModal}
+          onHide={this.hideDevEditModal}
+        ></DeviceEditorModal>
+
         <span className="menu-horizontal .bg-primary">
           <Leftbar
             menuItems={this.state.menuItems}
@@ -266,6 +283,7 @@ class Header extends Component {
             removeDeviceList={this.removeDeviceList}
             removeDeviceScenario={this.removeDeviceScenario}
             removeDeviceHistory={this.removeDeviceHistory}
+            showDevEditModal={this.showDevEditModal}
           ></RenderWindow>
         </span>
       </div>

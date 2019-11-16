@@ -3,18 +3,13 @@ import Avatar from "../Avatar";
 import Menu from "../Menu";
 import "./index.css";
 class Leftbar extends Component {
-  state = {
-    menuItems: this.props.menuItems,
-    avatar: this.props.avatar,
-    changeWindow: this.props.changeWindow
-  };
   render() {
     return (
       <div className="bg-primary leftbar">
-        <Avatar avatar={this.state.avatar}></Avatar>
+        <Avatar avatar={this.props.avatar}></Avatar>
         <Menu
-          menuItems={this.state.menuItems}
-          changeWindow={this.state.changeWindow}
+          menuItems={this.props.menuItems}
+          changeWindow={this.props.changeWindow}
         ></Menu>
       </div>
     );

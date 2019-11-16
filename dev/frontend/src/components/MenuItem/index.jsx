@@ -1,25 +1,22 @@
 import React, { Component } from "react";
+import Button from "react-bootstrap/Button";
+
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
 class MenuItem extends Component {
-  state = {
-    link: this.props.item.link,
-    src: this.props.item.src,
-    icon: this.props.item.icon,
-    nameItem: this.props.item.nameItem,
-    changeWindow: this.props.changeWindow
-  };
   render() {
     return (
-      <button
-        onClick={() => this.state.changeWindow(this.state.nameItem)}
-        type="button"
-        className="btn btn-primary btn-lg btn-block"
-      >
-        <span className="float-left">
-          <i className={this.state.icon}></i>
-          <a className="px-xl-2">{this.state.nameItem}</a>
-        </span>
-      </button>
+      <Link to={this.props.item.link} className="w-100 py-2">
+        <Button
+          onClick={() => this.props.changeWindow(this.props.item.nameItem)}
+          variant="primary w-100"
+        >
+          <span className="float-left">
+            <i className={this.props.item.icon}></i>
+            <a className="px-xl-2 ">{this.props.item.nameItem}</a>
+          </span>
+        </Button>
+      </Link>
     );
   }
 }

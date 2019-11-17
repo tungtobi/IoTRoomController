@@ -273,17 +273,15 @@ class Header extends Component {
           onHide={this.hideDevEditModal}
         ></DeviceEditorModal>
 
-        <span className="menu-horizontal .bg-primary">
+        <div className="col-md-2 col-sm-1 menu-horizontal .bg-primary">
           <Leftbar
             menuItems={this.state.menuItems}
             avatar={this.state.avatar}
             changeWindow={this.changeWindow}
           />
-        </span>
-        <span className="chuaNghiRaTen">
+        </div>
+        <div className="col-md-10 col-sm-11 chuaNghiRaTen">
           <Navbar nameWindow={this.state.nameWindow}></Navbar>
-        </span>
-        <span className="chuaNghiRaTen">
           <RenderWindow
             nameWindow={this.state.nameWindow}
             devicesList={this.state.devicesList}
@@ -297,7 +295,7 @@ class Header extends Component {
             removeDeviceHistory={this.removeDeviceHistory}
             showDevEditModal={this.showDevEditModal}
           ></RenderWindow>
-        </span>
+        </div>
       </div>
     );
   }

@@ -6,6 +6,11 @@
     justify-content: center;
 }
 
+.card {
+    border: 0px solid rgba(0,0,0,.125) !important;
+    border-radius: .85rem !important;
+}
+
 .panel-item {
     margin: 1.5%;
 }

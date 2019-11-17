@@ -6,7 +6,6 @@ import DevicesHistory from "../DevicesHistory";
 import RoomStatus from "../RoomStatus";
 import "./index.css";
 class RenderWindow extends Component {
-  state = {};
   render() {
     return (
       <div>
@@ -32,6 +31,8 @@ class RenderWindow extends Component {
                 <DevicesManager
                   devicesList={this.props.devicesList}
                   removeDevice={this.props.removeDeviceList}
+                  showDevEditModal={this.props.showDevEditModal}
+                  showDevAddModal={this.props.showDevAddModal}
                 ></DevicesManager>
               </span>
               <span className="card mt-4">

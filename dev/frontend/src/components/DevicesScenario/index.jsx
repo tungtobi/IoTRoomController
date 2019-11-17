@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Card from "react-bootstrap/Card";
+import { Button } from "react-bootstrap";
 
 class DevicesScenario extends Component {
   state = {};
@@ -43,6 +44,15 @@ class DevicesScenario extends Component {
               </tr>
             ))}
           </tbody>
+          <tfoot>
+            <tr>
+              <td colSpan="7">
+                <Button variant="primary" className="mt-3 float-right">
+                  Add new Scenario
+                </Button>
+              </td>
+            </tr>
+          </tfoot>
         </table>
       </Card>
     );

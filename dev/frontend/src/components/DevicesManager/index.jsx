@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Card from "react-bootstrap/Card";
+import { Button } from "react-bootstrap";
 
 class DevicesManager extends Component {
   render() {
@@ -27,7 +28,11 @@ class DevicesManager extends Component {
                 <td>{item.status}</td>
                 <td>{item.accounts}</td>
                 <td className="p-0">
-                  <button type="button" className="btn btn-link">
+                  <button
+                    onClick={() => this.props.showDevEditModal()}
+                    type="button"
+                    className="btn btn-link"
+                  >
                     <i className="far fa-edit"></i>
                   </button>
                   <button
@@ -42,6 +47,19 @@ class DevicesManager extends Component {
               </tr>
             ))}
           </tbody>
+          <tfoot>
+            <tr>
+              <td colSpan="7">
+                <Button
+                  onClick={() => this.props.showDevAddModal()}
+                  variant="primary"
+                  className="mt-3 float-right"
+                >
+                  Add new device
+                </Button>
+              </td>
+            </tr>
+          </tfoot>
         </table>
       </Card>
     );

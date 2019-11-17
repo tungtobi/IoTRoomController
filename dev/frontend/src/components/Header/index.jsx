@@ -4,11 +4,16 @@ import Leftbar from "../Leftbar";
 import RenderWindow from "../RenderWindow";
 import DeviceAdditionModal from "../DeviceAdditionModal";
 import DeviceEditorModal from "../DeviceEditorModal";
+import AccountEditorModal from "../AccountEditorModal";
+import AccountAdditionModal from "../AccountAdditionModal";
 import "./index.css";
 
 class Header extends Component {
   state = {
     isShowDevEditModal: false,
+    isShowDevAddModal: false,
+    isShowAccEditModal: false,
+    isShowAccAddModal: false,
     nameWindow: "Room Status",
     menuItems: [
       {
@@ -234,13 +239,41 @@ class Header extends Component {
     ]
   };
 
-  showDevEditModal() {
+  // Device Editor Modal
+  showDevEditModal = () => {
     this.setState({ isShowDevEditModal: true });
-  }
+  };
 
-  hideDevEditModal() {
+  hideDevEditModal = () => {
     this.setState({ isShowDevEditModal: false });
-  }
+  };
+
+  // Device Addition Modal
+  showDevAddModal = () => {
+    this.setState({ isShowDevAddModal: true });
+  };
+
+  hideDevAddModal = () => {
+    this.setState({ isShowDevAddModal: false });
+  };
+
+  // Account Addition Modal
+  showAccAddModal = () => {
+    this.setState({ isShowAccAddModal: true });
+  };
+
+  hideAccAddModal = () => {
+    this.setState({ isShowAccAddModal: false });
+  };
+
+  // Account Editor Modal
+  showAccEditModal = () => {
+    this.setState({ isShowAccEditModal: true });
+  };
+
+  hideAccEditModal = () => {
+    this.setState({ isShowAccEditModal: false });
+  };
 
   removeDeviceList = seria => {
     const devicesList = this.state.devicesList.filter(d => d.seria !== seria);
@@ -267,11 +300,29 @@ class Header extends Component {
   render() {
     return (
       <div className="background-light">
-        {/* Device addition modal */}
+        {/* Device Editor modal */}
         <DeviceEditorModal
           show={this.state.isShowDevEditModal}
           onHide={this.hideDevEditModal}
         ></DeviceEditorModal>
+
+        {/* Device addition Modal */}
+        <DeviceAdditionModal
+          show={this.state.isShowDevAddModal}
+          onHide={this.hideDevAddModal}
+        ></DeviceAdditionModal>
+
+        {/* Account addition modal */}
+        <AccountAdditionModal
+          show={this.state.isShowAccAddModal}
+          onHide={this.hideAccAddModal}
+        ></AccountAdditionModal>
+
+        {/* Account Editor modal */}
+        <AccountEditorModal
+          show={this.state.isShowAccEditModal}
+          onHide={this.hideAccEditModal}
+        ></AccountEditorModal>
 
         <div className="menu-horizontal">
           <Leftbar
@@ -294,6 +345,9 @@ class Header extends Component {
             removeDeviceScenario={this.removeDeviceScenario}
             removeDeviceHistory={this.removeDeviceHistory}
             showDevEditModal={this.showDevEditModal}
+            showDevAddModal={this.showDevAddModal}
+            showAccEditModal={this.showAccEditModal}
+            showAccAddModal={this.showAccAddModal}
           ></RenderWindow>
         </div>
       </div>

@@ -1,14 +1,20 @@
 .font-size-24px {
-  font-size: 24px;
+  font-size: 18px;
 }
 
 .menu-item {
   background-color: transparent !important;
   border: 0px !important;
   border-radius: 0px !important;
+  min-height: 54px;
 }
 
 .menu-item:hover {
   background-color: #154766 !important;
   border-left: 4px solid #007bff !important;
+}
+
+.width-icon-35px > i {
+  width: 35px;
+  left: 0px;
 }

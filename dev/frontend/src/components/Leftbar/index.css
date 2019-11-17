@@ -6,3 +6,10 @@
 button.leftbar {
   background-color: transparent;
 }
+
+@media (min-width: 1200px) {
+  .menu-horizontal {
+    /* height: 100vh; */
+    /* width: 220px; */
+  }
+}

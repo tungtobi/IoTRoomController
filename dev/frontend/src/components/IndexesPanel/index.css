@@ -1,9 +1,25 @@
-.panel {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  flex: 1 0 auto;
-  justify-content: center;
+@media (max-width: 968px) {
+  .panel {
+    display: block;
+    /* flex-direction: row;
+    flex-wrap: wrap;
+    flex: 1 0 auto;
+    justify-content: center; */
+  }
+}
+
+@media (min-width: 968px) {
+  .panel {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    flex: 1 0 auto;
+    justify-content: center;
+  }
+
+  .panel-item {
+    width: 30%;
+  }
 }
 
 .card {

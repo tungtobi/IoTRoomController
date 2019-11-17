@@ -1,21 +1,36 @@
 .navbar-height {
-    height: 100px;
+  height: 100px;
+}
+
+.navbar {
+  box-shadow: 0 2px 2px -2px rgba(0, 0, 0, 0.2);
 }
 
 .navbar-icon {
-    font-size: 200%;
-    color: #c6c6c6;
-    
+  font-size: 200%;
+  color: #c6c6c6;
 }
 
 .navbar-icon:hover {
-    color: #999;
-}
-
-.navbar-padding {
-    padding: 0.5%;
+  color: #999;
 }
 
 .navbar-white {
-    background-color: #fff !important;
+  background-color: #fff !important;
+}
+
+.narbar-height {
+  height: 70px;
+}
+
+.pl-2-percent {
+  padding-left: 2%;
+}
+
+.pr-1-percent {
+  padding-right: 1%;
+}
+
+.fit-content {
+  width: fit-content;
 }

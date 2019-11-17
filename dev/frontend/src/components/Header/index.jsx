@@ -280,7 +280,7 @@ class Header extends Component {
             changeWindow={this.changeWindow}
           />
         </div>
-        <div className="chuaNghiRaTen">
+        <div className="dashboard-content">
           <Navbar nameWindow={this.state.nameWindow}></Navbar>
           <RenderWindow
             nameWindow={this.state.nameWindow}

@@ -9,10 +9,10 @@ class IndexCard extends Component {
       <div className="panel-item card p-2">
         <div className="card-body">
           <div className="row">
-            <div className="col-5">
+            <div className="col-3">
               <i className={this.props.index.icon}></i>
             </div>
-            <div className="col-7 text-content">
+            <div className="col-9 text-content">
               <a className="index-panel-title">{this.props.index.title}</a>
               <a className="index-panel-index">{this.props.index.index}</a>
             </div>

@@ -273,7 +273,7 @@ class Header extends Component {
           onHide={this.hideDevEditModal}
         ></DeviceEditorModal>
 
-        <span className="menu-horizontal .bg-primary">
+        <span className="menu-horizontal .bg-primary leftbar-height-100">
           <Leftbar
             menuItems={this.state.menuItems}
             avatar={this.state.avatar}

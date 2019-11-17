@@ -1,3 +1,11 @@
 .leftbar {
     height: 100vh;
 }
+
+@media (min-width: 768px)
+{
+    .leftbar {
+        height: 100vh;
+        width: 220px;
+    }
+}

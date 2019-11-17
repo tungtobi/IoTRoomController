@@ -12,10 +12,22 @@
     color: #999;
 }
 
-.navbar-padding {
-    padding: 0.5%;
-}
-
 .navbar-white {
     background-color: #fff !important;
+}
+
+.narbar-height {
+    height: 70px;
+}
+
+.pl-2-percent {
+    padding-left: 2%;
+}
+
+.pr-1-percent {
+    padding-right: 1%;
+}
+
+.fit-content {
+    width: fit-content;
 }

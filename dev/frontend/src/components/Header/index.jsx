@@ -273,14 +273,14 @@ class Header extends Component {
           onHide={this.hideDevEditModal}
         ></DeviceEditorModal>
 
-        <div className="col-md-2 col-sm-1 menu-horizontal .bg-primary">
+        <div className=" menu-horizontal .bg-primary">
           <Leftbar
             menuItems={this.state.menuItems}
             avatar={this.state.avatar}
             changeWindow={this.changeWindow}
           />
         </div>
-        <div className="col-md-10 col-sm-11 chuaNghiRaTen">
+        <div className="chuaNghiRaTen">
           <Navbar nameWindow={this.state.nameWindow}></Navbar>
           <RenderWindow
             nameWindow={this.state.nameWindow}

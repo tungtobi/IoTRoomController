@@ -1,4 +1,17 @@
-.panel-item {
-    margin: 1.5%;
+.text-content {
+  text-align: right;
+  padding-right: 2rem !important;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
 }
 
+.index-panel-title {
+  font-size: 18px;
+  display: block;
+}
+
+.index-panel-index {
+  font-size: 48px;
+  font-weight: bold;
+  display: block;
+}

@@ -5,7 +5,7 @@ import "./index.css";
 class Leftbar extends Component {
   render() {
     return (
-      <div className="bg-primary leftbar">
+      <div className="leftbar">
         <Avatar avatar={this.props.avatar}></Avatar>
         <Menu
           menuItems={this.props.menuItems}

@@ -30,7 +30,7 @@ class Header extends Component {
     ],
     avatar: {
       src:
-        "https://i-vnexpress.vnecdn.net/2019/08/14/johnvupng-1565717211_100x100.png",
+        "https://yt3.ggpht.com/a/AGF-l7-rOqnsoRaW8LTM75Y2vuElIySnOe18OPUNnA=s900-c-k-c0xffffffff-no-rj-mo",
       name: "Nguyen Viet Linh"
     },
     devicesList: [
@@ -273,7 +273,7 @@ class Header extends Component {
           onHide={this.hideDevEditModal}
         ></DeviceEditorModal>
 
-        <div className=" menu-horizontal .bg-primary">
+        <div className="menu-horizontal">
           <Leftbar
             menuItems={this.state.menuItems}
             avatar={this.state.avatar}

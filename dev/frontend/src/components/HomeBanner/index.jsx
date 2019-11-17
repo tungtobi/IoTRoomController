@@ -56,17 +56,21 @@ class HomeBanner extends Component {
       <section className="home-banner-area">
         <div className="container">
           <div className="row justify-content-end fullscreen">
-            <div className="col-lg-6 col-md-12 home-banner-left d-flex fullscreen align-items-center">
+            <div className="col-lg-9 col-md-12 home-banner-left d-flex fullscreen align-items-center">
               <div>
-                <h1>
-                  Smart <span className="blue-text">IoT </span>
-                  <br />
-                  Room <span className="blue-text">Controller</span>
-                </h1>
-                <LoginForm onSubmit={this.handleLogin} />
+                <div className="title">
+                  <h1>
+                    Smart <span className="blue-text">IoT </span>
+                    <br />
+                    Room <span className="blue-text">Controller</span>
+                  </h1>
+                </div>
+                <div className="login-form">
+                  <LoginForm onSubmit={this.handleLogin} />
+                </div>
               </div>
             </div>
-            <div className="col-lg-6 col-md-12" />
+            <div className="col-lg-3 col-md-12" />
           </div>
         </div>
         <AccountEditorModal

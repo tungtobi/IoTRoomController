@@ -1,16 +1,24 @@
 .avatar {
-    min-height: 190px;    
-    position: relative;
-    max-width: 100%;
-    max-height: 100%;
-    display: block;
+  max-height: 240px;
+  position: relative;
+  max-width: 190px;
+  min-height: 240px;
+  /* max-height: 100%; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  align-content: center;
+}
+
+.avatar-img {
+  width: 70%;
 }
 
 .avatar div {
-    margin: 0;
-    top: 50%;
-    left: 50%;
-    position: absolute;
-    -ms-transform: translate(-50%, -50%);
-    transform: translate(-50%, -50%);
+  margin: 0;
+  top: 50%;
+  /* left: 50%; */
+  position: absolute;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(0%, -50%);
 }

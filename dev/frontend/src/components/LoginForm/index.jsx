@@ -71,11 +71,15 @@ class LoginForm extends Component {
         <Form.Group>
           <Form.Check type="checkbox" label="Lưu tài khoản" />
         </Form.Group>
-        <Link to="/dashboard">
-          <Button onClick={this.props.onSubmit} type="submit" block>
-            Đăng nhập
-          </Button>
-        </Link>
+        <Form.Group>
+          <Link to="/dashboard">
+            <Button onClick={this.props.onSubmit} type="submit" block>
+              Đăng nhập
+            </Button>
+          </Link>
+        </Form.Group>
+
+        <a href="/dashboard">Quên mật khẩu</a>
       </Form>
     );
   }

@@ -1,3 +1,8 @@
 .leftbar {
-    height: 100vh;
+  background-color: #083a59;
+  height: 100vh;
+}
+
+button.leftbar {
+  background-color: transparent;
 }

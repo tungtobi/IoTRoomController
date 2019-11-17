@@ -1,45 +1,31 @@
-.panel { 
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    flex: 1 0 auto;
-    justify-content: center;
+.panel {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  flex: 1 0 auto;
+  justify-content: center;
 }
 
 .card {
-    border: 0px solid rgba(0,0,0,.125) !important;
-    border-radius: .85rem !important;
+  border: 0px solid rgba(0, 0, 0, 0.125) !important;
+  border-radius: 0.85rem !important;
 }
 
 .panel-item {
-    margin: 1.5%;
+  margin: 1.5%;
 }
 
-
 .item-icon-red {
-    font-size: 400%; 
-    color: Tomato;
+  font-size: 400%;
+  color: Tomato;
 }
 
 .item-icon-green {
-    font-size: 400%; 
-    color: green;
+  font-size: 400%;
+  color: green;
 }
 
 .item-icon-orange {
-    font-size: 400%; 
-    color: orange;
+  font-size: 400%;
+  color: orange;
 }
-
-.index-panel-title {
-    right: 16px;
-    position: absolute;
-    font-size: 20px;
-    font-weight: bold;
-}
-
-.index-panel-index {
-    font-size: 35px;
-    font-weight: bold;
-}
-

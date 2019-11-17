@@ -32,6 +32,10 @@ body {
   height: 100vh !important; 
 }
 
+.login-form {
+  max-width: 350px;
+}
+
 .carousel-item {
   max-width: 374px;
   min-height: 405px;

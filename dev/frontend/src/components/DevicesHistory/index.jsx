@@ -19,9 +19,9 @@ class DevicesHistory extends Component {
             </tr>
           </thead>
           <tbody>
-            {this.props.histories.map(item => (
-              <tr>
-                <th scope="row">{item.id}</th>
+            {this.props.histories.map((item, idx) => (
+              <tr key={idx}>
+                <th scope="row">{idx + 1}</th>
                 <td>{item.name}</td>
                 <td>{item.seria}</td>
                 <td>{item.operator}</td>

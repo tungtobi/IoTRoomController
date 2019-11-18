@@ -19,9 +19,9 @@ class DevicesScenario extends Component {
             </tr>
           </thead>
           <tbody>
-            {this.props.devicesScenario.map(item => (
-              <tr>
-                <th scope="row">{item.id}</th>
+            {this.props.devicesScenario.map((item, idx) => (
+              <tr key={idx}>
+                <th scope="row">{idx + 1}</th>
                 <td>{item.name}</td>
                 <td>{item.seria}</td>
                 <td>{item.operator}</td>

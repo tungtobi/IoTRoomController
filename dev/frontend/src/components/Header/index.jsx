@@ -265,6 +265,8 @@ class Header extends Component {
   };
 
   render() {
+    console.log(window.location.href);
+
     return (
       <div className="background-light">
         {/* Device addition modal */}

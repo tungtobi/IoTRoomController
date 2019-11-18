@@ -18,9 +18,9 @@ class DevicesManager extends Component {
             </tr>
           </thead>
           <tbody>
-            {this.props.devicesList.map(item => (
-              <tr>
-                <th scope="row">{item.id}</th>
+            {this.props.devicesList.map((item, idx) => (
+              <tr key={idx}>
+                <th scope="row">{idx + 1}</th>
                 <td>{item.name}</td>
                 <td>{item.seria}</td>
                 <td>{item.createdDate}</td>

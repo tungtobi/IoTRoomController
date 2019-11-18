@@ -1,11 +1,10 @@
 import React, { Component } from "react";
-import Button from "react-bootstrap/Button";
+// import Button from "react-bootstrap/Button";
 import { Link } from "react-router-dom";
 import "./index.css";
 class MenuItem extends Component {
   render() {
     let style = "menu-item" + (this.props.selected ? " selected" : "");
-    console.log(style);
 
     return (
       <Link to={this.props.item.link} className="w-100 my-2">

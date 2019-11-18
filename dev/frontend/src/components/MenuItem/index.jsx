@@ -13,7 +13,7 @@ class MenuItem extends Component {
         >
           <span className="float-left font-size-24px width-icon-35px">
             <i className={this.props.item.icon}></i>
-            <a className="px-1">{this.props.item.nameItem}</a>
+            <span className="px-1">{this.props.item.nameItem}</span>
           </span>
         </Button>
       </Link>

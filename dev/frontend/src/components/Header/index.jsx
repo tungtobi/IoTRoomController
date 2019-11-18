@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Navbar from "../Navbar";
 import Leftbar from "../Leftbar";
 import RenderWindow from "../RenderWindow";
-import DeviceAdditionModal from "../DeviceAdditionModal";
+// import DeviceAdditionModal from "../DeviceAdditionModal";
 import DeviceEditorModal from "../DeviceEditorModal";
 import "./index.css";
 

@@ -45,8 +45,8 @@ class RenderWindow extends Component {
           </Route>
           <Route path="/dashboard/history">
             <div className="p-4 devices">
-              {this.props.devicesHistory.map(item => (
-                <span className="card mb-4">
+              {this.props.devicesHistory.map((item, idx) => (
+                <span key={idx} className="card mb-4">
                   <h5 className="card-title m-2">{item.date}</h5>
                   <DevicesHistory
                     histories={item.histories}

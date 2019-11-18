@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Button } from "react-bootstrap";
+// import { Button } from "react-bootstrap";
 import "./index.css";
 
 class IndexCard extends Component {
@@ -13,15 +13,15 @@ class IndexCard extends Component {
               <i className={this.props.index.icon}></i>
             </div>
             <div className="col-9 text-content">
-              <a className="index-panel-title">{this.props.index.title}</a>
-              <a className="index-panel-index">{this.props.index.index}</a>
+              <div className="index-panel-title">{this.props.index.title}</div>
+              <div className="index-panel-index">{this.props.index.index}</div>
             </div>
           </div>
           <div>
             <hr />
-            <a onClick={() => console.log("Ckick")}>
-              <i class="fas fa-redo"></i> Update now
-            </a>
+            <div onClick={() => console.log("Ckick")}>
+              <i className="fas fa-redo"></i> Update now
+            </div>
           </div>
         </div>
       </div>

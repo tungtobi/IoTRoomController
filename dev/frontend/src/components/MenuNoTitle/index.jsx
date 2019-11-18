@@ -8,8 +8,9 @@ class MenuNoTitle extends Component {
     return (
       <div className="d-flex flex-column w-100">
         <ButtonGroup vertical className="w-100">
-          {this.props.menuItems.map(item => (
+          {this.props.menuItems.map((item, idx) => (
             <MenuItemNoTitle
+              key={idx}
               item={item}
               changeWindow={this.props.changeWindow}
             ></MenuItemNoTitle>

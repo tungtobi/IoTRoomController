@@ -7,11 +7,17 @@
   border: 0px !important;
   border-radius: 0px !important;
   min-height: 54px;
+  width: inherit;
+  color: white;
 }
 
-.menu-item:hover {
+.menu-item:hover,
+.selected {
   background-color: #154766 !important;
   border-left: 4px solid #007bff !important;
+  border-top: 0px !important;
+  border-right: 0px !important;
+  border-bottom: 0px !important;
 }
 
 .width-icon-35px > i {

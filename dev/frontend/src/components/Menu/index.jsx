@@ -9,6 +9,7 @@ class Menu extends Component {
         <ButtonGroup vertical className="w-100">
           {this.props.menuItems.map((item, idx) => (
             <MenuItem
+              selected={this.props.selected === item.nameItem ? true : false}
               key={idx}
               item={item}
               changeWindow={this.props.changeWindow}

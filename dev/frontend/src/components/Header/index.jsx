@@ -275,6 +275,7 @@ class Header extends Component {
 
         <div className="menu-horizontal">
           <Leftbar
+            selected={this.state.nameWindow}
             menuItems={this.state.menuItems}
             avatar={this.state.avatar}
             changeWindow={this.changeWindow}

@@ -7,6 +7,7 @@ class MenuItemNoTitle extends Component {
     return (
       <Link to={this.props.item.link} className="w-100 py-5">
         <Button
+          className="menu-item"
           onClick={() => this.props.changeWindow(this.props.item.nameItem)}
           variant="primary w-100"
         >

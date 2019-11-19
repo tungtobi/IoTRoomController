@@ -3,9 +3,15 @@
   min-height: 72px;
 }
 
+.notification {
+  position: absolute !important;
+  transform: translate(18px, 16px);
+}
+
 .navbar-icon {
-  font-size: 150%;
+  font-size: 160%;
   color: #c6c6c6;
+  margin: 0rem 0.5rem;
 }
 
 .navbar-icon:hover {

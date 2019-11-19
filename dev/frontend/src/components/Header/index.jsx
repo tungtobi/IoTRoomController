@@ -244,11 +244,16 @@ class Header extends Component {
 
   getCurrentWindow() {
     const path = window.location.href;
-    const selected = this.state.menuItems.find(
-      item => path.endsWith(item.link) || path.endsWith(item.link + "/")
-    );
+    const selected = [...this.state.menuItems]
+      .reverse()
+      .find(item => path.includes(item.link));
 
-    console.log(selected.nameItem);
+    // let selectedName;
+    // if (!selected) {
+    //   selectedName = this.state.menuItems[0].nameItem;
+    // } else {
+    //   selectedName = selected.nameItem;
+    // }
 
     this.setState({
       nameWindow: selected.nameItem

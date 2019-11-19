@@ -1,13 +1,13 @@
 import React, { Component } from "react";
-// import { Button } from "react-bootstrap";
+import { Card } from "react-bootstrap";
 import "./index.css";
 
 class IndexCard extends Component {
   state = {};
   render() {
     return (
-      <div className="panel-item card p-2">
-        <div className="card-body">
+      <Card className="panel-item p-2">
+        <Card.Body>
           <div className="row">
             <div className="col-3">
               <i className={this.props.index.icon}></i>
@@ -17,14 +17,14 @@ class IndexCard extends Component {
               <div className="index-panel-index">{this.props.index.index}</div>
             </div>
           </div>
-          <div>
-            <hr />
-            <div onClick={() => console.log("Ckick")}>
-              <i className="fas fa-redo"></i> Update now
-            </div>
-          </div>
-        </div>
-      </div>
+        </Card.Body>
+        <Card.Footer>
+          {/* <hr /> */}
+          <a href="#" onClick={() => console.log("Ckick")}>
+            <i className="fas fa-redo" /> Update now
+          </a>
+        </Card.Footer>
+      </Card>
     );
   }
 }

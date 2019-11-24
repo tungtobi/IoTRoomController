@@ -1,0 +1,8 @@
+.btn-expand {
+  display: flex;
+  justify-content: flex-end;
+}
+
+td {
+  vertical-align: middle !important;
+}

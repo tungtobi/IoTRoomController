@@ -19,8 +19,7 @@ class IndexCard extends Component {
           </div>
         </Card.Body>
         <Card.Footer>
-          {/* <hr /> */}
-          <a href="#" onClick={() => console.log("Ckick")}>
+          <a href="#update" onClick={() => console.log("Ckick")}>
             <i className="fas fa-redo" /> Update now
           </a>
         </Card.Footer>

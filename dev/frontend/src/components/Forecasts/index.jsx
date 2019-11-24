@@ -11,7 +11,13 @@ import "./style.css";
 class ForecastsWindow extends Component {
   constructor(props) {
     super(props);
-    this.state = { info: {}, city: [], select: null };
+
+    this.state = {
+      info: {},
+      city: cityList.slice(0, 200),
+      select: null,
+      searching: false
+    };
 
     this.getDayFromDate = this.getDayFromDate.bind(this);
     this.filterCity = this.filterCity.bind(this);
@@ -19,9 +25,11 @@ class ForecastsWindow extends Component {
     this.handleSearch = this.handleSearch.bind(this);
   }
 
-  componentDidMount() {}
-
   fetchWeather(cityId) {
+    this.setState({
+      searching: true
+    });
+
     const appId = "e1b174f84d2289015179653f49b5ebea";
 
     fetch(
@@ -29,7 +37,7 @@ class ForecastsWindow extends Component {
     )
       .then(res => res.json())
       .then(data => {
-        this.setState({ info: data });
+        this.setState({ info: data, searching: false });
         console.log(this.state.info);
       })
       .catch(console.log);
@@ -62,17 +70,15 @@ class ForecastsWindow extends Component {
   }
 
   filterCity(value) {
-    const match = cityList.filter(city => city.name.startsWith(value));
+    const limit = 200;
 
-    if (match.length < 500) {
-      this.setState({
-        city: match
-      });
-    } else {
-      this.setState({
-        city: []
-      });
-    }
+    const match = cityList.filter(city =>
+      city.name.toLowerCase().startsWith(value.toLowerCase())
+    );
+
+    this.setState({
+      city: match.slice(0, limit)
+    });
   }
 
   render() {
@@ -80,24 +86,29 @@ class ForecastsWindow extends Component {
 
     return (
       <div className="p-4 ">
-        <Row className="panel">
-          <Col>
-            <Select
-              name="devices"
-              onInputChange={this.filterCity}
-              onChange={this.handleSelect}
-              options={this.state.city.map(({ id, name, country }) => ({
-                value: id,
-                label: `${name} (${country})`
-              }))}
-            />
-          </Col>
-          <Col md="auto">
-            <Button onClick={this.handleSearch} disabled={!this.state.select}>
-              Search
-            </Button>
-          </Col>
-        </Row>
+        <Card>
+          <Row className="panel">
+            <Col>
+              <Select
+                name="devices"
+                onInputChange={this.filterCity}
+                onChange={this.handleSelect}
+                options={this.state.city.map(({ id, name, country }) => ({
+                  value: id,
+                  label: `${name} (${country})`
+                }))}
+              />
+            </Col>
+            <Col md="auto">
+              <Button
+                onClick={this.handleSearch}
+                disabled={!this.state.select || this.state.searching}
+              >
+                {this.state.searching ? "Searching..." : "Search"}
+              </Button>
+            </Col>
+          </Row>
+        </Card>
         {list && (
           <Card className="panel mt-4">
             <Accordion>
@@ -123,7 +134,9 @@ class ForecastsWindow extends Component {
                   </Card.Header>
                   <Accordion.Collapse eventKey={idx}>
                     <Card.Body>
-                      <ForecastDetail list={forecastOf(date, list)} />
+                      <div>
+                        <ForecastDetail list={forecastOf(date, list)} />
+                      </div>
                     </Card.Body>
                   </Accordion.Collapse>
                 </div>

@@ -8,15 +8,27 @@ class ForecastDetail extends Component {
     };
 
     return (
-      <Table hover>
+      <Table responsive hover>
         <thead>
           <tr>
-            <th>Time</th>
-            <th>Weather</th>
-            <th>Temperature</th>
-            <th>Humidity</th>
-            <th>Pressure</th>
-            <th>Wind</th>
+            <th>
+              <i className="far fa-clock"></i> Time
+            </th>
+            <th>
+              <i className="fas fa-cloud-sun"></i> Weather
+            </th>
+            <th>
+              <i className="fas fa-temperature-low"></i> Temperature
+            </th>
+            <th>
+              <i className="fas fa-tint"></i> Humidity
+            </th>
+            <th>
+              <i className="fas fa-water"></i> Pressure
+            </th>
+            <th>
+              <i className="fas fa-wind"></i> Wind
+            </th>
           </tr>
         </thead>
         <tbody>

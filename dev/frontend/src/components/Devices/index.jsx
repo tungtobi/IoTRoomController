@@ -17,7 +17,10 @@ class Devices extends Component {
             />
           </Card.Body>
           <Card.Footer className="hide-border mb-2 mt-n4">
-            <Button variant="primary float-right">
+            <Button
+              variant="primary float-right"
+              onClick={this.props.showDevAddModal}
+            >
               <i className="fas fa-plus" /> Add new device
             </Button>
             <Button variant="light gray-outline float-right mr-2">

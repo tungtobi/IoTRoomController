@@ -2,17 +2,25 @@ import React, { Component } from "react";
 import Navbar from "../Navbar";
 import Leftbar from "../Leftbar";
 import RenderWindow from "../RenderWindow";
-// import DeviceAdditionModal from "../DeviceAdditionModal";
+import DeviceAdditionModal from "../DeviceAdditionModal";
 import DeviceEditorModal from "../DeviceEditorModal";
 import "./index.css";
+import CenteredAlert from "../CenteredAlert";
 
 class Header extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      isShowDevEditModal: false,
-      // nameWindow: "Room Status",
+      alert: {
+        userUnavailable: false
+      },
+      modal: {
+        showDeviceEditor: false,
+        showDeviceAddition: false,
+        showScenarioEditor: false,
+        showScenarioAddition: false
+      },
       menuItems: [
         {
           link: "/dashboard",
@@ -26,7 +34,7 @@ class Header extends Component {
           nameItem: "History"
         },
         {
-          link: "/dashboard/account",
+          link: "#",
           icon: "fas fa-user-circle",
           nameItem: "Account"
         }
@@ -236,6 +244,31 @@ class Header extends Component {
         }
       ]
     };
+
+    this.showDevEditModal = this.showDevEditModal.bind(this);
+    this.hideDevEditModal = this.hideDevEditModal.bind(this);
+
+    this.showDevAddModal = this.showDevAddModal.bind(this);
+    this.hideDevAddModal = this.hideDevAddModal.bind(this);
+
+    this.showUserUnavailableAlert = this.showUserUnavailableAlert.bind(this);
+    this.hideUserUnavailableAlert = this.hideUserUnavailableAlert.bind(this);
+  }
+
+  showUserUnavailableAlert() {
+    this.setState({
+      alert: {
+        userUnavailable: true
+      }
+    });
+  }
+
+  hideUserUnavailableAlert() {
+    this.setState({
+      alert: {
+        userUnavailable: false
+      }
+    });
   }
 
   componentDidMount() {
@@ -248,24 +281,25 @@ class Header extends Component {
       .reverse()
       .find(item => path.includes(item.link));
 
-    // let selectedName;
-    // if (!selected) {
-    //   selectedName = this.state.menuItems[0].nameItem;
-    // } else {
-    //   selectedName = selected.nameItem;
-    // }
-
     this.setState({
       nameWindow: selected.nameItem
     });
   }
 
   showDevEditModal() {
-    this.setState({ isShowDevEditModal: true });
+    this.setState({ modal: { showDeviceEditor: true } });
   }
 
   hideDevEditModal() {
-    this.setState({ isShowDevEditModal: false });
+    this.setState({ modal: { showDeviceEditor: false } });
+  }
+
+  showDevAddModal() {
+    this.setState({ modal: { showDeviceAddition: true } });
+  }
+
+  hideDevAddModal() {
+    this.setState({ modal: { showDeviceAddition: false } });
   }
 
   removeDeviceList = seria => {
@@ -285,9 +319,13 @@ class Header extends Component {
   changeDevice = seria => {};
 
   changeWindow = nameWindow => {
-    this.setState({
-      nameWindow: nameWindow
-    });
+    if (nameWindow === "Account") {
+      this.showUserUnavailableAlert();
+    } else {
+      this.setState({
+        nameWindow: nameWindow
+      });
+    }
   };
 
   render() {
@@ -295,9 +333,26 @@ class Header extends Component {
       <div className="background-light">
         {/* Device addition modal */}
         <DeviceEditorModal
-          show={this.state.isShowDevEditModal}
+          show={this.state.modal.showDeviceEditor}
           onHide={this.hideDevEditModal}
         ></DeviceEditorModal>
+        <DeviceAdditionModal
+          show={this.state.modal.showDeviceAddition}
+          onHide={this.hideDevAddModal}
+        ></DeviceAdditionModal>
+        <CenteredAlert
+          title="Tính năng chưa được hỗ trợ"
+          btnName="Ok"
+          show={this.state.alert.userUnavailable}
+          onHide={this.hideUserUnavailableAlert}
+          onSubmit={this.hideUserUnavailableAlert}
+        >
+          Xin lỗi bạn{" "}
+          <span>
+            <i className="far fa-sad-cry"></i>
+          </span>{" "}
+          tính năng quản lý người dùng chưa được hỗ trợ trong phiên bản này!
+        </CenteredAlert>
 
         <div className="menu-horizontal">
           <Leftbar
@@ -321,6 +376,7 @@ class Header extends Component {
             removeDeviceScenario={this.removeDeviceScenario}
             removeDeviceHistory={this.removeDeviceHistory}
             showDevEditModal={this.showDevEditModal}
+            showDevAddModal={this.showDevAddModal}
           ></RenderWindow>
         </div>
       </div>

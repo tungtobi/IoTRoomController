@@ -4,9 +4,9 @@ import RoomStatus from "../RoomStatus";
 import Devices from "../Devices";
 import HistoryCard from "../HistoryCard";
 import "./index.css";
+import ForecastsWindow from "../Forecasts";
 
 class RenderWindow extends Component {
-  state = {};
   render() {
     return (
       <div>
@@ -31,6 +31,8 @@ class RenderWindow extends Component {
               removeDeviceList={this.props.removeDeviceList}
               devicesScenario={this.props.devicesScenario}
               removeDeviceScenario={this.props.removeDeviceScenario}
+              showDevEditModal={this.props.showDevEditModal}
+              showDevAddModal={this.props.showDevAddModal}
             />
           </Route>
           <Route path="/dashboard/history">
@@ -38,6 +40,9 @@ class RenderWindow extends Component {
           </Route>
           <Route path="/dashboard/account">
             <span>Account</span>
+          </Route>
+          <Route path="/dashboard/forecasts">
+            <ForecastsWindow />
           </Route>
         </Switch>
       </div>

@@ -12,7 +12,7 @@ class Navbar extends Component {
   state = {};
   render() {
     return (
-      <nav className="navbar navbar-light navbar-white py-2 px-0">
+      <nav className="navbar navbar-light navbar-white py-2 px-0 nav-fixed-top">
         <span className="navbar-brand pl-2-percent d-none d-md-block">
           <h3 className="navbar-title">Dashboard > {this.props.nameWindow}</h3>
         </span>
@@ -46,7 +46,7 @@ class Navbar extends Component {
                   <Dropdown.Item href="#/action-1">
                     Thông tin cá nhân
                   </Dropdown.Item>
-                  <Dropdown.Item href="#/action-2">Đăng xuất</Dropdown.Item>
+                  <Dropdown.Item href="/">Đăng xuất</Dropdown.Item>
                 </Popover.Content>
               </Popover>
             }

@@ -1,0 +1,8 @@
+.google-button {
+  background-color: tomato !important;
+  border-color: tomato !important;
+}
+
+a:hover {
+  text-decoration: none !important;
+}

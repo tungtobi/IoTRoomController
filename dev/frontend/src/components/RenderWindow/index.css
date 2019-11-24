@@ -1,3 +1,7 @@
 .devices {
-    overflow: hidden !important;
+  overflow: hidden !important;
+}
+
+.window-body {
+  min-height: calc(100vh - 72px);
 }

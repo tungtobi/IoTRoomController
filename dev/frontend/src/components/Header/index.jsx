@@ -27,7 +27,11 @@ class Header extends Component {
           icon: "fas fa-chart-line",
           nameItem: "Room Status"
         },
-        { link: "/dashboard/devices", icon: "fas fa-tv", nameItem: "Devices" },
+        {
+          link: "/dashboard/forecasts",
+          icon: "fas fa-cloud-sun",
+          nameItem: "Forecasts"
+        },
         {
           link: "/dashboard/history",
           icon: "fas fa-history",

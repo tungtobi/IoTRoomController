@@ -16,7 +16,8 @@ class ForecastsWindow extends Component {
       info: {},
       city: cityList.slice(0, 200),
       select: null,
-      searching: false
+      searching: false,
+      expand: null
     };
 
     this.getDayFromDate = this.getDayFromDate.bind(this);
@@ -26,10 +27,6 @@ class ForecastsWindow extends Component {
   }
 
   fetchWeather(cityId) {
-    this.setState({
-      searching: true
-    });
-
     const appId = "e1b174f84d2289015179653f49b5ebea";
 
     fetch(
@@ -44,7 +41,21 @@ class ForecastsWindow extends Component {
   }
 
   handleSearch() {
+    this.setState({
+      searching: true,
+      info: {},
+      expand: null
+    });
+
     this.fetchWeather(this.state.select);
+  }
+
+  handleExpand(idx) {
+    this.setState(prev => ({
+      expand: prev.expand === idx ? null : idx
+    }));
+
+    console.log(this.state.expand);
   }
 
   handleSelect(option) {
@@ -91,6 +102,7 @@ class ForecastsWindow extends Component {
             <Col>
               <Select
                 name="devices"
+                placeholder="Select city"
                 onInputChange={this.filterCity}
                 onChange={this.handleSelect}
                 options={this.state.city.map(({ id, name, country }) => ({
@@ -126,8 +138,14 @@ class ForecastsWindow extends Component {
                           as={Button}
                           variant="link"
                           eventKey={idx}
+                          onClick={() => this.handleExpand(idx)}
                         >
-                          <i className="fas fa-eye"></i>
+                          <i
+                            className={
+                              "fas fa-chevron-down rotate " +
+                              (this.state.expand === idx ? "down" : "")
+                            }
+                          ></i>
                         </Accordion.Toggle>
                       </Col>
                     </Row>

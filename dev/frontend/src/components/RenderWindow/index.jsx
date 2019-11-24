@@ -1,12 +1,11 @@
 import React, { Component } from "react";
 import { Switch, Route } from "react-router-dom";
-import DevicesManager from "../DevicesManager";
-import DevicesScenario from "../DevicesScenario";
-import DevicesHistory from "../DevicesHistory";
 import RoomStatus from "../RoomStatus";
-import AccountsPanel from "../AccountsPanel";
+import Devices from "../Devices";
+import HistoryCard from "../HistoryCard";
 import "./index.css";
-import AccountEditorModal from "../AccountEditorModal";
+import ForecastsWindow from "../Forecasts";
+
 class RenderWindow extends Component {
   render() {
     return (
@@ -27,45 +26,28 @@ class RenderWindow extends Component {
             ></RoomStatus>
           </Route>
           <Route path="/dashboard/devices">
-            <div className="p-4 devices">
-              <span className="card">
-                <h5 className="card-title m-2">Devices Manager</h5>
-                <DevicesManager
-                  devicesList={this.props.devicesList}
-                  removeDevice={this.props.removeDeviceList}
-                  showDevEditModal={this.props.showDevEditModal}
-                  showDevAddModal={this.props.showDevAddModal}
-                ></DevicesManager>
-              </span>
-              <span className="card mt-4">
-                <h5 className="card-title m-2">Devices Scenario</h5>
-                <DevicesScenario
-                  devicesScenario={this.props.devicesScenario}
-                  removeDevice={this.props.removeDeviceScenario}
-                ></DevicesScenario>
-              </span>
-            </div>
+            <Devices
+              devicesList={this.props.devicesList}
+              removeDeviceList={this.props.removeDeviceList}
+              devicesScenario={this.props.devicesScenario}
+              removeDeviceScenario={this.props.removeDeviceScenario}
+              showDevEditModal={this.props.showDevEditModal}
+              showDevAddModal={this.props.showDevAddModal}
+            />
           </Route>
           <Route path="/dashboard/history">
-            <div className="p-4 devices">
-              {this.props.devicesHistory.map(item => (
-                <span className="card mb-4">
-                  <h5 className="card-title m-2">{item.date}</h5>
-                  <DevicesHistory
-                    histories={item.histories}
-                    removeDevice={this.props.removeDeviceHistory}
-                  ></DevicesHistory>
-                </span>
-              ))}
-            </div>
+            <HistoryCard devicesHistory={this.props.devicesHistory} />
           </Route>
           <Route path="/dashboard/accounts">
             <div className="p-4 devices">
               <span className="card">
                 <h5 className="card-title m-2">Devices Manager</h5>
-                <AccountsPanel accounts={this.props.accounts}></AccountsPanel>
+                {/* <AccountsPanel accounts={this.props.accounts}></AccountsPanel> */}
               </span>
             </div>
+          </Route>
+          <Route path="/dashboard/forecasts">
+            <ForecastsWindow />
           </Route>
         </Switch>
       </div>

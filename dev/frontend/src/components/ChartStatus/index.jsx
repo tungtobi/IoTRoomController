@@ -1,19 +1,21 @@
 import React, { Component } from "react";
 import Chart from "react-apexcharts";
 import "./index.css";
+import { Card } from "react-bootstrap";
 
 class ChartStatus extends Component {
   render() {
     return (
-      <div className="app devices mixed-chart">
-        <h5 className="card-title m-4">{this.props.title}</h5>
+      <Card className="app devices mixed-chart">
+        <h5 className="card-title ml-4">{this.props.title}</h5>
         <Chart
+          // className="card-body"
           options={this.props.options}
           series={this.props.series}
           type="area"
           width="100%"
         />
-      </div>
+      </Card>
     );
   }
 }

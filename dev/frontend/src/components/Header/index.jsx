@@ -7,291 +7,302 @@ import DeviceEditorModal from "../DeviceEditorModal";
 import AccountEditorModal from "../AccountEditorModal";
 import AccountAdditionModal from "../AccountAdditionModal";
 import "./index.css";
+import CenteredAlert from "../CenteredAlert";
 
 class Header extends Component {
-  state = {
-    isShowDevEditModal: false,
-    isShowDevAddModal: false,
-    isShowAccEditModal: false,
-    isShowAccAddModal: false,
-    nameWindow: "Room Status",
-    menuItems: [
-      {
-        link: "/dashboard",
-        icon: "fas fa-chart-line",
-        nameItem: "Room Status"
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      alert: {
+        userUnavailable: false
       },
-      { link: "/dashboard/devices", icon: "fas fa-tv", nameItem: "Devices" },
-      {
-        link: "/dashboard/history",
-        icon: "fas fa-history",
-        nameItem: "History"
+      modal: {
+        showDeviceEditor: false,
+        showDeviceAddition: false,
+        showScenarioEditor: false,
+        showScenarioAddition: false
       },
-      {
-        link: "/dashboard/accounts",
-        icon: "fas fa-user-circle",
-        nameItem: "Account"
-      }
-    ],
-    avatar: {
-      src:
-        "https://yt3.ggpht.com/a/AGF-l7-rOqnsoRaW8LTM75Y2vuElIySnOe18OPUNnA=s900-c-k-c0xffffffff-no-rj-mo",
-      name: "Nguyen Viet Linh"
-    },
-    devicesList: [
-      {
-        id: "1",
-        name: "Air Conditioner Test",
-        seria: "C02TD0QGFVH3",
-        createdDate: "16/10/2019 - 07:00 am",
-        status: "Active",
-        accounts: ["Dad", "Mom"]
+      menuItems: [
+        {
+          link: "/dashboard",
+          icon: "fas fa-chart-line",
+          nameItem: "Room Status"
+        },
+        { link: "/dashboard/devices", icon: "fas fa-tv", nameItem: "Devices" },
+        {
+          link: "/dashboard/history",
+          icon: "fas fa-history",
+          nameItem: "History"
+        },
+        {
+          link: "#",
+          icon: "fas fa-user-circle",
+          nameItem: "Account"
+        }
+      ],
+      avatar: {
+        src:
+          "https://yt3.ggpht.com/a/AGF-l7-rOqnsoRaW8LTM75Y2vuElIySnOe18OPUNnA=s900-c-k-c0xffffffff-no-rj-mo",
+        name: "Nguyen Viet Linh"
       },
-      {
-        id: "2",
-        name: "Projector Test",
-        seria: "C03TD0QJHV4",
-        createdDate: "16/10/2019 - 07:00 am",
-        status: "Active",
-        accounts: ["Dad", "Mom", "Bro"]
-      },
-      {
-        id: "3",
-        name: "Projector Test",
-        seria: "C03TD0QJHV5",
-        createdDate: "16/10/2019 - 07:00 am",
-        status: "Deactive",
-        accounts: ["Dad", "Mom"]
-      }
-    ],
-    devicesScenario: [
-      {
-        code: "123",
-        id: "1",
-        name: "Air Conditioner Test",
-        seria: "C02TD0QGFVH3",
-        operator: "Turn on",
-        time: "04:00 pm",
-        note: "...."
-      },
-      {
-        code: "234",
-        id: "2",
-        name: "Air Conditioner Test",
-        seria: "C02TD0QGFVH3",
-        operator: "Turn off",
-        time: "07:00 am",
-        note: "...."
-      }
-    ],
-    devicesHistory: [
-      {
-        date: "Yesterday",
-        histories: [
-          {
-            id: "1",
-            name: "Air Conditioner Test",
-            seria: "C02TD0QGFVH3",
-            operator: "Turn on",
-            time: "04:00 pm",
-            note: "...."
+      devicesList: [
+        {
+          id: "1",
+          name: "Air Conditioner Test",
+          seria: "C02TD0QGFVH3",
+          createdDate: "16/10/2019 - 07:00 am",
+          status: "Active",
+          accounts: ["Dad", "Mom"]
+        },
+        {
+          id: "2",
+          name: "Projector Test",
+          seria: "C03TD0QJHV4",
+          createdDate: "16/10/2019 - 07:00 am",
+          status: "Active",
+          accounts: ["Dad", "Mom", "Bro"]
+        },
+        {
+          id: "3",
+          name: "Projector Test",
+          seria: "C03TD0QJHV5",
+          createdDate: "16/10/2019 - 07:00 am",
+          status: "Deactive",
+          accounts: ["Dad", "Mom"]
+        }
+      ],
+      devicesScenario: [
+        {
+          code: "123",
+          id: "1",
+          name: "Air Conditioner Test",
+          seria: "C02TD0QGFVH3",
+          operator: "Turn on",
+          time: "04:00 pm",
+          note: "...."
+        },
+        {
+          code: "234",
+          id: "2",
+          name: "Air Conditioner Test",
+          seria: "C02TD0QGFVH3",
+          operator: "Turn off",
+          time: "07:00 am",
+          note: "...."
+        }
+      ],
+      devicesHistory: [
+        {
+          date: "Yesterday",
+          histories: [
+            {
+              id: "1",
+              name: "Air Conditioner Test",
+              seria: "C02TD0QGFVH3",
+              operator: "Turn on",
+              time: "04:00 pm",
+              note: "...."
+            },
+            {
+              id: "2",
+              name: "Air Conditioner Test",
+              seria: "C02TD0QGFVH3",
+              operator: "Turn off",
+              time: "07:00 am",
+              note: "...."
+            }
+          ]
+        },
+        {
+          date: "Futherday",
+          histories: [
+            {
+              id: "1",
+              name: "Air Conditioner Test",
+              seria: "C02TD0QGFVH3",
+              operator: "Turn on",
+              time: "05:00 pm",
+              note: "...."
+            },
+            {
+              id: "2",
+              name: "Air Conditioner Test",
+              seria: "C02TD0QGFVH3",
+              operator: "Turn off",
+              time: "07:00 am",
+              note: "...."
+            }
+          ]
+        }
+      ],
+      roomStatusLabels: ["Temperature", "Humidity", "AQI"],
+      roomStatusData: {
+        Temperature: {
+          title: "Temperature",
+          options: {
+            legend: {
+              float: false,
+              position: "bottom", // whether to position legends in 1 of 4
+              // direction - top, bottom, left, right
+              horizontalAlign: "center", // when position top/bottom, you can
+              // specify whether to align legends
+              // left, right or center
+              verticalAlign: "middle"
+            },
+            xaxis: {
+              categories: [
+                "10 - 11",
+                "11 - 11",
+                "12 - 11",
+                "13 - 11",
+                "14 - 11",
+                "15 - 11",
+                "16 - 11",
+                "17 - 11",
+                "18 - 11",
+                "19 - 11"
+              ]
+            }
           },
-          {
-            id: "2",
-            name: "Air Conditioner Test",
-            seria: "C02TD0QGFVH3",
-            operator: "Turn off",
-            time: "07:00 am",
-            note: "...."
-          }
-        ]
-      },
-      {
-        date: "Futherday",
-        histories: [
-          {
-            id: "1",
-            name: "Air Conditioner Test",
-            seria: "C02TD0QGFVH3",
-            operator: "Turn on",
-            time: "05:00 pm",
-            note: "...."
+          fill: {
+            type: "gradient",
+            gradient: {
+              shadeIntensity: 1,
+              opacityFrom: 0.7,
+              opacityTo: 0.9,
+              stops: [0, 90, 100]
+            }
           },
-          {
-            id: "2",
-            name: "Air Conditioner Test",
-            seria: "C02TD0QGFVH3",
-            operator: "Turn off",
-            time: "07:00 am",
-            note: "...."
-          }
-        ]
-      }
-    ],
-    roomStatusLabels: ["Temperature", "Humidity", "AQI"],
-    roomStatusData: {
-      Temperature: {
-        title: "Temperature",
-        options: {
-          legend: {
-            float: false,
-            position: "bottom", // whether to position legends in 1 of 4
-            // direction - top, bottom, left, right
-            horizontalAlign: "center", // when position top/bottom, you can
-            // specify whether to align legends
-            // left, right or center
-            verticalAlign: "middle"
+          series: [
+            {
+              name: "series-1",
+              data: [30, 40, 45, 50, 49, 60, 70, 91, 56, 35]
+            }
+          ]
+        },
+        Humidity: {
+          title: "Humidity",
+          options: {
+            xaxis: {
+              categories: [1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998]
+            }
           },
-          xaxis: {
-            categories: [
-              "10-11",
-              "11-11",
-              "12-11",
-              "13-11",
-              "14-11",
-              "15-11",
-              "16-11",
-              "17-11",
-              "18-11",
-              "19-11"
-            ]
-          }
+          fill: {
+            type: "gradient",
+            gradient: {
+              shadeIntensity: 1,
+              opacityFrom: 0.7,
+              opacityTo: 0.9,
+              stops: [0, 90, 100]
+            }
+          },
+          series: [
+            {
+              name: "series-1",
+              data: [30, 40, 45, 50, 49, 60, 70, 91]
+            }
+          ]
         },
-        fill: {
-          type: "gradient",
-          gradient: {
-            shadeIntensity: 1,
-            opacityFrom: 0.7,
-            opacityTo: 0.9,
-            stops: [0, 90, 100]
-          }
-        },
-        series: [
-          {
-            name: "series-1",
-            data: [30, 40, 45, 50, 49, 60, 70, 91, 56, 35]
-          }
-        ]
+        AQI: {
+          title: "AQI",
+          options: {
+            xaxis: {
+              categories: [1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998]
+            }
+          },
+          fill: {
+            type: "gradient",
+            gradient: {
+              shadeIntensity: 1,
+              opacityFrom: 0.7,
+              opacityTo: 0.9,
+              stops: [0, 90, 100]
+            }
+          },
+          series: [
+            {
+              name: "series-1",
+              data: [30, 40, 45, 50, 49, 60, 70, 91]
+            }
+          ]
+        }
       },
-      Humidity: {
-        title: "Humidity",
-        options: {
-          xaxis: {
-            categories: [1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998]
-          }
+      indexes: [
+        {
+          title: "AQI",
+          index: "99 PM2.5",
+          icon: "fas fa-wind item-icon-green p-3"
         },
-        fill: {
-          type: "gradient",
-          gradient: {
-            shadeIntensity: 1,
-            opacityFrom: 0.7,
-            opacityTo: 0.9,
-            stops: [0, 90, 100]
-          }
+        {
+          title: "Humidity",
+          index: "30 %",
+          icon: "fas fa-temperature-low item-icon-red p-3"
         },
-        series: [
-          {
-            name: "series-1",
-            data: [30, 40, 45, 50, 49, 60, 70, 91]
-          }
-        ]
-      },
-      AQI: {
-        title: "AQI",
-        options: {
-          xaxis: {
-            categories: [1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998]
-          }
-        },
-        fill: {
-          type: "gradient",
-          gradient: {
-            shadeIntensity: 1,
-            opacityFrom: 0.7,
-            opacityTo: 0.9,
-            stops: [0, 90, 100]
-          }
-        },
-        series: [
-          {
-            name: "series-1",
-            data: [30, 40, 45, 50, 49, 60, 70, 91]
-          }
-        ]
+        {
+          title: "Temperature",
+          index: "29 °C",
+          icon: "fas fa-tint item-icon-orange p-3"
+        }
+      ]
+    };
+
+    this.showDevEditModal = this.showDevEditModal.bind(this);
+    this.hideDevEditModal = this.hideDevEditModal.bind(this);
+
+    this.showDevAddModal = this.showDevAddModal.bind(this);
+    this.hideDevAddModal = this.hideDevAddModal.bind(this);
+
+    this.showUserUnavailableAlert = this.showUserUnavailableAlert.bind(this);
+    this.hideUserUnavailableAlert = this.hideUserUnavailableAlert.bind(this);
+  }
+
+  showUserUnavailableAlert() {
+    this.setState({
+      alert: {
+        userUnavailable: true
       }
-    },
-    indexes: [
-      {
-        title: "AQI",
-        index: "99 PM2.5",
-        icon: "fas fa-wind item-icon-green p-3"
-      },
-      {
-        title: "Humidity",
-        index: "30 %",
-        icon: "fas fa-temperature-low item-icon-red p-3"
-      },
-      {
-        title: "Temperature",
-        index: "29 °C",
-        icon: "fas fa-tint item-icon-orange p-3"
+    });
+  }
+
+  hideUserUnavailableAlert() {
+    this.setState({
+      alert: {
+        userUnavailable: false
       }
-    ],
-    accounts: [
-      {
-        id: 1,
-        name: "Anh cc",
-        description: "Are you ready???",
-        createdDate: "16/10/2019 - 07:00am",
-        status: "avtivate",
-        devices: ["Ari conditioner", "Abcdedf"]
-      },
-      {
-        id: 1,
-        name: "Long cc",
-        description: "Yes",
-        createdDate: "16/10/2019 - 09:00am",
-        status: "avtivate",
-        devices: ["Ari conditioner", "Abcdedf"]
-      }
-    ]
-  };
+    });
+  }
 
-  // Device Editor Modal
-  showDevEditModal = () => {
-    this.setState({ isShowDevEditModal: true });
-  };
+  componentDidMount() {
+    this.getCurrentWindow();
+  }
 
-  hideDevEditModal = () => {
-    this.setState({ isShowDevEditModal: false });
-  };
+  getCurrentWindow() {
+    const path = window.location.href;
+    const selected = [...this.state.menuItems]
+      .reverse()
+      .find(item => path.includes(item.link));
 
-  // Device Addition Modal
-  showDevAddModal = () => {
-    this.setState({ isShowDevAddModal: true });
-  };
+    this.setState({
+      nameWindow: selected.nameItem
+    });
+  }
 
-  hideDevAddModal = () => {
-    this.setState({ isShowDevAddModal: false });
-  };
+  showDevEditModal() {
+    this.setState({ modal: { showDeviceEditor: true } });
+  }
 
-  // Account Addition Modal
-  showAccAddModal = () => {
-    this.setState({ isShowAccAddModal: true });
-  };
+  hideDevEditModal() {
+    this.setState({ modal: { showDeviceEditor: false } });
+  }
 
-  hideAccAddModal = () => {
-    this.setState({ isShowAccAddModal: false });
-  };
+  showDevAddModal() {
+    this.setState({ modal: { showDeviceAddition: true } });
+  }
 
-  // Account Editor Modal
-  showAccEditModal = () => {
-    this.setState({ isShowAccEditModal: true });
-  };
-
-  hideAccEditModal = () => {
-    this.setState({ isShowAccEditModal: false });
-  };
+  hideDevAddModal() {
+    this.setState({ modal: { showDeviceAddition: false } });
+  }
 
   removeDeviceList = seria => {
     const devicesList = this.state.devicesList.filter(d => d.seria !== seria);
@@ -310,9 +321,13 @@ class Header extends Component {
   changeDevice = seria => {};
 
   changeWindow = nameWindow => {
-    this.setState({
-      nameWindow: nameWindow
-    });
+    if (nameWindow === "Account") {
+      this.showUserUnavailableAlert();
+    } else {
+      this.setState({
+        nameWindow: nameWindow
+      });
+    }
   };
 
   render() {
@@ -320,9 +335,26 @@ class Header extends Component {
       <div className="background-light">
         {/* Device Editor modal */}
         <DeviceEditorModal
-          show={this.state.isShowDevEditModal}
+          show={this.state.modal.showDeviceEditor}
           onHide={this.hideDevEditModal}
         ></DeviceEditorModal>
+        <DeviceAdditionModal
+          show={this.state.modal.showDeviceAddition}
+          onHide={this.hideDevAddModal}
+        ></DeviceAdditionModal>
+        <CenteredAlert
+          title="Tính năng chưa được hỗ trợ"
+          btnName="Ok"
+          show={this.state.alert.userUnavailable}
+          onHide={this.hideUserUnavailableAlert}
+          onSubmit={this.hideUserUnavailableAlert}
+        >
+          Xin lỗi bạn{" "}
+          <span>
+            <i className="far fa-sad-cry"></i>
+          </span>{" "}
+          tính năng quản lý người dùng chưa được hỗ trợ trong phiên bản này!
+        </CenteredAlert>
 
         {/* Device addition Modal */}
         <DeviceAdditionModal
@@ -344,6 +376,7 @@ class Header extends Component {
 
         <div className="menu-horizontal">
           <Leftbar
+            selected={this.state.nameWindow}
             menuItems={this.state.menuItems}
             avatar={this.state.avatar}
             changeWindow={this.changeWindow}
@@ -365,8 +398,6 @@ class Header extends Component {
             removeDeviceHistory={this.removeDeviceHistory}
             showDevEditModal={this.showDevEditModal}
             showDevAddModal={this.showDevAddModal}
-            showAccEditModal={this.showAccEditModal}
-            showAccAddModal={this.showAccAddModal}
           ></RenderWindow>
         </div>
       </div>

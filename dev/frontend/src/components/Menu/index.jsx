@@ -7,8 +7,10 @@ class Menu extends Component {
     return (
       <div className="d-flex flex-column w-100">
         <ButtonGroup vertical className="w-100">
-          {this.props.menuItems.map(item => (
+          {this.props.menuItems.map((item, idx) => (
             <MenuItem
+              selected={this.props.selected === item.nameItem ? true : false}
+              key={idx}
               item={item}
               changeWindow={this.props.changeWindow}
             ></MenuItem>

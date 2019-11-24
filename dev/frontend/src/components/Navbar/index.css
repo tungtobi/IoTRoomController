@@ -1,14 +1,32 @@
-.navbar-height {
-  height: 100px;
-}
-
 .navbar {
   box-shadow: 0 2px 2px -2px rgba(0, 0, 0, 0.2);
+  min-height: 72px;
+}
+
+/* .nav-fixed-top {
+  position: fixed !important;
+  top: 0;
+  right: 0;
+  left: 14%;
+  z-index: 1000;
+} */
+
+/* @media (min-width: 768px) {
+  .menu-horizontal {
+    min-width: 168px;
+    width: 14%;
+  }
+} */
+
+.notification {
+  position: absolute !important;
+  transform: translate(18px, 16px);
 }
 
 .navbar-icon {
-  font-size: 200%;
+  font-size: 160%;
   color: #c6c6c6;
+  margin: 0rem 0.5rem;
 }
 
 .navbar-icon:hover {
@@ -21,6 +39,11 @@
 
 .narbar-height {
   height: 70px;
+}
+
+.navbar-title {
+  font-weight: 300;
+  margin: 0px;
 }
 
 .pl-2-percent {

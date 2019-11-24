@@ -21,7 +21,7 @@ class CenteredAlert extends CenteredModal {
   getFooter() {
     const style = this.props.danger ? "danger" : "primary";
     return (
-      <Button onClick={this.props.onSummit} variant={style}>
+      <Button onClick={this.props.onSubmit} variant={style}>
         {this.props.btnName}
       </Button>
     );

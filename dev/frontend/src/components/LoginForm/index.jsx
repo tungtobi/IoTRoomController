@@ -1,8 +1,10 @@
 import React, { Component } from "react";
 import { Form, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import handleInput from "../../validation";
+import handleInput from "../../logic/validation";
+
 import "../HomeBanner/style.css";
+import "./style.css";
 
 class LoginForm extends Component {
   constructor(props) {
@@ -14,6 +16,7 @@ class LoginForm extends Component {
     };
 
     this.handleChange = this.handleChange.bind(this);
+    this.responseGoogle = this.responseGoogle.bind(this);
   }
 
   handleChange(event) {
@@ -25,6 +28,10 @@ class LoginForm extends Component {
     this.setState({
       [name + "Valid"]: valid
     });
+  }
+
+  responseGoogle(response) {
+    console.log(response);
   }
 
   render() {

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Form } from "react-bootstrap";
 import Select from "react-select";
-import handleInput from "../../validation";
+import handleInput from "../../logic/validation";
 
 class AccountEditorForm extends Component {
   constructor(props) {

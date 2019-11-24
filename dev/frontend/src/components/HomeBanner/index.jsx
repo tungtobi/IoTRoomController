@@ -2,9 +2,9 @@ import React, { Component } from "react";
 import "./style.css";
 import LoginForm from "../LoginForm";
 // import DeviceEditorModal from "../DeviceEditorModal";
-import DeviceAdditionModal from "../DeviceAdditionModal";
-import AccountAdditionModal from "../AccountAdditionModal";
-import ScenarioAdditionModal from "../ScenarioAdditionModal";
+// import DeviceAdditionModal from "../DeviceAdditionModal";
+// import AccountAdditionModal from "../AccountAdditionModal";
+// import ScenarioAdditionModal from "../ScenarioAdditionModal";
 import AccountEditorModal from "../AccountEditorModal";
 
 // import FacebookLogin from "react-facebook-login";

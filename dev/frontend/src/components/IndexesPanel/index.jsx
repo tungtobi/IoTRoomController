@@ -8,8 +8,8 @@ class IndexesPanel extends Component {
     return (
       <div>
         <div className="panel">
-          {this.props.indexes.map(item => (
-            <IndexCard index={item}></IndexCard>
+          {this.props.indexes.map((item, idx) => (
+            <IndexCard key={idx} index={item}></IndexCard>
           ))}
         </div>
       </div>

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Form } from "react-bootstrap";
 import Select from "react-select";
-import handeInput from "../../validation";
+import handeInput from "../../logic/validation";
 
 class DeviceAdditionForm extends Component {
   constructor(props) {

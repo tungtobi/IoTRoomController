@@ -28,7 +28,7 @@ class Header extends Component {
         nameItem: "History"
       },
       {
-        link: "/dashboard/account",
+        link: "/dashboard/accounts",
         icon: "fas fa-user-circle",
         nameItem: "Account"
       }
@@ -144,16 +144,16 @@ class Header extends Component {
           },
           xaxis: {
             categories: [
-              "10 - 11",
-              "11 - 11",
-              "12 - 11",
-              "13 - 11",
-              "14 - 11",
-              "15 - 11",
-              "16 - 11",
-              "17 - 11",
-              "18 - 11",
-              "19 - 11"
+              "10-11",
+              "11-11",
+              "12-11",
+              "13-11",
+              "14-11",
+              "15-11",
+              "16-11",
+              "17-11",
+              "18-11",
+              "19-11"
             ]
           }
         },
@@ -235,6 +235,24 @@ class Header extends Component {
         title: "Temperature",
         index: "29 °C",
         icon: "fas fa-tint item-icon-orange p-3"
+      }
+    ],
+    accounts: [
+      {
+        id: 1,
+        name: "Anh cc",
+        description: "Are you ready???",
+        createdDate: "16/10/2019 - 07:00am",
+        status: "avtivate",
+        devices: ["Ari conditioner", "Abcdedf"]
+      },
+      {
+        id: 1,
+        name: "Long cc",
+        description: "Yes",
+        createdDate: "16/10/2019 - 09:00am",
+        status: "avtivate",
+        devices: ["Ari conditioner", "Abcdedf"]
       }
     ]
   };
@@ -341,6 +359,7 @@ class Header extends Component {
             roomStatusLabels={this.state.roomStatusLabels}
             roomStatusData={this.state.roomStatusData}
             indexes={this.state.indexes}
+            accounts={this.state.accounts}
             removeDeviceList={this.removeDeviceList}
             removeDeviceScenario={this.removeDeviceScenario}
             removeDeviceHistory={this.removeDeviceHistory}

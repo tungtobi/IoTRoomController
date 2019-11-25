@@ -98,28 +98,31 @@ class ForecastsWindow extends Component {
     return (
       <div className="p-4 ">
         <Card>
-          <Row className="panel">
-            <Col>
-              <Select
-                name="devices"
-                placeholder="Select city"
-                onInputChange={this.filterCity}
-                onChange={this.handleSelect}
-                options={this.state.city.map(({ id, name, country }) => ({
-                  value: id,
-                  label: `${name} (${country})`
-                }))}
-              />
-            </Col>
-            <Col md="auto">
-              <Button
-                onClick={this.handleSearch}
-                disabled={!this.state.select || this.state.searching}
-              >
-                {this.state.searching ? "Searching..." : "Search"}
-              </Button>
-            </Col>
-          </Row>
+          <Card.Title>Search your city</Card.Title>
+          <Card.Body>
+            <Row className="panel">
+              <Col>
+                <Select
+                  name="devices"
+                  placeholder="Select city"
+                  onInputChange={this.filterCity}
+                  onChange={this.handleSelect}
+                  options={this.state.city.map(({ id, name, country }) => ({
+                    value: id,
+                    label: `${name} (${country})`
+                  }))}
+                />
+              </Col>
+              <Col md="auto">
+                <Button
+                  onClick={this.handleSearch}
+                  disabled={!this.state.select || this.state.searching}
+                >
+                  {this.state.searching ? "Searching..." : "Search"}
+                </Button>
+              </Col>
+            </Row>
+          </Card.Body>
         </Card>
         {list && (
           <Card className="panel mt-4">

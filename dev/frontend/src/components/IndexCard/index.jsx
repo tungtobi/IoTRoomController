@@ -6,6 +6,7 @@ class IndexCard extends Component {
   state = {
     compareTime: "Update now"
   };
+
   compareTime() {
     var currentSeconds = new Date().getSeconds(); //Current Seconds
     var currentMinutes = new Date().getMinutes(); //Current Minutes
@@ -22,6 +23,7 @@ class IndexCard extends Component {
       });
     }
   }
+
   render() {
     return (
       <Card className="panel-item p-2">

@@ -5,6 +5,7 @@ import getDateList from "../../logic/datelist";
 import ForecastDetail from "../ForecastDetail";
 import cityList from "../../resources/citylist.json";
 import Select from "react-select";
+import Map from "../Map";
 
 import "./style.css";
 
@@ -47,7 +48,7 @@ class ForecastsWindow extends Component {
       expand: null
     });
 
-    this.fetchWeather(this.state.select);
+    this.fetchWeather(this.state.select.id);
   }
 
   handleExpand(idx) {
@@ -62,6 +63,7 @@ class ForecastsWindow extends Component {
     this.setState({
       select: option.value
     });
+    console.log(option.value);
   }
 
   getDayFromDate(date) {
@@ -95,10 +97,15 @@ class ForecastsWindow extends Component {
   render() {
     const list = this.state.info.list;
 
+    const defaultLocation = {
+      lat: 21.0245,
+      lng: 105.841171
+    };
+
     return (
       <div className="p-4 ">
         <Card>
-          <Card.Title>Search your city</Card.Title>
+          <Card.Title>Locate Your City</Card.Title>
           <Card.Body>
             <Row className="panel">
               <Col>
@@ -107,9 +114,9 @@ class ForecastsWindow extends Component {
                   placeholder="Select city"
                   onInputChange={this.filterCity}
                   onChange={this.handleSelect}
-                  options={this.state.city.map(({ id, name, country }) => ({
-                    value: id,
-                    label: `${name} (${country})`
+                  options={this.state.city.map(option => ({
+                    value: option,
+                    label: `${option.name} (${option.country})`
                   }))}
                 />
               </Col>
@@ -121,48 +128,65 @@ class ForecastsWindow extends Component {
                   {this.state.searching ? "Searching..." : "Search"}
                 </Button>
               </Col>
+            </Row>{" "}
+            <Row>
+              <Map
+                center={
+                  this.state.select
+                    ? {
+                        lat: this.state.select.coord.lat,
+                        lng: this.state.select.coord.lon
+                      }
+                    : defaultLocation
+                }
+                defaultCenter={defaultLocation}
+                zoom={11}
+              />
             </Row>
           </Card.Body>
         </Card>
         {list && (
           <Card className="panel mt-4">
-            <Accordion>
-              {getDateList(list).map((date, idx) => (
-                <div key={idx}>
-                  <Card.Header>
-                    <Row>
-                      <Col>
-                        <h3>{this.getDayFromDate(date)}</h3>
-                        {date}
-                      </Col>
+            <Card.Title>5-day Wearther Forecast</Card.Title>
+            <Card.Body>
+              <Accordion>
+                {getDateList(list).map((date, idx) => (
+                  <div key={idx}>
+                    <Card.Header className="bg-light-blue">
+                      <Row>
+                        <Col className="white-text">
+                          <h3>{this.getDayFromDate(date)}</h3>
+                          {date}
+                        </Col>
 
-                      <Col className="btn-expand">
-                        <Accordion.Toggle
-                          as={Button}
-                          variant="link"
-                          eventKey={idx}
-                          onClick={() => this.handleExpand(idx)}
-                        >
-                          <i
-                            className={
-                              "fas fa-chevron-down rotate " +
-                              (this.state.expand === idx ? "down" : "")
-                            }
-                          ></i>
-                        </Accordion.Toggle>
-                      </Col>
-                    </Row>
-                  </Card.Header>
-                  <Accordion.Collapse eventKey={idx}>
-                    <Card.Body>
-                      <div>
-                        <ForecastDetail list={forecastOf(date, list)} />
-                      </div>
-                    </Card.Body>
-                  </Accordion.Collapse>
-                </div>
-              ))}
-            </Accordion>
+                        <Col className="btn-expand">
+                          <Accordion.Toggle
+                            as={Button}
+                            variant="link"
+                            eventKey={idx}
+                            onClick={() => this.handleExpand(idx)}
+                          >
+                            <i
+                              className={
+                                "fas fa-chevron-down rotate " +
+                                (this.state.expand === idx ? "down" : "")
+                              }
+                            />
+                          </Accordion.Toggle>
+                        </Col>
+                      </Row>
+                    </Card.Header>
+                    <Accordion.Collapse eventKey={idx}>
+                      <Card.Body>
+                        <div>
+                          <ForecastDetail list={forecastOf(date, list)} />
+                        </div>
+                      </Card.Body>
+                    </Accordion.Collapse>
+                  </div>
+                ))}
+              </Accordion>
+            </Card.Body>
           </Card>
         )}
       </div>

@@ -1,9 +1,27 @@
 import React, { Component } from "react";
-import { Card } from "react-bootstrap";
+import { Card, Button } from "react-bootstrap";
 import "./index.css";
 
 class IndexCard extends Component {
-  state = {};
+  state = {
+    compareTime: "Update now"
+  };
+  compareTime() {
+    var currentSeconds = new Date().getSeconds(); //Current Seconds
+    var currentMinutes = new Date().getMinutes(); //Current Minutes
+    var currentHours = new Date().getHours(); //Current Hours
+    if (currentHours > this.props.timeUpdate.hours) {
+    } else if (currentMinutes > this.props.timeUpdate.minutes) {
+    } else if (currentSeconds > this.props.timeUpdate.seconds) {
+      var deltaTime = (
+        currentSeconds - this.props.timeUpdate.seconds
+      ).toString();
+      var text = "Updated " + deltaTime + "ago";
+      this.setState({
+        compareTime: text
+      });
+    }
+  }
   render() {
     return (
       <Card className="panel-item p-2">
@@ -20,9 +38,9 @@ class IndexCard extends Component {
         </Card.Body>
         <Card.Footer>
           {/* <hr /> */}
-          <a href="#" onClick={() => console.log("Ckick")}>
-            <i className="fas fa-redo" /> Update now
-          </a>
+          <Button variant="link" onClick={() => this.props.handUpdateData()}>
+            <i className="fas fa-redo" /> {this.state.compareTime}
+          </Button>
         </Card.Footer>
       </Card>
     );

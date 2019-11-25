@@ -21,8 +21,10 @@ class RenderWindow extends Component {
           <Route exact path="/dashboard">
             <RoomStatus
               indexes={this.props.indexes}
+              timeUpdate={this.props.timeUpdate}
               roomStatusLabels={this.props.roomStatusLabels}
               roomStatusData={this.props.roomStatusData}
+              handUpdateData={this.props.handUpdateData}
             ></RoomStatus>
           </Route>
           <Route path="/dashboard/devices">

@@ -7,7 +7,11 @@ class RoomStatus extends Component {
   render() {
     return (
       <div>
-        <IndexesPanel indexes={this.props.indexes}></IndexesPanel>
+        <IndexesPanel
+          timeUpdate={this.props.timeUpdate}
+          indexes={this.props.indexes}
+          handUpdateData={this.props.handUpdateData}
+        ></IndexesPanel>
         <ChartsPanel
           roomStatusLabels={this.props.roomStatusLabels}
           roomStatusData={this.props.roomStatusData}

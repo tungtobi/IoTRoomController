@@ -21,8 +21,10 @@ class RenderWindow extends Component {
           <Route exact path="/dashboard">
             <RoomStatus
               indexes={this.props.indexes}
+              timeUpdate={this.props.timeUpdate}
               roomStatusLabels={this.props.roomStatusLabels}
               roomStatusData={this.props.roomStatusData}
+              handUpdateData={this.props.handUpdateData}
             ></RoomStatus>
           </Route>
           <Route path="/dashboard/devices">
@@ -38,8 +40,13 @@ class RenderWindow extends Component {
           <Route path="/dashboard/history">
             <HistoryCard devicesHistory={this.props.devicesHistory} />
           </Route>
-          <Route path="/dashboard/account">
-            <span>Account</span>
+          <Route path="/dashboard/accounts">
+            <div className="p-4 devices">
+              <span className="card">
+                <h5 className="card-title m-2">Devices Manager</h5>
+                {/* <AccountsPanel accounts={this.props.accounts}></AccountsPanel> */}
+              </span>
+            </div>
           </Route>
           <Route path="/dashboard/forecasts">
             <ForecastsWindow />

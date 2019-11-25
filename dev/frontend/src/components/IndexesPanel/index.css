@@ -31,9 +31,9 @@
   margin: 1.5%;
 }
 
-.item-icon-red {
+.item-icon-blue {
   font-size: 400%;
-  color: Tomato;
+  color: #007bff;
 }
 
 .item-icon-green {
@@ -43,5 +43,5 @@
 
 .item-icon-orange {
   font-size: 400%;
-  color: orange;
+  color: tomato;
 }

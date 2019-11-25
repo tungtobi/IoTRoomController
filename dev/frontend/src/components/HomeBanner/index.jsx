@@ -7,6 +7,8 @@ import LoginForm from "../LoginForm";
 // import ScenarioAdditionModal from "../ScenarioAdditionModal";
 import AccountEditorModal from "../AccountEditorModal";
 
+// import FacebookLogin from "react-facebook-login";
+
 class HomeBanner extends Component {
   constructor(props) {
     super(props);
@@ -52,6 +54,9 @@ class HomeBanner extends Component {
   }
 
   render() {
+    // const responseFacebook = response => {
+    //   console.log(response);
+    // };
     return (
       <section className="home-banner-area">
         <div className="container">
@@ -68,6 +73,11 @@ class HomeBanner extends Component {
                 <div className="login-form">
                   <LoginForm onSubmit={this.handleLogin} />
                 </div>
+                {/* <FacebookLogin
+                  appId="1218668471665557" //APP ID NOT CREATED YET
+                  fields="name,email,picture"
+                  callback={responseFacebook}
+                /> */}
               </div>
             </div>
             <div className="col-lg-3 col-md-12" />

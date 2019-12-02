@@ -120,7 +120,7 @@ class ForecastsWindow extends Component {
                   }))}
                 />
               </Col>
-              <Col md="auto">
+              <Col md="auto" className="pl-0">
                 <Button
                   onClick={this.handleSearch}
                   disabled={!this.state.select || this.state.searching}

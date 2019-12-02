@@ -8,7 +8,7 @@ import AccountEditorModal from "../AccountEditorModal";
 import AccountAdditionModal from "../AccountAdditionModal";
 import "./index.css";
 import CenteredAlert from "../CenteredAlert";
-import Async from "react-async";
+// import Async from "react-async";
 
 class Header extends Component {
   constructor(props) {
@@ -355,13 +355,13 @@ class Header extends Component {
       }
     ];
 
-    var now_AQI = this.state.data[lengthData - 1].AQI;
-    var now_Humidity = this.state.data[lengthData - 1].Humidity;
-    var now_Temperature = this.state.data[lengthData - 1].Temperature;
+    // var now_AQI = this.state.data[lengthData - 1].AQI;
+    // var now_Humidity = this.state.data[lengthData - 1].Humidity;
+    // var now_Temperature = this.state.data[lengthData - 1].Temperature;
 
-    var now_index_AQI = now_AQI.toString() + " PM2.5";
-    var now_index_Humidity = now_Humidity.toString() + " %";
-    var now_index_Temperature = now_Temperature.toString() + " °C";
+    // var now_index_AQI = now_AQI.toString() + " PM2.5";
+    // var now_index_Humidity = now_Humidity.toString() + " %";
+    // var now_index_Temperature = now_Temperature.toString() + " °C";
 
     var now_indexes = [
       {
@@ -506,7 +506,7 @@ class Header extends Component {
         ></DeviceAdditionModal>
         <CenteredAlert
           title="Tính năng chưa được hỗ trợ"
-          btnName="Ok"
+          buttonName="Ok"
           show={this.state.alert.userUnavailable}
           onHide={this.hideUserUnavailableAlert}
           onSubmit={this.hideUserUnavailableAlert}

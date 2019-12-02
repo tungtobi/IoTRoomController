@@ -1,7 +1,6 @@
 .menu-horizontal {
-  /* height: 1080px; */
+  position: fixed;
   float: left;
-  /* min-width: 168px; */
 }
 
 .table {
@@ -9,8 +8,8 @@
 }
 
 .dashboard-content {
-  /* width: 86%; */
   overflow: hidden !important;
+  padding-left: 14%;
 }
 
 .gray-outline {
@@ -46,6 +45,12 @@
   .menu-horizontal {
     min-width: 168px;
     width: 14%;
+  }
+}
+
+@media (max-width: 1200px) {
+  .dashboard-content {
+    padding-left: 168px;
   }
 }
 

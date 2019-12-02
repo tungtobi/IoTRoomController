@@ -544,8 +544,10 @@ class Header extends Component {
             changeWindow={this.changeWindow}
           />
         </div>
-        <div className="dashboard-content">
+        <div className="nav-fixed-top">
           <Navbar nameWindow={this.state.nameWindow}></Navbar>
+        </div>
+        <div className="dashboard-content">
           <RenderWindow
             timeUpdate={this.state.timeUpdate}
             nameWindow={this.state.nameWindow}

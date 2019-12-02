@@ -3,7 +3,7 @@ import { Accordion, Card, Button, Row, Col } from "react-bootstrap";
 import forecastOf from "../../logic/forecast";
 import getDateList from "../../logic/datelist";
 import ForecastDetail from "../ForecastDetail";
-import cityList from "../../resources/citylist.json";
+import CITY_LIST from "../../resources/citylist.json";
 import Select from "react-select";
 import Map from "../Map";
 
@@ -15,7 +15,7 @@ class ForecastsWindow extends Component {
 
     this.state = {
       info: {},
-      city: cityList.slice(0, 200),
+      city: CITY_LIST.slice(0, 200),
       select: null,
       searching: false,
       expand: null
@@ -28,15 +28,14 @@ class ForecastsWindow extends Component {
   }
 
   fetchWeather(cityId) {
-    const appId = "e1b174f84d2289015179653f49b5ebea";
+    const APP_ID = "e1b174f84d2289015179653f49b5ebea";
 
     fetch(
-      `https://api.openweathermap.org/data/2.5/forecast?id=${cityId}&APPID=${appId}`
+      `https://api.openweathermap.org/data/2.5/forecast?id=${cityId}&APPID=${APP_ID}`
     )
       .then(res => res.json())
       .then(data => {
         this.setState({ info: data, searching: false });
-        console.log(this.state.info);
       })
       .catch(console.log);
   }
@@ -55,15 +54,12 @@ class ForecastsWindow extends Component {
     this.setState(prev => ({
       expand: prev.expand === idx ? null : idx
     }));
-
-    console.log(this.state.expand);
   }
 
   handleSelect(option) {
     this.setState({
       select: option.value
     });
-    console.log(option.value);
   }
 
   getDayFromDate(date) {
@@ -85,7 +81,7 @@ class ForecastsWindow extends Component {
   filterCity(value) {
     const limit = 200;
 
-    const match = cityList.filter(city =>
+    const match = CITY_LIST.filter(city =>
       city.name.toLowerCase().startsWith(value.toLowerCase())
     );
 

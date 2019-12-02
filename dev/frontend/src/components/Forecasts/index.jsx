@@ -21,10 +21,13 @@ class ForecastsWindow extends Component {
       expand: null
     };
 
+    this.myRef = React.createRef();
+
     this.getDayFromDate = this.getDayFromDate.bind(this);
     this.filterCity = this.filterCity.bind(this);
     this.handleSelect = this.handleSelect.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
+    this.scroll = this.scrollIntoForecast.bind(this);
   }
 
   fetchWeather(cityId) {
@@ -36,6 +39,7 @@ class ForecastsWindow extends Component {
       .then(res => res.json())
       .then(data => {
         this.setState({ info: data, searching: false });
+        this.scrollIntoForecast();
       })
       .catch(console.log);
   }
@@ -90,6 +94,10 @@ class ForecastsWindow extends Component {
     });
   }
 
+  scrollIntoForecast() {
+    this.myRef.current.scrollIntoView({ behavior: "smooth" });
+  }
+
   render() {
     const list = this.state.info.list;
 
@@ -121,7 +129,10 @@ class ForecastsWindow extends Component {
                   onClick={this.handleSearch}
                   disabled={!this.state.select || this.state.searching}
                 >
-                  {this.state.searching ? "Searching..." : "Search"}
+                  <span>
+                    <i className="fas fa-search"></i>
+                  </span>
+                  {this.state.searching ? " Searching..." : " Search"}
                 </Button>
               </Col>
             </Row>{" "}
@@ -142,8 +153,11 @@ class ForecastsWindow extends Component {
           </Card.Body>
         </Card>
         {list && (
-          <Card className="panel mt-4">
-            <Card.Title>5-day Wearther Forecast</Card.Title>
+          <Card className="panel mt-4" ref={this.myRef}>
+            <Card.Title>
+              {/* <i className="fas fa-cloud-sun" />  */}
+              5-day Wearther Forecast
+            </Card.Title>
             <Card.Body>
               <Accordion>
                 {getDateList(list).map((date, idx) => (
@@ -183,6 +197,9 @@ class ForecastsWindow extends Component {
                 ))}
               </Accordion>
             </Card.Body>
+            <Card.Footer>
+              <i className="fas fa-print"></i> Print
+            </Card.Footer>
           </Card>
         )}
       </div>

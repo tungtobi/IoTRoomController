@@ -7,16 +7,30 @@ import {
   Badge
 } from "react-bootstrap";
 import "./index.css";
+import AccountEditorModal from "../AccountEditorModal";
 
 class Navbar extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      noti: 1
+      noti: 1,
+      showProfileEditor: false
     };
 
     this.handleClickNotifi = this.handleClickNotifi.bind(this);
+    this.hideProfileEditorModal = this.hideProfileEditorModal.bind(this);
+    this.showProfileEditorModal = this.showProfileEditorModal.bind(this);
+  }
+
+  hideProfileEditorModal() {
+    this.setState({
+      showProfileEditor: false
+    });
+  }
+
+  showProfileEditorModal() {
+    this.setState({ showProfileEditor: true });
   }
 
   handleClickNotifi() {
@@ -40,7 +54,7 @@ class Navbar extends Component {
             placement="bottom"
             overlay={
               <Popover>
-                <Popover.Title as="h3">Thông báo</Popover.Title>
+                <Popover.Title as="h3">Notification</Popover.Title>
                 <Popover.Content>
                   <strong>Holy guacamole!</strong> Check this info.
                 </Popover.Content>
@@ -63,10 +77,10 @@ class Navbar extends Component {
             overlay={
               <Popover>
                 <Popover.Content className="py-2 px-0">
-                  <Dropdown.Item href="#/action-1">
-                    Thông tin cá nhân
+                  <Dropdown.Item onClick={this.showProfileEditorModal}>
+                    Your Profile
                   </Dropdown.Item>
-                  <Dropdown.Item href="/">Đăng xuất</Dropdown.Item>
+                  <Dropdown.Item href="/">Logout!</Dropdown.Item>
                 </Popover.Content>
               </Popover>
             }
@@ -76,6 +90,10 @@ class Navbar extends Component {
             </Button>
           </OverlayTrigger>
         </span>
+        <AccountEditorModal
+          show={this.state.showProfileEditor}
+          onHide={this.hideProfileEditorModal}
+        />
       </nav>
     );
   }

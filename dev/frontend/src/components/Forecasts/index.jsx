@@ -15,7 +15,7 @@ class ForecastsWindow extends Component {
 
     this.state = {
       info: {},
-      city: CITY_LIST.slice(0, 200),
+      city: CITY_LIST.sort((a, b) => (a.name < b.name ? -1 : 1)).slice(0, 500),
       select: null,
       searching: false,
       expand: null
@@ -83,7 +83,7 @@ class ForecastsWindow extends Component {
   }
 
   filterCity(value) {
-    const limit = 200;
+    const limit = 500;
 
     const match = CITY_LIST.filter(city =>
       city.name.toLowerCase().startsWith(value.toLowerCase())

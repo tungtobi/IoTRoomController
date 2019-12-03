@@ -3,21 +3,6 @@
   min-height: 72px;
 }
 
-/* .nav-fixed-top {
-  position: fixed !important;
-  top: 0;
-  right: 0;
-  left: 14%;
-  z-index: 1000;
-} */
-
-/* @media (min-width: 768px) {
-  .menu-horizontal {
-    min-width: 168px;
-    width: 14%;
-  }
-} */
-
 .notification {
   position: absolute !important;
   transform: translate(18px, 16px);

@@ -57,3 +57,10 @@
 .fit-content {
   width: fit-content;
 }
+
+@media (max-width: 768px) {
+  .fit-content {
+    width: fit-content;
+    padding-left: calc(99% - 113px);
+  }
+}

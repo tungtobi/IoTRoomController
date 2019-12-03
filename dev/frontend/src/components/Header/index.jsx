@@ -267,12 +267,12 @@ class Header extends Component {
         },
         {
           title: "Humidity",
-          index: "30 %",
+          index: "0 %",
           icon: "fas fa-tint item-icon-blue p-3"
         },
         {
           title: "Temperature",
-          index: "29 °C",
+          index: "0 °C",
           icon: "fas fa-temperature-low item-icon-orange p-3"
         }
       ],
@@ -355,28 +355,28 @@ class Header extends Component {
       }
     ];
 
-    // var now_AQI = this.state.data[lengthData - 1].AQI;
-    // var now_Humidity = this.state.data[lengthData - 1].Humidity;
-    // var now_Temperature = this.state.data[lengthData - 1].Temperature;
+    var now_AQI = this.state.data[lengthData - 1].AQI;
+    var now_Humidity = this.state.data[lengthData - 1].Humidity;
+    var now_Temperature = this.state.data[lengthData - 1].Temperature;
 
-    // var now_index_AQI = now_AQI.toString() + " PM2.5";
-    // var now_index_Humidity = now_Humidity.toString() + " %";
-    // var now_index_Temperature = now_Temperature.toString() + " °C";
+    var now_index_AQI = now_AQI.toString() + " PM2.5";
+    var now_index_Humidity = now_Humidity.toString() + " %";
+    var now_index_Temperature = now_Temperature.toString() + " °C";
 
     var now_indexes = [
       {
         title: "AQI",
-        index: "99 PM2.5",
+        index: now_index_AQI,
         icon: "fas fa-wind item-icon-green p-3"
       },
       {
         title: "Humidity",
-        index: "30 %",
+        index: now_index_Humidity,
         icon: "fas fa-tint item-icon-blue p-3"
       },
       {
         title: "Temperature",
-        index: "29 °C",
+        index: now_index_Temperature,
         icon: "fas fa-temperature-low item-icon-orange p-3"
       }
     ];

@@ -7,6 +7,15 @@ class IndexCard extends Component {
     compareTime: "Update now"
   };
 
+  componentDidMount() {
+    this.interval = setInterval(() => {
+      this.compareTime();
+    }, 1000);
+  }
+  componentWillUnmount() {
+    clearInterval(this.interval);
+  }
+
   compareTime() {
     var currentSeconds = new Date().getSeconds(); //Current Seconds
     var currentMinutes = new Date().getMinutes(); //Current Minutes
@@ -17,7 +26,8 @@ class IndexCard extends Component {
       var deltaTime = (
         currentSeconds - this.props.timeUpdate.seconds
       ).toString();
-      var text = "Updated " + deltaTime + "ago";
+      deltaTime = deltaTime + "s";
+      var text = "Updated " + deltaTime + " ago";
       this.setState({
         compareTime: text
       });

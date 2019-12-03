@@ -98,6 +98,8 @@ class ForecastsWindow extends Component {
     this.myRef.current.scrollIntoView({ behavior: "smooth" });
   }
 
+  savePdfFile() {}
+
   render() {
     const list = this.state.info.list;
 
@@ -198,7 +200,13 @@ class ForecastsWindow extends Component {
               </Accordion>
             </Card.Body>
             <Card.Footer>
-              <i className="fas fa-print"></i> Print
+              <Button
+                variant="link"
+                className="p-0 float-left"
+                onClick={this.savePdfFile.bind(this)}
+              >
+                <i className="fas fa-print"></i> Print
+              </Button>
             </Card.Footer>
           </Card>
         )}

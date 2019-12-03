@@ -23,6 +23,13 @@
   transform: translate(18px, 16px);
 }
 
+.dropdown-item:focus,
+.dropdown-item:hover {
+  background-color: #007bff !important;
+  color: #fff !important;
+  opacity: 0.65;
+}
+
 .navbar-icon {
   font-size: 160%;
   color: #c6c6c6;

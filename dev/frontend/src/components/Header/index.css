@@ -3,13 +3,6 @@
   float: left;
 }
 
-.nav-fixed-top {
-  position: fixed !important;
-  z-index: 1000;
-  width: 86%;
-  padding-left: 14%;
-}
-
 .table {
   border-bottom: 1px solid #dee2e6;
 }
@@ -44,8 +37,12 @@
   transition: all 0.5s ease;
 }
 
-@media (max-width: 768px) {
-  .menu-horizontal {
+@media (min-width: 1200px) {
+  .dashboard-content {
+    padding-left: 14%;
+  }
+  .nav-fixed-top {
+    padding-left: 14%;
   }
 }
 
@@ -58,11 +55,19 @@
 
 @media (max-width: 1200px) {
   .dashboard-content {
-    padding-left: 168px;
+    padding-left: 168px !important;
   }
   .nav-fixed-top {
-    padding-left: 168px;
-    width: calc(100% - 168px);
+    padding-left: 168px !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .dashboard-content {
+    padding-left: 60px !important;
+  }
+  .nav-fixed-top {
+    padding-left: 60px !important;
   }
 }
 

@@ -17,6 +17,9 @@ class IndexCard extends Component {
   }
 
   compareTime() {
+    if (this.state.compareTime == "Update now") {
+      return;
+    }
     var currentSeconds = new Date().getSeconds(); //Current Seconds
     var currentMinutes = new Date().getMinutes(); //Current Minutes
     var currentHours = new Date().getHours(); //Current Hours
@@ -67,7 +70,15 @@ class IndexCard extends Component {
           </div>
         </Card.Body>
         <Card.Footer>
-          <Button variant="link" onClick={() => this.props.handUpdateData()}>
+          <Button
+            variant="link"
+            onClick={() => {
+              this.props.handUpdateData();
+              this.setState({
+                compareTime: "Updating"
+              });
+            }}
+          >
             <i className="fas fa-redo" />
             <span> Update</span>
           </Button>

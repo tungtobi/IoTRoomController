@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@react-pdf/renderer": "^1.6.8",
     "apexcharts": "^3.10.1",
     "bootstrap": "^4.3.1",
     "google-map-react": "^1.1.5",
@@ -11,7 +12,6 @@
     "react-async": "^10.0.0-alpha.0",
     "react-bootstrap": "^1.0.0-beta.14",
     "react-dom": "^16.10.2",
-    "react-google-maps": "^9.4.5",
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.2.0",
     "react-select": "^3.0.8",

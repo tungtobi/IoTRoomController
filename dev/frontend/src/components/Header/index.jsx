@@ -29,6 +29,16 @@ class Header extends Component {
         showScenarioEditor: false,
         showScenarioAddition: false
       },
+      accounts: [
+        {
+          id: 1,
+          name: "Dad",
+          description: "None",
+          createdDate: "07/12/2019",
+          status: "Activate",
+          devices: "Air Conditioner"
+        }
+      ],
       menuItems: [
         {
           link: "/dashboard",
@@ -46,7 +56,7 @@ class Header extends Component {
           nameItem: "History"
         },
         {
-          link: "#",
+          link: "/dashboard/accounts",
           icon: "fas fa-user-circle",
           nameItem: "Account"
         }
@@ -504,7 +514,7 @@ class Header extends Component {
           show={this.state.modal.showDeviceAddition}
           onHide={this.hideDevAddModal}
         ></DeviceAdditionModal>
-        <CenteredAlert
+        {/* <CenteredAlert
           title="Tính năng chưa được hỗ trợ"
           buttonName="Ok"
           show={this.state.alert.userUnavailable}
@@ -516,7 +526,7 @@ class Header extends Component {
             <i className="far fa-sad-cry"></i>
           </span>{" "}
           tính năng quản lý người dùng chưa được hỗ trợ trong phiên bản này!
-        </CenteredAlert>
+        </CenteredAlert> */}
 
         {/* Device addition Modal */}
         <DeviceAdditionModal

@@ -17,7 +17,7 @@ class IndexCard extends Component {
   }
 
   compareTime() {
-    if (this.state.compareTime == "Update now") {
+    if (this.state.compareTime === "Update now") {
       return;
     }
     var currentSeconds = new Date().getSeconds(); //Current Seconds

@@ -5,6 +5,7 @@ import Devices from "../Devices";
 import HistoryCard from "../HistoryCard";
 import "./index.css";
 import ForecastsWindow from "../Forecasts";
+import AccountsPanel from "../AccountsPanel";
 
 class RenderWindow extends Component {
   render() {
@@ -44,7 +45,7 @@ class RenderWindow extends Component {
             <div className="p-4 devices">
               <span className="card">
                 <h5 className="card-title m-2">Devices Manager</h5>
-                {/* <AccountsPanel accounts={this.props.accounts}></AccountsPanel> */}
+                <AccountsPanel accounts={this.props.accounts}></AccountsPanel>
               </span>
             </div>
           </Route>

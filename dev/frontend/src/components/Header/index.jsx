@@ -51,6 +51,16 @@ class Header extends Component {
           nameItem: "Forecasts"
         },
         {
+          link: "/dashboard/devices",
+          icon: "fas fa-tv",
+          nameItem: "Devices"
+        },
+        {
+          link: "/dashboard/remotes",
+          icon: "fas fa-gamepad",
+          nameItem: "Remotes"
+        },
+        {
           link: "/dashboard/history",
           icon: "fas fa-history",
           nameItem: "History"

@@ -3,10 +3,6 @@ import { Card, Button } from "react-bootstrap";
 import "./index.css";
 
 class IndexCard extends Component {
-  state = {
-    compareTime: "Update now"
-  };
-
   componentDidMount() {
     this.interval = setInterval(() => {
       this.compareTime();
@@ -17,7 +13,7 @@ class IndexCard extends Component {
   }
 
   compareTime() {
-    if (this.state.compareTime === "Update now") {
+    if (this.props.notification_time_update === "Update now") {
       return;
     }
     var currentSeconds = new Date().getSeconds(); //Current Seconds
@@ -50,9 +46,7 @@ class IndexCard extends Component {
     } else {
       text = "Last updated a few seconds ago";
     }
-    this.setState({
-      compareTime: text
-    });
+    this.props.change_notification_time_update(text);
   }
 
   render() {
@@ -74,16 +68,14 @@ class IndexCard extends Component {
             variant="link"
             onClick={() => {
               this.props.handUpdateData();
-              this.setState({
-                compareTime: "Updating"
-              });
+              this.props.change_notification_time_update("Updating...");
             }}
           >
             <i className="fas fa-redo" />
             <span> Update</span>
           </Button>
           <small className="text-muted btn float-right">
-            {this.state.compareTime}
+            {this.props.notification_time_update}
           </small>
         </Card.Footer>
       </Card>

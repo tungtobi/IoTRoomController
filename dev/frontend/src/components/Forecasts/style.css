@@ -30,3 +30,20 @@ td {
 .white-text {
   color: white;
 }
+
+.btn-search-container {
+  position: relative;
+  padding-right: 15px;
+}
+
+@media (max-width: 480px) {
+  .btn-search-container {
+    padding-left: 15px;
+    margin-top: 15px;
+    width: 100%;
+  }
+
+  .btn-search-container > .btn {
+    width: 100%;
+  }
+}

@@ -50,13 +50,6 @@
   width: fit-content;
 }
 
-@media (max-width: 768px) {
-  .fit-content {
-    width: fit-content;
-    padding-left: calc(99% - 113px);
-  }
-}
-
 .popover-header {
   border-top-left-radius: 0.85rem !important;
   border-top-right-radius: 0.85rem !important;

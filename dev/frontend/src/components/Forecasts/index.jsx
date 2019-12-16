@@ -9,13 +9,18 @@ import Map from "../Map";
 
 import "./style.css";
 
+const LIMIT = 500;
+
 class ForecastsWindow extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
       info: {},
-      city: CITY_LIST.sort((a, b) => (a.name < b.name ? -1 : 1)).slice(0, 500),
+      city: CITY_LIST.sort((a, b) => (a.name < b.name ? -1 : 1)).slice(
+        0,
+        LIMIT
+      ),
       select: null,
       searching: false,
       expand: null
@@ -83,14 +88,12 @@ class ForecastsWindow extends Component {
   }
 
   filterCity(value) {
-    const limit = 500;
-
     const match = CITY_LIST.filter(city =>
       city.name.toLowerCase().startsWith(value.toLowerCase())
     );
 
     this.setState({
-      city: match.slice(0, limit)
+      city: match.slice(0, LIMIT)
     });
   }
 

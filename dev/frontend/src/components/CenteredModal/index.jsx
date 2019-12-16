@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Modal } from "react-bootstrap";
-import "./style.css";
 
 class CenteredModal extends Component {
   constructor(props) {

@@ -112,7 +112,7 @@ class ForecastsWindow extends Component {
     };
 
     return (
-      <div className="p-4 ">
+      <div className="p-4">
         <Card>
           <Card.Title>Locate Your City</Card.Title>
           <Card.Body>

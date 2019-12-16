@@ -1,11 +1,22 @@
-/* .panel { 
+@media (max-width: 968px) {
+  .panel {
+    display: block;
+  }
+  .panel-item {
+    margin-bottom: 1.5rem;
+  }
+}
+
+@media (min-width: 968px) {
+  .panel {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     flex: 1 0 auto;
-    justify-content: center;
-}
+    justify-content: space-between;
+  }
 
-.panel-item {
-    margin: 1.5%;
-} */
+  .panel-item {
+    width: 32%;
+  }
+}

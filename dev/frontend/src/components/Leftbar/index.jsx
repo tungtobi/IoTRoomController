@@ -16,6 +16,7 @@ class Leftbar extends Component {
           ></Menu>
         </div>
         <div className="leftbar d-block d-md-none">
+          <div className="small-logo"></div>
           <MenuNoTitle
             selected={this.props.selected}
             menuItems={this.props.menuItems}

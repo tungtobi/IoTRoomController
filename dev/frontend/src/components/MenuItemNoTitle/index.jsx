@@ -5,7 +5,7 @@ import "../MenuItem/index.css";
 class MenuItemNoTitle extends Component {
   render() {
     return (
-      <Link to={this.props.item.link} className="w-100 py-5">
+      <Link to={this.props.item.link} className="w-100 pt-3">
         <Button
           className="menu-item"
           onClick={() => this.props.changeWindow(this.props.item.nameItem)}

@@ -42,3 +42,15 @@
 .notify-thumbnail {
   max-width: 64px;
 }
+
+.notify-thumbnail-container {
+  max-width: 25%;
+  padding: 0px 15px;
+}
+
+.notify-text-container {
+  flex-basis: 0;
+  flex-grow: 1;
+  max-width: 100%;
+  padding-right: 15px;
+}

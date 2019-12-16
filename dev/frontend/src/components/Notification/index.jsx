@@ -69,14 +69,14 @@ class Notification extends Component {
               onClick={() => this.handleSelect(idx)}
             >
               <Row>
-                <Col md="auto">
+                <div className="notify-thumbnail-container">
                   <Image
                     roundedCircle
                     className="notify-thumbnail"
                     src="https://yt3.ggpht.com/a/AGF-l7-rOqnsoRaW8LTM75Y2vuElIySnOe18OPUNnA=s900-c-k-c0xffffffff-no-rj-mo"
                   />
-                </Col>
-                <Col className="pl-0">
+                </div>
+                <div className="notify-text-container">
                   <h5>{notify.title}</h5>
                   <div>
                     {notify.content.length > MAX_CONTENT_LENGTH
@@ -84,7 +84,7 @@ class Notification extends Component {
                       : notify.content}
                   </div>
                   <i className="text-muted">{notify.timestamp}</i>
-                </Col>
+                </div>
               </Row>
             </div>
           ))}

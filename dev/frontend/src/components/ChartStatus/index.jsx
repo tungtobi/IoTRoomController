@@ -6,7 +6,7 @@ import { Card } from "react-bootstrap";
 class ChartStatus extends Component {
   render() {
     return (
-      <Card className="app devices mixed-chart">
+      <Card className="panel-item app devices mixed-chart">
         <h5 className="card-title ml-4">{this.props.title}</h5>
         <Chart
           // className="card-body"

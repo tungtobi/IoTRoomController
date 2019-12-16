@@ -20,6 +20,7 @@ class Navbar extends Component {
     };
 
     this.handleClickNotifi = this.handleClickNotifi.bind(this);
+    this.handleClickAccount = this.handleClickAccount.bind(this);
     this.hideProfileEditorModal = this.hideProfileEditorModal.bind(this);
     this.showProfileEditorModal = this.showProfileEditorModal.bind(this);
   }
@@ -40,18 +41,20 @@ class Navbar extends Component {
     });
   }
 
+  handleClickAccount() {
+    this.refs.overlay.hide();
+  }
+
   render() {
     return (
       <nav className="navbar navbar-light navbar-white py-2 px-0 nav-fixed-top">
         <span className="navbar-brand pl-2-percent d-none d-md-block">
-          <h3 className="navbar-title">
-            Dashboard
-            {/* > {this.props.nameWindow} */}
-          </h3>
+          <h3 className="navbar-title">Dashboard</h3>
         </span>
         <span className="form-inline pr-1-percent fit-content ">
           <OverlayTrigger
             trigger="click"
+            ref="overlay"
             placement="bottom"
             overlay={
               <Popover className="notify-panel">
@@ -83,7 +86,7 @@ class Navbar extends Component {
               </Popover>
             }
           >
-            <Button variant="link p-0 mx-2">
+            <Button variant="link p-0 mx-2" onClick={this.handleClickAccount}>
               <i className="fas fa-user-circle navbar-icon" />
             </Button>
           </OverlayTrigger>

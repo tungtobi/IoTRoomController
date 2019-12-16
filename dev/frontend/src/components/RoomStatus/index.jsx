@@ -2,11 +2,12 @@ import React, { Component } from "react";
 import ChartsPanel from "../ChartsPanel";
 import IndexesPanel from "../IndexesPanel";
 import "./index.css";
+
 class RoomStatus extends Component {
   state = {};
   render() {
     return (
-      <div>
+      <div className="p-4">
         <IndexesPanel
           timeUpdate={this.props.timeUpdate}
           indexes={this.props.indexes}

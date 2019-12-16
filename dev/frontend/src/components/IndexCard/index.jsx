@@ -29,29 +29,29 @@ class IndexCard extends Component {
 
     if (deltaTime >= 7200) {
       text =
-        "Last updated " +
-        Math.floor(deltaTime / 3600).toString() +
-        " hours ago";
+        /*"Last updated " + */
+        Math.floor(deltaTime / 3600).toString() + " hours ago";
     } else if (deltaTime >= 3600) {
       text =
-        "Last updated " + Math.floor(deltaTime / 3600).toString() + " hour ago";
+        /*"Last updated " + */ Math.floor(deltaTime / 3600).toString() +
+        " hour ago";
     } else if (deltaTime >= 120) {
       text =
-        "Last updated " +
-        Math.floor(deltaTime / 60).toString() +
-        " minutes ago";
+        /*"Last updated " + */
+        Math.floor(deltaTime / 60).toString() + " minutes ago";
     } else if (deltaTime >= 60) {
       text =
-        "Last updated " + Math.floor(deltaTime / 60).toString() + " minute ago";
+        /*"Last updated " + */ Math.floor(deltaTime / 60).toString() +
+        " minute ago";
     } else {
-      text = "Last updated a few seconds ago";
+      text = "Updated";
     }
     this.props.change_notification_time_update(text);
   }
 
   render() {
     return (
-      <Card className="panel-item p-2">
+      <Card className="panel-item">
         <Card.Body>
           <div className="row">
             <div className="col-3">

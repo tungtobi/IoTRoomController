@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import IndexCard from "../IndexCard";
-import "./index.css";
 
 class IndexesPanel extends Component {
   state = {
@@ -13,21 +12,19 @@ class IndexesPanel extends Component {
 
   render() {
     return (
-      <div>
-        <div className="panel">
-          {this.props.indexes.map((item, idx) => (
-            <IndexCard
-              key={idx}
-              index={item}
-              notification_time_update={this.state.notification_time_update}
-              timeUpdate={this.props.timeUpdate}
-              handUpdateData={this.props.handUpdateData}
-              change_notification_time_update={
-                this.change_notification_time_update
-              }
-            ></IndexCard>
-          ))}
-        </div>
+      <div className="panel mb-4">
+        {this.props.indexes.map((item, idx) => (
+          <IndexCard
+            key={idx}
+            index={item}
+            notification_time_update={this.state.notification_time_update}
+            timeUpdate={this.props.timeUpdate}
+            handUpdateData={this.props.handUpdateData}
+            change_notification_time_update={
+              this.change_notification_time_update
+            }
+          ></IndexCard>
+        ))}
       </div>
     );
   }

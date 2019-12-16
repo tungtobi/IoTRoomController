@@ -1,0 +1,44 @@
+.popover-footer {
+  border-top: 1px solid #c6c6c6;
+  text-align: center;
+  padding: 0.25rem;
+}
+
+.popover-title-text {
+  font-weight: bold;
+}
+
+.popover-title-button {
+  float: right;
+}
+
+.notify-item {
+  padding: 0.75rem 0.75rem;
+  background-color: #f8f9fa;
+  cursor: pointer;
+}
+
+.notify-item.readed {
+  background-color: white;
+}
+
+.notify-item.readed > div {
+  font-weight: normal;
+}
+
+.notify-item > div {
+  font-weight: bold;
+}
+
+.notify-item:hover {
+  background-color: #f3f3f3;
+}
+
+.notify-panel {
+  max-width: 360px !important;
+  min-width: 360px;
+}
+
+.notify-thumbnail {
+  max-width: 64px;
+}

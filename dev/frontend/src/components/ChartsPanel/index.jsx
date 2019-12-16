@@ -7,21 +7,21 @@ class ChartsPanel extends Component {
   render() {
     return (
       <div className="panel">
-        <span className="card panel-item">
+        <span className="panel-item">
           <ChartStatus
             title={this.props.roomStatusData.AQI.title}
             options={this.props.roomStatusData.AQI.options}
             series={this.props.roomStatusData.AQI.series}
           ></ChartStatus>
         </span>
-        <span className="card panel-item">
+        <span className="panel-item">
           <ChartStatus
             title={this.props.roomStatusData.Temperature.title}
             options={this.props.roomStatusData.Temperature.options}
             series={this.props.roomStatusData.Temperature.series}
           ></ChartStatus>
         </span>
-        <span className="card panel-item">
+        <span className="panel-item">
           <ChartStatus
             title={this.props.roomStatusData.Humidity.title}
             options={this.props.roomStatusData.Humidity.options}

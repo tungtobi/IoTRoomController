@@ -8,6 +8,7 @@ import {
 } from "react-bootstrap";
 import "./index.css";
 import AccountEditorModal from "../AccountEditorModal";
+import Notification from "../Notification";
 
 class Navbar extends Component {
   constructor(props) {
@@ -50,14 +51,11 @@ class Navbar extends Component {
         </span>
         <span className="form-inline pr-1-percent fit-content ">
           <OverlayTrigger
-            trigger="focus"
+            trigger="click"
             placement="bottom"
             overlay={
-              <Popover>
-                <Popover.Title as="h3">Notification</Popover.Title>
-                <Popover.Content>
-                  <strong>Holy guacamole!</strong> Check this info.
-                </Popover.Content>
+              <Popover className="notify-panel">
+                <Notification />
               </Popover>
             }
           >
@@ -85,7 +83,7 @@ class Navbar extends Component {
               </Popover>
             }
           >
-            <Button variant="link">
+            <Button variant="link p-0 mx-2">
               <i className="fas fa-user-circle navbar-icon" />
             </Button>
           </OverlayTrigger>

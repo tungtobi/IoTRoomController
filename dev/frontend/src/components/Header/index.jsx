@@ -524,19 +524,6 @@ class Header extends Component {
           show={this.state.modal.showDeviceAddition}
           onHide={this.hideDevAddModal}
         ></DeviceAdditionModal>
-        {/* <CenteredAlert
-          title="Tính năng chưa được hỗ trợ"
-          buttonName="Ok"
-          show={this.state.alert.userUnavailable}
-          onHide={this.hideUserUnavailableAlert}
-          onSubmit={this.hideUserUnavailableAlert}
-        >
-          Xin lỗi bạn{" "}
-          <span>
-            <i className="far fa-sad-cry"></i>
-          </span>{" "}
-          tính năng quản lý người dùng chưa được hỗ trợ trong phiên bản này!
-        </CenteredAlert> */}
 
         {/* Device addition Modal */}
         <DeviceAdditionModal

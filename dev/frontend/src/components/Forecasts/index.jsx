@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Accordion, Card, Button, Row, Col } from "react-bootstrap";
+import { Accordion, Card, Button, Row, Col, Spinner } from "react-bootstrap";
 import forecastOf from "../../logic/forecast";
 import getDateList from "../../logic/datelist";
 import ForecastDetail from "../ForecastDetail";
@@ -134,13 +134,25 @@ class ForecastsWindow extends Component {
                   onClick={this.handleSearch}
                   disabled={!this.state.select || this.state.searching}
                 >
-                  <span>
-                    <i className="fas fa-search"></i>
-                  </span>
-                  {this.state.searching ? " Searching..." : " Search"}
+                  {this.state.searching ? (
+                    <span>
+                      <Spinner
+                        as="span"
+                        animation="border"
+                        size="sm"
+                        role="status"
+                        aria-hidden="true"
+                      />{" "}
+                      Searching...
+                    </span>
+                  ) : (
+                    <span>
+                      <i className="fas fa-search"></i> Search
+                    </span>
+                  )}
                 </Button>
               </Col>
-            </Row>{" "}
+            </Row>
             <Row>
               <Map
                 center={
@@ -159,10 +171,7 @@ class ForecastsWindow extends Component {
         </Card>
         {list && (
           <Card className="panel mt-4" ref={this.myRef}>
-            <Card.Title>
-              {/* <i className="fas fa-cloud-sun" />  */}
-              5-day Wearther Forecast
-            </Card.Title>
+            <Card.Title>5-day Wearther Forecast</Card.Title>
             <Card.Body>
               <Accordion>
                 {getDateList(list).map((date, idx) => (

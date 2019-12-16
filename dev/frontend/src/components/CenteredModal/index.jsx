@@ -17,15 +17,9 @@ class CenteredModal extends Component {
 
   render() {
     return (
-      <Modal
-        {...this.props}
-        // aria-labelledby="contained-modal-title-vcenter"
-        centered
-      >
+      <Modal {...this.props} centered>
         <Modal.Header closeButton>
-          <Modal.Title /*id="contained-modal-title-vcenter"*/>
-            {this.getTitle()}
-          </Modal.Title>
+          <Modal.Title>{this.getTitle()}</Modal.Title>
         </Modal.Header>
         <Modal.Body>{this.getBody()}</Modal.Body>
         <Modal.Footer>{this.getFooter()}</Modal.Footer>

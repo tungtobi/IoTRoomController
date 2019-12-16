@@ -73,11 +73,6 @@ class HomeBanner extends Component {
                 <div className="login-form">
                   <LoginForm onSubmit={this.handleLogin} />
                 </div>
-                {/* <FacebookLogin
-                  appId="1218668471665557" //APP ID NOT CREATED YET
-                  fields="name,email,picture"
-                  callback={responseFacebook}
-                /> */}
               </div>
             </div>
             <div className="col-lg-3 col-md-12" />

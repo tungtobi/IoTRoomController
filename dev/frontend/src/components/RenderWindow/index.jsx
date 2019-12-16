@@ -43,7 +43,7 @@ class RenderWindow extends Component {
           </Route>
           <Route path="/dashboard/accounts">
             <div className="p-4 devices">
-              <AccountsPanel accounts={this.props.accounts}></AccountsPanel>
+              <AccountsPanel accounts={this.props.accounts} />
             </div>
           </Route>
           <Route path="/dashboard/forecasts">

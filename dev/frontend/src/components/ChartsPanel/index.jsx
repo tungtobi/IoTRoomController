@@ -11,17 +11,15 @@ class ChartsPanel extends Component {
           options={this.props.roomStatusData.AQI.options}
           series={this.props.roomStatusData.AQI.series}
         />
-
-        <ChartStatus
-          title={this.props.roomStatusData.Temperature.title}
-          options={this.props.roomStatusData.Temperature.options}
-          series={this.props.roomStatusData.Temperature.series}
-        />
-
         <ChartStatus
           title={this.props.roomStatusData.Humidity.title}
           options={this.props.roomStatusData.Humidity.options}
           series={this.props.roomStatusData.Humidity.series}
+        />
+        <ChartStatus
+          title={this.props.roomStatusData.Temperature.title}
+          options={this.props.roomStatusData.Temperature.options}
+          series={this.props.roomStatusData.Temperature.series}
         />
       </div>
     );

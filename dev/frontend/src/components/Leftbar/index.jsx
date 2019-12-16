@@ -15,7 +15,7 @@ class Leftbar extends Component {
             changeWindow={this.props.changeWindow}
           ></Menu>
         </div>
-        <div className="leftbar d-block d-md-none">
+        <div className="leftbar d-block d-md-none max-width-59">
           <div className="small-logo"></div>
           <MenuNoTitle
             selected={this.props.selected}

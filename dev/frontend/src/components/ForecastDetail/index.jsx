@@ -49,12 +49,6 @@ class ForecastDetail extends Component {
           ))}
         </tbody>
       </Table>
-      // <div>
-      //   <div>
-      //     <p>Nhiệt độ: {info ? info.main.temp : 0}</p>
-      //     <p>Nhiệt độ tối thiểu: {info ? info.main.temp : 0}</p>
-      //   </div>
-      // </div>
     );
   }
 }

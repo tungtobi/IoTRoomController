@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Card from "react-bootstrap/Card";
-import { Button } from "react-bootstrap";
+import { Button, Table } from "react-bootstrap";
 
 class AccountsPanel extends Component {
   render() {
@@ -8,7 +8,7 @@ class AccountsPanel extends Component {
       <Card>
         <Card.Title>Accounts Manager</Card.Title>
         <Card.Body>
-          <table className="table table-striped">
+          <Table responsive hover striped>
             <thead>
               <tr>
                 <th scope="col">#</th>
@@ -49,7 +49,7 @@ class AccountsPanel extends Component {
                 </tr>
               ))}
             </tbody>
-          </table>
+          </Table>
         </Card.Body>
         <Card.Footer className="hide-border mb-2 mt-n4">
           <Button

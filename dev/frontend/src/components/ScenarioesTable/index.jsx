@@ -1,10 +1,10 @@
 import React, { Component } from "react";
+import { Table } from "react-bootstrap";
 
 class ScenarioesTable extends Component {
-  state = {};
   render() {
     return (
-      <table className="table table-striped">
+      <Table responsive hover striped>
         <thead>
           <tr>
             <th scope="col">#</th>
@@ -41,7 +41,7 @@ class ScenarioesTable extends Component {
             </tr>
           ))}
         </tbody>
-      </table>
+      </Table>
     );
   }
 }

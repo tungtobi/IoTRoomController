@@ -1,10 +1,10 @@
 import React, { Component } from "react";
-import { Form } from "react-bootstrap";
+import { Form, Table } from "react-bootstrap";
 
 class DevicesTable extends Component {
   render() {
     return (
-      <table className="table table-striped">
+      <Table responsive hover striped>
         <thead>
           <tr>
             <th scope="col">#</th>
@@ -48,7 +48,7 @@ class DevicesTable extends Component {
             </tr>
           ))}
         </tbody>
-      </table>
+      </Table>
     );
   }
 }

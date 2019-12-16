@@ -3,6 +3,10 @@
   height: 100vh;
 }
 
+.max-width-59 {
+  max-width: 59px;
+}
+
 button.leftbar {
   background-color: transparent;
 }

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "./style.css";
-import { Col, Row, Image, Popover, Button } from "react-bootstrap";
+import { Row, Image, Popover, Button } from "react-bootstrap";
 
 const MAX_CONTENT_LENGTH = 35;
 
@@ -80,7 +80,12 @@ class Notification extends Component {
                   <h5>{notify.title}</h5>
                   <div>
                     {notify.content.length > MAX_CONTENT_LENGTH
-                      ? notify.content.substring(0, MAX_CONTENT_LENGTH) + "..."
+                      ? notify.content.substring(
+                          0,
+                          notify.readed === true
+                            ? MAX_CONTENT_LENGTH + 2
+                            : MAX_CONTENT_LENGTH + 1
+                        ) + "..."
                       : notify.content}
                   </div>
                   <i className="text-muted">{notify.timestamp}</i>

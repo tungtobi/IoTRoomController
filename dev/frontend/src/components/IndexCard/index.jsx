@@ -3,10 +3,6 @@ import { Card, Button } from "react-bootstrap";
 import "./index.css";
 
 class IndexCard extends Component {
-  state = {
-    compareTime: "Update now"
-  };
-
   componentDidMount() {
     this.interval = setInterval(() => {
       this.compareTime();
@@ -17,21 +13,40 @@ class IndexCard extends Component {
   }
 
   compareTime() {
+    if (this.props.notification_time_update === "Update now") {
+      return;
+    }
     var currentSeconds = new Date().getSeconds(); //Current Seconds
     var currentMinutes = new Date().getMinutes(); //Current Minutes
     var currentHours = new Date().getHours(); //Current Hours
-    if (currentHours > this.props.timeUpdate.hours) {
-    } else if (currentMinutes > this.props.timeUpdate.minutes) {
-    } else if (currentSeconds > this.props.timeUpdate.seconds) {
-      var deltaTime = (
-        currentSeconds - this.props.timeUpdate.seconds
-      ).toString();
-      deltaTime = deltaTime + "s";
-      var text = "Updated " + deltaTime + " ago";
-      this.setState({
-        compareTime: text
-      });
+
+    var deltaHour = currentHours - this.props.timeUpdate.hours;
+    var deltaMinutes = currentMinutes - this.props.timeUpdate.minutes;
+    var deltaSecond = currentSeconds - this.props.timeUpdate.seconds;
+
+    var deltaTime = deltaHour * 3600 + deltaMinutes * 60 + deltaSecond;
+    var text = "";
+
+    if (deltaTime >= 7200) {
+      text =
+        "Last updated " +
+        Math.floor(deltaTime / 3600).toString() +
+        " hours ago";
+    } else if (deltaTime >= 3600) {
+      text =
+        "Last updated " + Math.floor(deltaTime / 3600).toString() + " hour ago";
+    } else if (deltaTime >= 120) {
+      text =
+        "Last updated " +
+        Math.floor(deltaTime / 60).toString() +
+        " minutes ago";
+    } else if (deltaTime >= 60) {
+      text =
+        "Last updated " + Math.floor(deltaTime / 60).toString() + " minute ago";
+    } else {
+      text = "Last updated a few seconds ago";
     }
+    this.props.change_notification_time_update(text);
   }
 
   render() {
@@ -49,9 +64,19 @@ class IndexCard extends Component {
           </div>
         </Card.Body>
         <Card.Footer>
-          <Button variant="link" onClick={() => this.props.handUpdateData()}>
-            <i className="fas fa-redo" /> {this.state.compareTime}
+          <Button
+            variant="link"
+            onClick={() => {
+              this.props.handUpdateData();
+              this.props.change_notification_time_update("Updating...");
+            }}
+          >
+            <i className="fas fa-redo" />
+            <span> Update</span>
           </Button>
+          <small className="text-muted btn float-right">
+            {this.props.notification_time_update}
+          </small>
         </Card.Footer>
       </Card>
     );

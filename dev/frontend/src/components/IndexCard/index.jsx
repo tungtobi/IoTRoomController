@@ -74,9 +74,9 @@ class IndexCard extends Component {
             <i className="fas fa-redo" />
             <span> Update</span>
           </Button>
-          <small className="text-muted btn float-right">
+          <i className="text-muted btn float-right">
             {this.props.notification_time_update}
-          </small>
+          </i>
         </Card.Footer>
       </Card>
     );

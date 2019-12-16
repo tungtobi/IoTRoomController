@@ -3,6 +3,13 @@
   float: left;
 }
 
+.nav-fixed-top {
+  position: fixed !important;
+  z-index: 1000;
+  width: 86%;
+  padding-left: 14%;
+}
+
 .table {
   border-bottom: 1px solid #dee2e6;
 }
@@ -59,6 +66,7 @@
   }
   .nav-fixed-top {
     padding-left: 168px !important;
+    max-width: calc(100% - 168px);
   }
 }
 
@@ -68,6 +76,7 @@
   }
   .nav-fixed-top {
     padding-left: 60px !important;
+    min-width: calc(100% - 60px);
   }
 }
 

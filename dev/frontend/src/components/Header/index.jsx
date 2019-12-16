@@ -7,7 +7,7 @@ import DeviceEditorModal from "../DeviceEditorModal";
 import AccountEditorModal from "../AccountEditorModal";
 import AccountAdditionModal from "../AccountAdditionModal";
 import "./index.css";
-import CenteredAlert from "../CenteredAlert";
+// import CenteredAlert from "../CenteredAlert";
 // import Async from "react-async";
 
 class Header extends Component {

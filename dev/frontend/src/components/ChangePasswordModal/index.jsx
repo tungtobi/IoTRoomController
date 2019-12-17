@@ -1,19 +1,15 @@
 import CenteredModal from "../CenteredModal/index";
 import React from "react";
 import { Button, ButtonToolbar } from "react-bootstrap";
-import ScenarioAdditionForm from "./form";
+import ChangePasswordForm from "./form";
 
-class ScenarioAdditionModal extends CenteredModal {
-  constructor(props) {
-    super(props);
-  }
-
+class ChangePasswordModal extends CenteredModal {
   getTitle() {
-    return "Add a new scenario";
+    return "Change password";
   }
 
   getBody() {
-    return <ScenarioAdditionForm />;
+    return <ChangePasswordForm onSubmit={this.props.onSubmit} />;
   }
 
   getFooter() {
@@ -32,4 +28,4 @@ class ScenarioAdditionModal extends CenteredModal {
   }
 }
 
-export default ScenarioAdditionModal;
+export default ChangePasswordModal;

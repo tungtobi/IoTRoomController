@@ -3,16 +3,6 @@
   min-height: 72px;
 }
 
-.notification {
-  position: absolute !important;
-  transform: translate(18px, 16px);
-}
-
-.dropdown-item:focus,
-.dropdown-item:hover {
-  background-color: #f3f3f3 !important;
-}
-
 .navbar-icon {
   font-size: 160%;
   color: #c6c6c6;
@@ -55,4 +45,18 @@
 
 .popover {
   border-radius: 0.85rem !important;
+}
+
+.popover-footer {
+  border-top: 1px solid #c6c6c6;
+  text-align: center;
+  padding: 0.25rem;
+}
+
+.popover-title-text {
+  font-weight: bold;
+}
+
+.popover-title-button {
+  float: right;
 }

@@ -22,7 +22,7 @@ class DeviceAdditionModal extends CenteredModal {
         >
           Close
         </Button>
-        <Button onClick={this.props.onSummit}>Save changes</Button>
+        <Button onClick={this.props.onSubmit}>Save changes</Button>
       </ButtonToolbar>
     );
   }

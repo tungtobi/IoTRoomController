@@ -41,7 +41,7 @@ class MyAccountDropdownMenu extends Component {
           </Dropdown.Item>
           <Dropdown.Item
             className="myaccount-menu-item"
-            onClick={this.props.showProfileEditorModal}
+            onClick={this.props.showChangePasswordModal}
           >
             Change Password
           </Dropdown.Item>

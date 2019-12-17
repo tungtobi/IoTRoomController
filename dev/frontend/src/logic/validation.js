@@ -9,7 +9,7 @@ export default function handleInput(name, value, targetValue = null) {
       valid = value.length >= 5;
       break;
     case "cfPassword":
-      let targetValid = value.length >= 6;
+      let targetValid = value.length >= 5;
       valid = value === targetValue && targetValid;
       break;
     case "name":

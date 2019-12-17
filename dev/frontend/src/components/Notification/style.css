@@ -1,20 +1,11 @@
-.popover-footer {
-  border-top: 1px solid #c6c6c6;
-  text-align: center;
-  padding: 0.25rem;
-}
-
-.popover-title-text {
-  font-weight: bold;
-}
-
-.popover-title-button {
-  float: right;
+.notification {
+  position: absolute !important;
+  transform: translate(18px, 16px);
 }
 
 .notify-item {
   padding: 0.75rem 0.75rem;
-  background-color: #f8f9fa;
+  background-color: rgba(0, 0, 0, 0.05);
   cursor: pointer;
 }
 
@@ -31,7 +22,7 @@
 }
 
 .notify-item:hover {
-  background-color: #f3f3f3;
+  background-color: rgba(0, 0, 0, 0.075);
 }
 
 .notify-panel {

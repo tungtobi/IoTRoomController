@@ -5,3 +5,8 @@
 .myaccount-menu-item {
   padding: 0.5rem 0.75rem !important;
 }
+
+.dropdown-item:focus,
+.dropdown-item:hover {
+  background-color: rgba(0, 0, 0, 0.075) !important;
+}

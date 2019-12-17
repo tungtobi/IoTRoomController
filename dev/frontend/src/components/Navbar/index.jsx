@@ -5,6 +5,7 @@ import AccountEditorModal from "../AccountEditorModal";
 import Notification from "../Notification";
 import MyAccountDropdownMenu from "../MyAccountDropdownMenu";
 import * as notifyServices from "../../services/notify";
+import ChangePasswordModal from "../ChangePasswordModal";
 
 class Navbar extends Component {
   constructor(props) {
@@ -12,11 +13,15 @@ class Navbar extends Component {
 
     this.state = {
       notify: [],
-      showProfileEditor: false
+      showProfileEditor: false,
+      showChangePassword: false
     };
 
     this.hideProfileEditorModal = this.hideProfileEditorModal.bind(this);
     this.showProfileEditorModal = this.showProfileEditorModal.bind(this);
+
+    this.hideChangePasswordModal = this.hideChangePasswordModal.bind(this);
+    this.showChangePasswordModal = this.showChangePasswordModal.bind(this);
 
     this.handleFetchNotifySucess = this.handleFetchNotifySucess.bind(this);
   }
@@ -26,13 +31,19 @@ class Navbar extends Component {
   }
 
   hideProfileEditorModal() {
-    this.setState({
-      showProfileEditor: false
-    });
+    this.setState({ showProfileEditor: false });
   }
 
   showProfileEditorModal() {
     this.setState({ showProfileEditor: true });
+  }
+
+  hideChangePasswordModal() {
+    this.setState({ showChangePassword: false });
+  }
+
+  showChangePasswordModal() {
+    this.setState({ showChangePassword: true });
   }
 
   async fetchNotifications() {
@@ -85,6 +96,7 @@ class Navbar extends Component {
               <Popover className="myaccount-panel">
                 <MyAccountDropdownMenu
                   showProfileEditorModal={this.showProfileEditorModal}
+                  showChangePasswordModal={this.showChangePasswordModal}
                 />
               </Popover>
             }
@@ -100,6 +112,10 @@ class Navbar extends Component {
         <AccountEditorModal
           show={this.state.showProfileEditor}
           onHide={this.hideProfileEditorModal}
+        />
+        <ChangePasswordModal
+          show={this.state.showChangePassword}
+          onHide={this.hideChangePasswordModal}
         />
       </nav>
     );

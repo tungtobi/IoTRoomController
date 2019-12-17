@@ -9,7 +9,7 @@ class AccountEditorModal extends CenteredModal {
   }
 
   getBody() {
-    return <AccountEditorForm />;
+    return <AccountEditorForm onSubmit={this.props.onSubmit} />;
   }
 
   getFooter() {
@@ -22,7 +22,7 @@ class AccountEditorModal extends CenteredModal {
         >
           Close
         </Button>
-        <Button onClick={this.props.onSummit}>Save changes</Button>
+        <Button onClick={this.props.onSubmit}>Save changes</Button>
       </ButtonToolbar>
     );
   }

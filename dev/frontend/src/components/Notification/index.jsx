@@ -12,9 +12,19 @@ class Notification extends Component {
     };
   }
 
+  componentDidMount() {
+    this.setState({
+      list: this.props.list
+    });
+  }
+
   handleSelect(key) {
     const newList = this.state.list.map((notify, idx) => {
-      if (idx === key) notify.seen = !notify.seen;
+      if (idx === key) {
+        if (notify.seen !== "true") notify.seen = "true";
+        else notify.seen = "false";
+      }
+
       return notify;
     });
 
@@ -25,7 +35,7 @@ class Notification extends Component {
 
   markAllAsRead() {
     const newList = this.state.list.map(notify => {
-      notify.seen = true;
+      notify.seen = "true";
       return notify;
     });
 
@@ -52,7 +62,7 @@ class Notification extends Component {
             <div
               key={idx}
               className={
-                "notify-item " + (notify.seen === false ? "" : "readed")
+                "notify-item" + (notify.seen === "true" ? " readed" : "")
               }
               onClick={() => this.handleSelect(idx)}
             >

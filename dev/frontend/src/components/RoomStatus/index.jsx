@@ -4,7 +4,6 @@ import IndexesPanel from "../IndexesPanel";
 import "./index.css";
 
 class RoomStatus extends Component {
-  state = {};
   render() {
     return (
       <div className="p-4">

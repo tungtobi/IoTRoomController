@@ -10,9 +10,7 @@
 
 .dropdown-item:focus,
 .dropdown-item:hover {
-  background-color: #007bff !important;
-  color: #fff !important;
-  opacity: 0.65;
+  background-color: #f3f3f3 !important;
 }
 
 .navbar-icon {

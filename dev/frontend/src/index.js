@@ -5,7 +5,15 @@ import HomeBanner from "./components/HomeBanner/index";
 import Header from "./components/Header";
 import "bootstrap/dist/css/bootstrap.min.css";
 
+//Store
+// import { createStore } from "redux";
+// import reducer from "./reducers/index";
+// import { Provider } from "react-redux";
+
+// const store = createStore(reducer);
+
 ReactDOM.render(
+  // <Provider store={store}>
   <Router>
     <Switch>
       <Route exact path="/">
@@ -15,9 +23,10 @@ ReactDOM.render(
         <HomeBanner />
       </Route>
       <Route path="/dashboard">
-        <Header/>
+        <Header />
       </Route>
     </Switch>
   </Router>,
+  // </Provider>
   document.getElementById("root")
 );

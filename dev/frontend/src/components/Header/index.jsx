@@ -6,6 +6,8 @@ import DeviceAdditionModal from "../DeviceAdditionModal";
 import DeviceEditorModal from "../DeviceEditorModal";
 import AccountEditorModal from "../AccountEditorModal";
 import AccountAdditionModal from "../AccountAdditionModal";
+import { Redirect } from "react-router-dom";
+
 import "./index.css";
 // import CenteredAlert from "../CenteredAlert";
 // import Async from "react-async";
@@ -15,6 +17,7 @@ class Header extends Component {
     super(props);
 
     this.state = {
+      isLogin: null,
       timeUpdate: {
         seconds: 0,
         minutes: 0,
@@ -455,7 +458,10 @@ class Header extends Component {
   }
 
   componentDidMount() {
-    this.getCurrentWindow();
+    const token = localStorage.getItem("token");
+    this.setState({ isLogin: token !== null });
+
+    // this.getCurrentWindow();
     this.handUpdateData();
   }
 
@@ -513,6 +519,8 @@ class Header extends Component {
   };
 
   render() {
+    if (this.state.isLogin === false) return <Redirect to="/" />;
+
     return (
       <div className="background-light">
         {/* Device Editor modal */}

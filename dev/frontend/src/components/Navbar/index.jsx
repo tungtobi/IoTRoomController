@@ -1,14 +1,9 @@
 import React, { Component } from "react";
-import {
-  Dropdown,
-  Button,
-  OverlayTrigger,
-  Popover,
-  Badge
-} from "react-bootstrap";
+import { Button, OverlayTrigger, Popover, Badge } from "react-bootstrap";
 import "./index.css";
 import AccountEditorModal from "../AccountEditorModal";
 import Notification from "../Notification";
+import MyAccountDropdownMenu from "../MyAccountDropdownMenu";
 
 class Navbar extends Component {
   constructor(props) {
@@ -47,11 +42,11 @@ class Navbar extends Component {
 
   render() {
     return (
-      <nav className="navbar navbar-light navbar-white py-2 px-0 nav-fixed-top">
-        <span className="navbar-brand pl-2-percent">
+      <nav className="navbar navbar-white nav-fixed-top">
+        <span className="navbar-brand pl-4">
           <h3 className="navbar-title">Dashboard</h3>
         </span>
-        <span className="form-inline pr-1-percent fit-content ">
+        <span className="form-inline pr-2 fit-content ">
           <OverlayTrigger
             trigger="click"
             ref="overlay"
@@ -76,13 +71,8 @@ class Navbar extends Component {
             trigger="focus"
             placement="bottom"
             overlay={
-              <Popover>
-                <Popover.Content className="py-2 px-0">
-                  <Dropdown.Item onClick={this.showProfileEditorModal}>
-                    Your Profile
-                  </Dropdown.Item>
-                  <Dropdown.Item href="/">Logout!</Dropdown.Item>
-                </Popover.Content>
+              <Popover className="myaccount-panel">
+                <MyAccountDropdownMenu />
               </Popover>
             }
           >

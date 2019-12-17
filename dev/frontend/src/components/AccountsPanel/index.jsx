@@ -1,39 +1,21 @@
 import React, { Component } from "react";
 import Card from "react-bootstrap/Card";
 import { Button, Table, Spinner } from "react-bootstrap";
-import * as userServices from "../../services/user";
 
 class AccountsPanel extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      fetchSucess: null,
-      list: []
+      list: props.list,
+      fetchSucess: props.fetchSucess
     };
-
-    this.handleFetchSucess = this.handleFetchSucess.bind(this);
   }
 
-  componentDidMount() {
-    this.fetchUserList();
-  }
-
-  async fetchUserList() {
-    await userServices.list(this.handleFetchSucess);
-  }
-
-  handleFetchSucess(res) {
-    let users = [];
-    for (var propName in res) {
-      if (propName.startsWith("user_")) {
-        users.push(res[propName]);
-      }
-    }
-    this.setState({ list: users, fetchSucess: true });
-  }
-
-  handleFetchFailure() {
-    this.setState({ fetchSucess: false });
+  static getDerivedStateFromProps(nextProps, prevState) {
+    return {
+      list: nextProps.list,
+      fetchSucess: nextProps.fetchSucess
+    };
   }
 
   render() {

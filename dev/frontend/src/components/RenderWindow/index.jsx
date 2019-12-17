@@ -6,8 +6,42 @@ import HistoryCard from "../HistoryCard";
 import "./index.css";
 import ForecastsWindow from "../Forecasts";
 import AccountsPanel from "../AccountsPanel";
+import * as userServices from "../../services/user";
 
 class RenderWindow extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      fetchUsersSucess: null,
+      users: null
+    };
+
+    this.handleFetchUsersSucess = this.handleFetchUsersSucess.bind(this);
+  }
+
+  componentDidMount() {
+    this.fetchUserList();
+  }
+
+  async fetchUserList() {
+    await userServices.list(this.handleFetchUsersSucess);
+  }
+
+  handleFetchUsersSucess(res) {
+    let users = [];
+    for (var propName in res) {
+      if (propName.startsWith("user_")) {
+        users.push(res[propName]);
+      }
+    }
+    this.setState({ users, fetchUsersSucess: true });
+  }
+
+  handleFetchUsersFailure() {
+    this.setState({ fetchUsersSucess: false });
+  }
+
   render() {
     return (
       <div className="window-body">
@@ -36,7 +70,10 @@ class RenderWindow extends Component {
           </Route>
           <Route path="/dashboard/accounts">
             <div className="p-4 devices">
-              <AccountsPanel />
+              <AccountsPanel
+                list={this.state.users}
+                fetchSucess={this.state.fetchUsersSucess}
+              />
             </div>
           </Route>
           <Route path="/dashboard/forecasts">

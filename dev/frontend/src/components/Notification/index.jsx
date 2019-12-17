@@ -12,10 +12,10 @@ class Notification extends Component {
     };
   }
 
-  componentDidMount() {
-    this.setState({
-      list: this.props.list
-    });
+  static getDerivedStateFromProps(nextProps, prevState) {
+    return {
+      list: nextProps.list
+    };
   }
 
   handleSelect(key) {

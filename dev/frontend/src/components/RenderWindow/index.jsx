@@ -11,13 +11,6 @@ class RenderWindow extends Component {
   render() {
     return (
       <div className="window-body">
-        {/*
-            A <Switch> looks through all its children <Route>
-            elements and renders the first one whose path
-            matches the current URL. Use a <Switch> any time
-            you have multiple routes, but you want only one
-            of them to render at a time
-          */}
         <Switch>
           <Route exact path="/dashboard">
             <RoomStatus
@@ -43,7 +36,7 @@ class RenderWindow extends Component {
           </Route>
           <Route path="/dashboard/accounts">
             <div className="p-4 devices">
-              <AccountsPanel accounts={this.props.accounts} />
+              <AccountsPanel />
             </div>
           </Route>
           <Route path="/dashboard/forecasts">

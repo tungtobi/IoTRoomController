@@ -8,29 +8,16 @@ class Notification extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      list: [
-        {
-          title: "Hello World",
-          content: "Welcome to dashboard, this is a simple notification.",
-          timestamp: "16/12/2019",
-          readed: false
-        },
-        {
-          title: "Another Notification",
-          content: "Just another notify to see what going on.",
-          timestamp: "15/12/2019",
-          readed: true
-        }
-      ]
+      list: props.list
     };
   }
 
   handleSelect(key) {
     const newList = this.state.list.map((notify, idx) => {
-      if (idx === key) notify.readed = !notify.readed;
-
+      if (idx === key) notify.seen = !notify.seen;
       return notify;
     });
+
     this.setState({
       list: newList
     });
@@ -38,9 +25,10 @@ class Notification extends Component {
 
   markAllAsRead() {
     const newList = this.state.list.map(notify => {
-      notify.readed = true;
+      notify.seen = true;
       return notify;
     });
+
     this.setState({
       list: newList
     });
@@ -64,7 +52,7 @@ class Notification extends Component {
             <div
               key={idx}
               className={
-                "notify-item " + (notify.readed === true ? "readed" : "")
+                "notify-item " + (notify.seen === false ? "" : "readed")
               }
               onClick={() => this.handleSelect(idx)}
             >
@@ -77,18 +65,18 @@ class Notification extends Component {
                   />
                 </div>
                 <div className="notify-text-container">
-                  <h5>{notify.title}</h5>
+                  <h5>Something for {notify.for_user}</h5>
                   <div>
-                    {notify.content.length > MAX_CONTENT_LENGTH
-                      ? notify.content.substring(
+                    {notify.message.length > MAX_CONTENT_LENGTH
+                      ? notify.message.substring(
                           0,
-                          notify.readed === true
+                          notify.seen === true
                             ? MAX_CONTENT_LENGTH + 2
                             : MAX_CONTENT_LENGTH + 1
                         ) + "..."
-                      : notify.content}
+                      : notify.message}
                   </div>
-                  <i className="text-muted">{notify.timestamp}</i>
+                  <i className="text-muted">{notify.time}</i>
                 </div>
               </Row>
             </div>

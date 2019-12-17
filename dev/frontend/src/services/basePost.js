@@ -13,6 +13,7 @@ function basePost(endpoint, body, onSuccess, onFailure = console.log) {
   })
     .then(res => res.json())
     .then(data => {
+      console.log(`Fetch ${endpoint} then get response`);
       console.log(data);
 
       if (data.error_code === 0) onSuccess(data);

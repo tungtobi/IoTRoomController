@@ -1,9 +1,32 @@
 import React, { Component } from "react";
 import { Dropdown, Popover } from "react-bootstrap";
+import { Redirect } from "react-router-dom";
+
 import "./style.css";
+import * as sessionServices from "../../services/session";
 
 class MyAccountDropdownMenu extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      isLogout: false
+    };
+
+    this.handleLogout = this.handleLogout.bind(this);
+  }
+
+  async handleLogout() {
+    this.setState({ isLogout: true });
+    await sessionServices.logout();
+  }
+
   render() {
+    if (this.state.isLogout === true) {
+      localStorage.clear();
+      return <Redirect to="/" />;
+    }
+
     return (
       <React.Fragment>
         <Popover.Title>
@@ -24,7 +47,7 @@ class MyAccountDropdownMenu extends Component {
           </Dropdown.Item>
           <Dropdown.Item
             className="myaccount-menu-item"
-            onClick={this.props.handleLogout}
+            onClick={this.handleLogout}
           >
             Sign out!
           </Dropdown.Item>

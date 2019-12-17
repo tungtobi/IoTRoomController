@@ -14,5 +14,5 @@ export const logout = () => {
     token: localStorage.getItem("token")
   };
 
-  basePost("/logout", body, console.log);
+  basePost("/logout", body, () => {});
 };

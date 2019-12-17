@@ -4,24 +4,25 @@ import "./index.css";
 import AccountEditorModal from "../AccountEditorModal";
 import Notification from "../Notification";
 import MyAccountDropdownMenu from "../MyAccountDropdownMenu";
-import { Redirect } from "react-router-dom";
-import * as sessionServices from "../../services/session";
+import * as notifyServices from "../../services/notify";
 
 class Navbar extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      noti: 1,
-      showProfileEditor: false,
-      isLogout: false
+      notify: [],
+      showProfileEditor: false
     };
 
-    this.handleLogout = this.handleLogout.bind(this);
-    this.handleClickNotifi = this.handleClickNotifi.bind(this);
-    this.handleClickAccount = this.handleClickAccount.bind(this);
     this.hideProfileEditorModal = this.hideProfileEditorModal.bind(this);
     this.showProfileEditorModal = this.showProfileEditorModal.bind(this);
+
+    this.handleFetchNotifySucess = this.handleFetchNotifySucess.bind(this);
+  }
+
+  componentDidMount() {
+    this.fetchNotifications();
   }
 
   hideProfileEditorModal() {
@@ -34,46 +35,23 @@ class Navbar extends Component {
     this.setState({ showProfileEditor: true });
   }
 
-  handleClickNotifi() {
-    this.setState({
-      noti: 0
-    });
+  async fetchNotifications() {
+    await notifyServices.list(this.handleFetchNotifySucess);
   }
 
-  handleClickAccount() {
-    this.refs.overlay.hide();
-  }
+  handleFetchNotifySucess(res) {
+    let notifications = [];
 
-  async handleLogout() {
-    this.setState({ isLogout: true });
+    for (var propName in res)
+      if (propName.startsWith("notification_"))
+        notifications.push(res[propName]);
 
-    // const proxyurl = "https://cors-anywhere.herokuapp.com/";
-    // const url = "http://54.237.117.36:3000/logout";
-
-    // fetch(proxyurl + url, {
-    //   method: "POST",
-    //   headers: {
-    //     Accept: "application/json",
-    //     "Content-Type": "application/json"
-    //   },
-    //   body: JSON.stringify({
-    //     token: localStorage.getItem("token")
-    //   })
-    // })
-    //   .then(res => res.json())
-    //   .then(data => {
-    //     console.log(data);
-    //   })
-    //   .catch(console.log);
-
-    await sessionServices.logout();
+    this.setState({ notify: notifications });
   }
 
   render() {
-    if (this.state.isLogout === true) {
-      localStorage.clear();
-      return <Redirect to="/" />;
-    }
+    const unseen = this.state.notify.filter(n => n.seen === false).length;
+
     return (
       <nav className="navbar navbar-white nav-fixed-top px-0">
         <span className="navbar-brand pl-4">
@@ -86,14 +64,14 @@ class Navbar extends Component {
             placement="bottom"
             overlay={
               <Popover className="notify-panel">
-                <Notification />
+                <Notification list={this.state.notify} />
               </Popover>
             }
           >
-            <Button variant="link p-0" onClick={this.handleClickNotifi}>
-              {this.state.noti !== 0 && (
+            <Button variant="link p-0">
+              {unseen !== 0 && (
                 <Badge pill variant="danger notification px-1">
-                  {this.state.noti}
+                  {unseen}
                 </Badge>
               )}
               <i className="fas fa-bell navbar-icon" />
@@ -106,13 +84,15 @@ class Navbar extends Component {
             overlay={
               <Popover className="myaccount-panel">
                 <MyAccountDropdownMenu
-                  handleLogout={this.handleLogout}
                   showProfileEditorModal={this.showProfileEditorModal}
                 />
               </Popover>
             }
           >
-            <Button variant="link p-0 mx-2" onClick={this.handleClickAccount}>
+            <Button
+              variant="link p-0 mx-2"
+              onClick={() => this.refs.overlay.hide()}
+            >
               <i className="fas fa-user-circle navbar-icon" />
             </Button>
           </OverlayTrigger>

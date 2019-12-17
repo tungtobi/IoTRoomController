@@ -37,13 +37,10 @@ class AccountsPanel extends Component {
               users.push(data[propName]);
             }
           }
-
-          console.log(users);
-
           this.setState({ list: users });
         }
       })
-      .catch(this.handleLoginFailure);
+      .catch(console.log);
   }
   // }
 

@@ -3,6 +3,40 @@ import Card from "react-bootstrap/Card";
 import { Button, Table } from "react-bootstrap";
 
 class AccountsPanel extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      list: []
+    };
+  }
+
+  componentDidMount() {}
+
+  // fetchUserList() {
+  //   const proxyurl = "https://cors-anywhere.herokuapp.com/";
+  //   const url = "http://54.237.117.36:3000/admin/list-user";
+
+  //   fetch(proxyurl + url, {
+  //     method: "POST",
+  //     headers: {
+  //       Accept: "application/json",
+  //       "Content-Type": "application/json"
+  //     },
+  //     body: JSON.stringify({
+  //       token: localStorage.getItem("token")
+  //     })
+  //   })
+  //     .then(res => res.json())
+  //     .then(data => {
+  //       if (data.error_code === 0) {
+
+  //       }
+  //     })
+  //     .catch(this.handleLoginFailure);
+  // }
+  // }
+
   render() {
     return (
       <Card>

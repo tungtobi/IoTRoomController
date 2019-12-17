@@ -74,7 +74,7 @@ class Navbar extends Component {
       return <Redirect to="/" />;
     }
     return (
-      <nav className="navbar navbar-white nav-fixed-top">
+      <nav className="navbar navbar-white nav-fixed-top px-0">
         <span className="navbar-brand pl-4">
           <h3 className="navbar-title">Dashboard</h3>
         </span>

@@ -2,15 +2,9 @@ import React, { Component } from "react";
 import Navbar from "../Navbar";
 import Leftbar from "../Leftbar";
 import RenderWindow from "../RenderWindow";
-import DeviceAdditionModal from "../DeviceAdditionModal";
-import DeviceEditorModal from "../DeviceEditorModal";
-import AccountEditorModal from "../AccountEditorModal";
-import AccountAdditionModal from "../AccountAdditionModal";
 import { Redirect } from "react-router-dom";
 
 import "./index.css";
-// import CenteredAlert from "../CenteredAlert";
-// import Async from "react-async";
 
 class Header extends Component {
   constructor(props) {
@@ -23,25 +17,6 @@ class Header extends Component {
         minutes: 0,
         hours: 0
       },
-      alert: {
-        userUnavailable: false
-      },
-      modal: {
-        showDeviceEditor: false,
-        showDeviceAddition: false,
-        showScenarioEditor: false,
-        showScenarioAddition: false
-      },
-      accounts: [
-        {
-          id: 1,
-          name: "Dad",
-          description: "None",
-          createdDate: "07/12/2019",
-          status: "Activate",
-          devices: "Air Conditioner"
-        }
-      ],
       menuItems: [
         {
           link: "/dashboard",
@@ -71,7 +46,7 @@ class Header extends Component {
         {
           link: "/dashboard/accounts",
           icon: "fas fa-user-circle",
-          nameItem: "Account"
+          nameItem: "Accounts"
         }
       ],
       avatar: {
@@ -303,15 +278,6 @@ class Header extends Component {
     };
     this.handUpdateData = this.handUpdateData.bind(this);
     this.changeValue = this.changeValue.bind(this);
-
-    this.showDevEditModal = this.showDevEditModal.bind(this);
-    this.hideDevEditModal = this.hideDevEditModal.bind(this);
-
-    this.showDevAddModal = this.showDevAddModal.bind(this);
-    this.hideDevAddModal = this.hideDevAddModal.bind(this);
-
-    this.showUserUnavailableAlert = this.showUserUnavailableAlert.bind(this);
-    this.hideUserUnavailableAlert = this.hideUserUnavailableAlert.bind(this);
   }
 
   handUpdateData() {
@@ -441,27 +407,11 @@ class Header extends Component {
       .catch(console.log);
   }
 
-  showUserUnavailableAlert() {
-    this.setState({
-      alert: {
-        userUnavailable: true
-      }
-    });
-  }
-
-  hideUserUnavailableAlert() {
-    this.setState({
-      alert: {
-        userUnavailable: false
-      }
-    });
-  }
-
   componentDidMount() {
     const token = localStorage.getItem("token");
     this.setState({ isLogin: token !== null });
 
-    // this.getCurrentWindow();
+    this.getCurrentWindow();
     this.handUpdateData();
   }
 
@@ -476,46 +426,10 @@ class Header extends Component {
     });
   }
 
-  showDevEditModal() {
-    this.setState({ modal: { showDeviceEditor: true } });
-  }
-
-  hideDevEditModal() {
-    this.setState({ modal: { showDeviceEditor: false } });
-  }
-
-  showDevAddModal() {
-    this.setState({ modal: { showDeviceAddition: true } });
-  }
-
-  hideDevAddModal() {
-    this.setState({ modal: { showDeviceAddition: false } });
-  }
-
-  removeDeviceList = seria => {
-    const devicesList = this.state.devicesList.filter(d => d.seria !== seria);
-    this.setState({ devicesList });
-  };
-
-  removeDeviceScenario = code => {
-    const devicesScenario = this.state.devicesScenario.filter(
-      d => d.code !== code
-    );
-    this.setState({ devicesScenario });
-  };
-
-  removeDeviceHistory = seria => {};
-
-  changeDevice = seria => {};
-
   changeWindow = nameWindow => {
-    if (nameWindow === "Account") {
-      this.showUserUnavailableAlert();
-    } else {
-      this.setState({
-        nameWindow: nameWindow
-      });
-    }
+    this.setState({
+      nameWindow: nameWindow
+    });
   };
 
   render() {
@@ -523,34 +437,6 @@ class Header extends Component {
 
     return (
       <div className="background-light">
-        {/* Device Editor modal */}
-        <DeviceEditorModal
-          show={this.state.modal.showDeviceEditor}
-          onHide={this.hideDevEditModal}
-        ></DeviceEditorModal>
-        <DeviceAdditionModal
-          show={this.state.modal.showDeviceAddition}
-          onHide={this.hideDevAddModal}
-        ></DeviceAdditionModal>
-
-        {/* Device addition Modal */}
-        <DeviceAdditionModal
-          show={this.state.isShowDevAddModal}
-          onHide={this.hideDevAddModal}
-        ></DeviceAdditionModal>
-
-        {/* Account addition modal */}
-        <AccountAdditionModal
-          show={this.state.isShowAccAddModal}
-          onHide={this.hideAccAddModal}
-        ></AccountAdditionModal>
-
-        {/* Account Editor modal */}
-        <AccountEditorModal
-          show={this.state.isShowAccEditModal}
-          onHide={this.hideAccEditModal}
-        ></AccountEditorModal>
-
         <div className="menu-horizontal">
           <Leftbar
             selected={this.state.nameWindow}
@@ -572,12 +458,6 @@ class Header extends Component {
             roomStatusLabels={this.state.roomStatusLabels}
             roomStatusData={this.state.roomStatusData}
             indexes={this.state.indexes}
-            accounts={this.state.accounts}
-            removeDeviceList={this.removeDeviceList}
-            removeDeviceScenario={this.removeDeviceScenario}
-            removeDeviceHistory={this.removeDeviceHistory}
-            showDevEditModal={this.showDevEditModal}
-            showDevAddModal={this.showDevAddModal}
             handUpdateData={this.handUpdateData}
           ></RenderWindow>
         </div>

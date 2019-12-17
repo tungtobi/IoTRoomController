@@ -25,7 +25,7 @@
 }
 
 .background-light {
-  background-color: #f1f1f1 !important;
+  background-color: #e9eaed !important;
   min-height: 100vh;
 }
 
@@ -70,7 +70,7 @@
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 767px) {
   .dashboard-content {
     padding-left: 60px !important;
   }
@@ -94,6 +94,7 @@
 
 .card {
   border-radius: 0.85rem !important;
+  box-shadow: 0px 2px 2px #00000012;
 }
 
 .item-icon-blue {

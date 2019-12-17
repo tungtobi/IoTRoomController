@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Dropdown, Popover } from "react-bootstrap";
+import "./style.css";
 
 class MyAccountDropdownMenu extends Component {
   render() {

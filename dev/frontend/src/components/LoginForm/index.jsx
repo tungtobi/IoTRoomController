@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Form, Button, Spinner, Alert } from "react-bootstrap";
 import { Redirect } from "react-router-dom";
 import handleInput from "../../logic/validation";
+import * as sessionServices from "../../services/session";
 
 import "../HomeBanner/style.css";
 import "./style.css";
@@ -21,6 +22,9 @@ class LoginForm extends Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.handleLogin = this.handleLogin.bind(this);
+
+    this.handleLoginFailure = this.handleLoginFailure.bind(this);
+    this.handleLoginSuccess = this.handleLoginSuccess.bind(this);
   }
 
   handleChange(event) {
@@ -34,36 +38,43 @@ class LoginForm extends Component {
     });
   }
 
-  handleLogin(event) {
+  async handleLogin(event) {
     event.preventDefault();
     this.setState({
       isAuthening: true
     });
 
-    const proxyurl = "https://cors-anywhere.herokuapp.com/";
-    const url = "http://54.237.117.36:3000/login";
+    // const proxyurl = "https://cors-anywhere.herokuapp.com/";
+    // const url = "http://54.237.117.36:3000/login";
 
-    fetch(proxyurl + url, {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        username: this.state.username,
-        password: this.state.password
-      })
-    })
-      .then(res => res.json())
-      .then(data => {
-        if (data.error_code === 0) this.handleLoginSuccess(data.token);
-        else this.handleLoginFailure();
-      })
-      .catch(this.handleLoginFailure);
+    // fetch(proxyurl + url, {
+    //   method: "POST",
+    //   headers: {
+    //     Accept: "application/json",
+    //     "Content-Type": "application/json"
+    //   },
+    //   body: JSON.stringify({
+    //     username: this.state.username,
+    //     password: this.state.password
+    //   })
+    // })
+    //   .then(res => res.json())
+    //   .then(data => {
+    //     if (data.error_code === 0) this.handleLoginSuccess(data);
+    //     else this.handleLoginFailure();
+    //   })
+    //   .catch(this.handleLoginFailure);
+
+    await sessionServices.login(
+      this.state.username,
+      this.state.password,
+      this.handleLoginSuccess,
+      this.handleLoginFailure
+    );
   }
 
-  handleLoginSuccess(token) {
-    localStorage.setItem("token", token);
+  handleLoginSuccess(res) {
+    localStorage.setItem("token", res.token);
     this.setState({ success: true, isAuthening: false });
   }
 

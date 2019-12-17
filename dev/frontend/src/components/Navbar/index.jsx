@@ -5,6 +5,7 @@ import AccountEditorModal from "../AccountEditorModal";
 import Notification from "../Notification";
 import MyAccountDropdownMenu from "../MyAccountDropdownMenu";
 import { Redirect } from "react-router-dom";
+import * as sessionServices from "../../services/session";
 
 class Navbar extends Component {
   constructor(props) {
@@ -43,29 +44,29 @@ class Navbar extends Component {
     this.refs.overlay.hide();
   }
 
-  handleLogout() {
-    const proxyurl = "https://cors-anywhere.herokuapp.com/";
-    const url = "http://54.237.117.36:3000/logout";
+  async handleLogout() {
+    this.setState({ isLogout: true });
 
-    fetch(proxyurl + url, {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        token: localStorage.getItem("token")
-      })
-    })
-      .then(res => res.json())
-      .then(data => {
-        console.log(data);
+    // const proxyurl = "https://cors-anywhere.herokuapp.com/";
+    // const url = "http://54.237.117.36:3000/logout";
 
-        if (data.error_code === 0) {
-          this.setState({ isLogout: true });
-        }
-      })
-      .catch(console.log);
+    // fetch(proxyurl + url, {
+    //   method: "POST",
+    //   headers: {
+    //     Accept: "application/json",
+    //     "Content-Type": "application/json"
+    //   },
+    //   body: JSON.stringify({
+    //     token: localStorage.getItem("token")
+    //   })
+    // })
+    //   .then(res => res.json())
+    //   .then(data => {
+    //     console.log(data);
+    //   })
+    //   .catch(console.log);
+
+    await sessionServices.logout();
   }
 
   render() {

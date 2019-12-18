@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Card from "react-bootstrap/Card";
-import { Button, Table, Spinner } from "react-bootstrap";
+import { Button, Table, Spinner, Alert } from "react-bootstrap";
 
 class AccountsPanel extends Component {
   constructor(props) {
@@ -19,7 +19,8 @@ class AccountsPanel extends Component {
   }
 
   render() {
-    if (this.state.fetchSucess === true)
+    const { fetchSucess } = this.state;
+    if (fetchSucess === true)
       return (
         <Card>
           <Card.Title>Accounts Manager</Card.Title>
@@ -83,6 +84,17 @@ class AccountsPanel extends Component {
             </Button>
           </Card.Footer>
         </Card>
+      );
+    else if (fetchSucess === false)
+      return (
+        <Alert variant="danger">
+          <Alert.Heading>Oh snap! You got an error!</Alert.Heading>
+          <p>
+            Check your connection and try again. Duis mollis, est non commodo
+            luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit.
+            Cras mattis consectetur purus sit amet fermentum.
+          </p>
+        </Alert>
       );
     else
       return (

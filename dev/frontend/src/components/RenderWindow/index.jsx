@@ -18,6 +18,7 @@ class RenderWindow extends Component {
     };
 
     this.handleFetchUsersSucess = this.handleFetchUsersSucess.bind(this);
+    this.handleFetchUsersFailure = this.handleFetchUsersFailure.bind(this);
   }
 
   componentDidMount() {
@@ -25,7 +26,10 @@ class RenderWindow extends Component {
   }
 
   async fetchUserList() {
-    await userServices.list(this.handleFetchUsersSucess);
+    await userServices.list(
+      this.handleFetchUsersSucess,
+      this.handleFetchUsersFailure
+    );
   }
 
   handleFetchUsersSucess(res) {

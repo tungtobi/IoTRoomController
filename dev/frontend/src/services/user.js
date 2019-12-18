@@ -1,11 +1,11 @@
 import basePost from "./basePost";
 
-export const list = onSuccess => {
+export const list = (onSuccess, onFailure) => {
   const body = {
     token: localStorage.getItem("token")
   };
 
-  basePost("/admin/list-user", body, onSuccess);
+  basePost("/admin/list-user", body, onSuccess, onFailure);
 };
 
 export const add = () => {};

@@ -22,7 +22,7 @@ class CenteredAlert extends CenteredModal {
     const style = this.props.danger ? "danger" : "primary";
     return (
       <Button onClick={this.props.onSubmit} variant={style}>
-        {this.props.buttonName}
+        {this.props.button_name}
       </Button>
     );
   }

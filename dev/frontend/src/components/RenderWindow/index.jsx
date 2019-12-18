@@ -6,8 +6,69 @@ import HistoryCard from "../HistoryCard";
 import "./index.css";
 import ForecastsWindow from "../Forecasts";
 import AccountsPanel from "../AccountsPanel";
+import * as userServices from "../../services/user";
 
 class RenderWindow extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      fetchUsersSuccess: null,
+      users: null
+    };
+
+    this.handleFetchUsersSuccess = this.handleFetchUsersSuccess.bind(this);
+    this.handleFetchUsersFailure = this.handleFetchUsersFailure.bind(this);
+
+    this.handleLockUserSuccess = this.handleLockUserSuccess.bind(this);
+    this.handleUnlockUserSuccess = this.handleUnlockUserSuccess.bind(this);
+  }
+
+  componentDidMount() {
+    this.fetchUserList();
+  }
+
+  async fetchUserList() {
+    await userServices.list(
+      this.handleFetchUsersSuccess,
+      this.handleFetchUsersFailure
+    );
+  }
+
+  handleFetchUsersSuccess(res) {
+    let users = [];
+    for (var propName in res) {
+      if (propName.startsWith("user_")) {
+        if (res[propName].role !== "admin") users.push(res[propName]);
+      }
+    }
+    this.setState({ users, fetchUsersSuccess: true });
+  }
+
+  handleFetchUsersFailure() {
+    this.setState({ fetchUsersSuccess: false });
+  }
+
+  handleLockUserSuccess(res, req) {
+    this.changeLockingState(req.username, "lock");
+  }
+
+  handleUnlockUserSuccess(res, req) {
+    this.changeLockingState(req.username, "unlock");
+  }
+
+  changeLockingState(username, state) {
+    const newList = this.state.users.map(user => {
+      if (user.username === username) {
+        user.locking_state = state;
+      }
+
+      return user;
+    });
+
+    this.setState({ list: newList });
+  }
+
   render() {
     return (
       <div className="window-body">
@@ -36,7 +97,12 @@ class RenderWindow extends Component {
           </Route>
           <Route path="/dashboard/accounts">
             <div className="p-4 devices">
-              <AccountsPanel />
+              <AccountsPanel
+                list={this.state.users}
+                fetchSuccess={this.state.fetchUsersSuccess}
+                lockSuccess={this.handleLockUserSuccess}
+                unlockSuccess={this.handleUnlockUserSuccess}
+              />
             </div>
           </Route>
           <Route path="/dashboard/forecasts">

@@ -1,11 +1,14 @@
 import React, { Component } from "react";
 import { Button, OverlayTrigger, Popover, Badge } from "react-bootstrap";
-import "./index.css";
+
 import AccountEditorModal from "../AccountEditorModal";
 import Notification from "../Notification";
 import MyAccountDropdownMenu from "../MyAccountDropdownMenu";
-import * as notifyServices from "../../services/notify";
 import ChangePasswordModal from "../ChangePasswordModal";
+
+import * as notifyServices from "../../services/notify";
+
+import "./index.css";
 
 class Navbar extends Component {
   constructor(props) {
@@ -23,7 +26,7 @@ class Navbar extends Component {
     this.hideChangePasswordModal = this.hideChangePasswordModal.bind(this);
     this.showChangePasswordModal = this.showChangePasswordModal.bind(this);
 
-    this.handleFetchNotifySucess = this.handleFetchNotifySucess.bind(this);
+    this.handleFetchNotifySuccess = this.handleFetchNotifySuccess.bind(this);
   }
 
   componentDidMount() {
@@ -47,21 +50,21 @@ class Navbar extends Component {
   }
 
   async fetchNotifications() {
-    await notifyServices.list(this.handleFetchNotifySucess);
+    await notifyServices.list(this.handleFetchNotifySuccess);
   }
 
-  handleFetchNotifySucess(res) {
+  handleFetchNotifySuccess(res) {
     let notifications = [];
 
     for (var propName in res)
       if (propName.startsWith("notification_"))
         notifications.push(res[propName]);
 
-    this.setState({ notify: notifications });
+    this.setState({ notify: notifications.reverse() });
   }
 
   render() {
-    const unseen = this.state.notify.filter(n => n.seen === false).length;
+    const unseen = this.state.notify.filter(n => n.seen !== "true").length;
 
     return (
       <nav className="navbar navbar-white nav-fixed-top px-0">
@@ -90,7 +93,7 @@ class Navbar extends Component {
           </OverlayTrigger>
 
           <OverlayTrigger
-            trigger="focus"
+            trigger="click"
             placement="bottom"
             overlay={
               <Popover className="myaccount-panel">

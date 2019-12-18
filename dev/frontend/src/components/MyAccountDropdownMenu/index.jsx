@@ -33,24 +33,22 @@ class MyAccountDropdownMenu extends Component {
           <div className="popover-title-text">Hello Lâm</div>
         </Popover.Title>
         <Popover.Content className="py-2 px-0">
-          <Dropdown.Item
+          <div
             className="myaccount-menu-item"
             onClick={this.props.showProfileEditorModal}
           >
             View Your Profile
-          </Dropdown.Item>
-          <Dropdown.Item
+          </div>
+          <div
             className="myaccount-menu-item"
             onClick={this.props.showChangePasswordModal}
           >
             Change Password
-          </Dropdown.Item>
-          <Dropdown.Item
-            className="myaccount-menu-item"
-            onClick={this.handleLogout}
-          >
+          </div>
+          <Dropdown.Divider />
+          <div className="myaccount-menu-item" onClick={this.handleLogout}>
             Sign out!
-          </Dropdown.Item>
+          </div>
         </Popover.Content>
       </React.Fragment>
     );

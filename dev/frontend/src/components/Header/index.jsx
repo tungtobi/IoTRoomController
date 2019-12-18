@@ -54,6 +54,7 @@ class Header extends Component {
           "https://yt3.ggpht.com/a/AGF-l7-rOqnsoRaW8LTM75Y2vuElIySnOe18OPUNnA=s900-c-k-c0xffffffff-no-rj-mo",
         name: "Nguyen Viet Linh"
       },
+
       devicesList: [
         {
           id: "1",
@@ -377,10 +378,10 @@ class Header extends Component {
             series: series_Temperature
           }
         }
-      },
-      () => console.log(this.state)
+      }
+      // () => console.log(this.state)
     );
-    console.log(this.state.roomStatusData.AQI.series[0].data);
+    // console.log(this.state.roomStatusData.AQI.series[0].data);
   }
 
   fetchData() {

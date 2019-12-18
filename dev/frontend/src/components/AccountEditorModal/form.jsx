@@ -7,7 +7,7 @@ class AccountEditorForm extends Component {
     super(props);
 
     this.state = {
-      prevProfile: Object.assign({}, props.profile),
+      prevProfile: { ...props.profile },
       profile: props.profile
     };
 

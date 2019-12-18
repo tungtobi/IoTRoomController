@@ -281,20 +281,9 @@ class Header extends Component {
   }
 
   handUpdateData() {
-    var currentSeconds = new Date().getSeconds(); //Current Seconds
-    var currentMinutes = new Date().getMinutes(); //Current Minutes
-    var currentHours = new Date().getHours(); //Current Hours
-    this.setState({
-      timeUpdate: {
-        seconds: currentSeconds,
-        minutes: currentMinutes,
-        hours: currentHours
-      }
-    });
-
     this.fetchData();
     console.log(
-      "Length data when call handUpdateData(): ",
+      "Length data before update handUpdateData(): ",
       this.state.data.length
     );
     this.changeValue();
@@ -395,11 +384,22 @@ class Header extends Component {
   }
 
   fetchData() {
+    console.log("Fetching data...");
     fetch(`http://ec2-54-237-117-36.compute-1.amazonaws.com/SensorData`)
       .then(res => res.json())
       .then(data => {
-        console.log(data);
-
+        console.log("Data to render Charts: ", data);
+        var currentSeconds = new Date().getSeconds(); //Current Seconds
+        var currentMinutes = new Date().getMinutes(); //Current Minutes
+        var currentHours = new Date().getHours(); //Current Hours
+        this.setState({
+          timeUpdate: {
+            seconds: currentSeconds,
+            minutes: currentMinutes,
+            hours: currentHours
+          }
+        });
+        console.log("Fetch data done!");
         this.setState({
           data: data
         });

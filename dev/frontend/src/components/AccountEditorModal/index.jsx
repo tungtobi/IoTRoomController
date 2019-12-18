@@ -1,33 +1,162 @@
 import CenteredModal from "../CenteredModal/index";
 import React from "react";
-import { Button, ButtonToolbar } from "react-bootstrap";
+import { Button, ButtonToolbar, Spinner, Alert } from "react-bootstrap";
 import AccountEditorForm from "./form";
 
+import * as userServices from "../../services/user";
+
 class AccountEditorModal extends CenteredModal {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      profile: { ...props.profile },
+      prevProfile: props.profile,
+      process: false,
+      showAlert: false,
+      change: false
+    };
+
+    this.handleChange = this.handleChange.bind(this);
+    this.onSubmit = this.onSubmit.bind(this);
+  }
+
+  static getDerivedStateFromProps(nextProps, prevState) {
+    if (nextProps.show === false) {
+      return {
+        profile: null,
+        prevProfile: null,
+        process: false,
+        showAlert: false
+      };
+    }
+
+    if (!prevState.prevProfile)
+      return {
+        profile: { ...nextProps.profile },
+        prevProfile: nextProps.profile
+      };
+    else return null;
+  }
+
+  handleChange(event) {
+    const { name, value } = event.target;
+    const { profile } = this.state;
+
+    profile[name] = value;
+
+    const isChange = obj => {
+      return Object.keys(obj).length !== 0;
+    };
+
+    this.setState({
+      profile,
+      change: isChange(this.getChange())
+    });
+
+    // if (name === "password" || name === "cfPassword") {
+    //   this.setState({
+    //     [name]: value
+    //   });
+
+    //   let target;
+    //   if (name === "password") target = this.state.cfPassword;
+    //   else target = this.state.password;
+
+    //   this.setState({
+    //     cfPasswordValid: value === target
+    //   });
+    // }
+
+    // const valid = handleInput(name, value, this.state.password);
+
+    // this.setState({
+    //   [name + "Valid"]: valid
+    // });
+  }
+
+  async onSubmit() {
+    this.setState({ process: true });
+
+    const change = this.getChange();
+
+    const { username } = this.state.profile;
+
+    const info = {
+      username,
+      ...change
+    };
+
+    await userServices.modify(info, this.props.onSuccess, console.log);
+  }
+
+  handleFailure() {
+    this.setState({ showAlert: true });
+  }
+
+  getChange() {
+    const { profile, prevProfile } = this.state;
+
+    let change = {};
+
+    for (var key in profile) {
+      if (profile[key] !== prevProfile[key]) {
+        change[key] = profile[key];
+      }
+    }
+
+    return change;
+  }
+
   getTitle() {
     return "User Profile";
   }
 
   getBody() {
     return (
-      <AccountEditorForm
-        profile={this.props.profile}
-        onSubmit={this.props.onSubmit}
-      />
+      <div>
+        <AccountEditorForm
+          profile={this.state.profile}
+          onSubmit={this.onSubmit}
+          handleChange={this.handleChange}
+        />
+        <Alert
+          variant="danger p-2 mb-2 mt-1"
+          show={this.state.showAlert === true}
+        >
+          <small>
+            Oops! You got an error! Cannot update these change. Please check
+            your connection and try again.
+          </small>
+        </Alert>
+      </div>
     );
   }
 
   getFooter() {
+    const { process, change } = this.state;
+
     return (
       <ButtonToolbar>
-        <Button
-          onClick={this.props.onHide}
-          variant="light"
-          style={{ border: "1px solid #c6c6c6", marginInlineEnd: "8px" }}
-        >
+        <Button onClick={this.props.onHide} variant="light" disabled={process}>
           Close
         </Button>
-        <Button onClick={this.props.onSubmit}>Save changes</Button>
+        <Button onClick={this.onSubmit} disabled={process || !change}>
+          {process === true ? (
+            <>
+              <Spinner
+                as="span"
+                animation="border"
+                size="sm"
+                role="status"
+                aria-hidden="true"
+              />{" "}
+              Processing
+            </>
+          ) : (
+            "Save changes"
+          )}
+        </Button>
       </ButtonToolbar>
     );
   }

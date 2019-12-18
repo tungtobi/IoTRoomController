@@ -1,105 +1,113 @@
 import React, { Component } from "react";
-import { Form } from "react-bootstrap";
-import Select from "react-select";
+import { Form, Col } from "react-bootstrap";
 import handleInput from "../../logic/validation";
 
 class AccountAdditionForm extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      password: null,
-      cfPassword: null,
-      usernameValid: true,
-      passwordValid: true,
-      cfPasswordValid: null
-    };
-
-    this.handleChange = this.handleChange.bind(this);
-  }
-
-  handleChange(event) {
-    const name = event.target.name;
-    const value = event.target.value;
-
-    if (name === "password" || name === "cfPassword") {
-      this.setState({
-        [name]: value
-      });
-
-      let target;
-      if (name === "password") target = this.state.cfPassword;
-      else target = this.state.password;
-
-      this.setState({
-        cfPasswordValid: value === target
-      });
-    }
-
-    const valid = handleInput(name, value, this.state.password);
-
-    this.setState({
-      [name + "Valid"]: valid
-    });
-  }
-
   render() {
-    const options = [
-      { value: "chocolate", label: "Chocolate" },
-      { value: "strawberry", label: "Strawberry" },
-      { value: "vanilla", label: "Vanilla" }
-    ];
     return (
       <Form>
         <Form.Group controlId="username">
           <Form.Label>Username</Form.Label>
           <Form.Control
             type="text"
-            placeholder="username"
             name="username"
-            onChange={this.handleChange}
-            isInvalid={!this.state.usernameValid}
+            onChange={this.props.handleChange}
           />
-          <Form.Control.Feedback type="invalid">
-            Tên đăng nhập có độ dài 3-30 ký tự và không được chứa các ký tự đặc
-            biệt
-          </Form.Control.Feedback>
         </Form.Group>
-        <Form.Group controlId="password">
-          <Form.Label>Password</Form.Label>
+        <Form.Row>
+          <Col>
+            <Form.Group controlId="password">
+              <Form.Label>Password</Form.Label>
+              <Form.Control
+                type="password"
+                name="password"
+                onChange={this.props.handleChange}
+              />
+            </Form.Group>
+          </Col>
+          <Col>
+            <Form.Group controlId="cfPassword">
+              <Form.Label>Confirm Password</Form.Label>
+              <Form.Control
+                type="password"
+                name="cfPassword"
+                onChange={this.props.handleChange}
+              />
+            </Form.Group>
+          </Col>
+        </Form.Row>
+        <Form.Row>
+          <Col>
+            <Form.Group controlId="first_name">
+              <Form.Label>First Name</Form.Label>
+              <Form.Control
+                type="text"
+                name="first_name"
+                onChange={this.props.handleChange}
+                // isInvalid={!this.state.first_nameValid}
+              />
+            </Form.Group>
+          </Col>
+          <Col>
+            <Form.Group controlId="last_name">
+              <Form.Label>Last Name</Form.Label>
+              <Form.Control
+                type="text"
+                name="last_name"
+                onChange={this.props.handleChange}
+                // isInvalid={!this.state.last_nameValid}
+              />
+            </Form.Group>
+          </Col>
+        </Form.Row>
+        <Form.Group controlId="email">
+          <Form.Label>Email</Form.Label>
           <Form.Control
-            type="password"
-            placeholder="password"
-            name="password"
-            onChange={this.handleChange}
-            isInvalid={!this.state.passwordValid}
+            type="email"
+            name="email"
+            onChange={this.props.handleChange}
+            // isInvalid={!this.state.emailValid}
           />
           <Form.Control.Feedback type="invalid">
-            Mật khẩu có đội dài tối thiểu 6 ký tự
+            Invalid email address
           </Form.Control.Feedback>
         </Form.Group>
-        <Form.Group controlId="cf-password">
-          <Form.Label>Confirm Password</Form.Label>
+        <Form.Group controlId="address">
+          <Form.Label>Address</Form.Label>
           <Form.Control
-            type="password"
-            name="cfPassword"
-            placeholder="confirm password"
-            onChange={this.handleChange}
-            isValid={this.state.cfPasswordValid}
-            isInvalid={this.state.cfPasswordValid === false}
+            type="text"
+            name="address"
+            onChange={this.props.handleChange}
           />
-          <Form.Control.Feedback type="invalid">
-            Nhập lại mật khẩu không chính xác
-          </Form.Control.Feedback>
         </Form.Group>
-        <Form.Group controlId="description">
-          <Form.Label>Description</Form.Label>
-          <Form.Control as="textarea" placeholder="description..." />
-        </Form.Group>
-        <Form.Group controlId="devices">
-          <Form.Label>Devices</Form.Label>
-          <Select name="devices" options={options} isMulti />
-        </Form.Group>
+        <Form.Row>
+          <Col>
+            <Form.Group controlId="gender">
+              <Form.Label>Gender</Form.Label>
+
+              <Form.Control
+                as="select"
+                name="gender"
+                onChange={this.props.handleChange}
+              >
+                <option>Male</option>
+                <option>Female</option>
+                <option>Other</option>
+              </Form.Control>
+            </Form.Group>
+          </Col>
+          <Col>
+            <Form.Group controlId="phone_number">
+              <Form.Label>Phone Number</Form.Label>
+              <Form.Control
+                type="text"
+                name="phone_number"
+                onChange={this.props.handleChange}
+                // isInvalid={!this.state.phone_numberValid}
+              />
+            </Form.Group>
+          </Col>
+        </Form.Row>
       </Form>
     );
   }

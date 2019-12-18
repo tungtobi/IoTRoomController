@@ -16,8 +16,9 @@ class CenteredModal extends Component {
   getFooter() {}
 
   render() {
+    const { onSuccess, onFailure, ...rest } = this.props;
     return (
-      <Modal {...this.props} centered>
+      <Modal {...rest} centered>
         <Modal.Header closeButton>
           <Modal.Title>{this.getTitle()}</Modal.Title>
         </Modal.Header>

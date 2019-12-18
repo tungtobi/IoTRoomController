@@ -19,11 +19,7 @@ class ScenarioAdditionModal extends CenteredModal {
   getFooter() {
     return (
       <ButtonToolbar>
-        <Button
-          onClick={this.props.onHide}
-          variant="light"
-          style={{ border: "1px solid #c6c6c6", marginInlineEnd: "8px" }}
-        >
+        <Button onClick={this.props.onHide} variant="light">
           Close
         </Button>
         <Button onClick={this.props.onSubmit}>Save changes</Button>

@@ -9,7 +9,6 @@ class ChangePasswordForm extends Component {
           <Form.Label>New Password</Form.Label>
           <Form.Control
             type="password"
-            placeholder="password"
             name="password"
             onChange={this.props.onChange}
             isInvalid={!this.props.passwordValid}
@@ -22,7 +21,6 @@ class ChangePasswordForm extends Component {
           <Form.Label>Confirm New Password</Form.Label>
           <Form.Control
             type="password"
-            placeholder="retype password"
             name="cfPassword"
             onChange={this.props.onChange}
             isInvalid={!this.props.cfPasswordValid}

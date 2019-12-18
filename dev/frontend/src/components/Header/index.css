@@ -111,3 +111,8 @@
   font-size: 400%;
   color: tomato;
 }
+
+.btn-light {
+  border: 1px solid rgb(198, 198, 198) !important;
+  margin-inline-end: 8px;
+}

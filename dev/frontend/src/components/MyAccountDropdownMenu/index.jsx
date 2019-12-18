@@ -30,7 +30,9 @@ class MyAccountDropdownMenu extends Component {
     return (
       <React.Fragment>
         <Popover.Title>
-          <div className="popover-title-text">Hello Lâm</div>
+          <div className="popover-title-text">
+            Welcome {this.props.username}!
+          </div>
         </Popover.Title>
         <Popover.Content className="py-2 px-0">
           <div

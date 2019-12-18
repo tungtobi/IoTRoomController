@@ -1,7 +1,7 @@
-import CenteredModal from "../CenteredModal/index";
 import React from "react";
 import { Button, ButtonToolbar, Spinner, Alert } from "react-bootstrap";
 import ChangePasswordForm from "./form";
+import CenteredModal from "../CenteredModal/index";
 
 import handleInput from "../../logic/validation";
 
@@ -54,10 +54,16 @@ class ChangePasswordModal extends CenteredModal {
 
   async handleSubmit() {
     const { password } = this.state;
+    const { username } = this.props;
 
     this.setState({ updating: true });
 
-    await userServices.changePassword(password, this.onSuccess, this.onFailure);
+    await userServices.changePassword(
+      username,
+      password,
+      this.onSuccess,
+      this.onFailure
+    );
   }
 
   onSuccess() {
@@ -75,7 +81,10 @@ class ChangePasswordModal extends CenteredModal {
 
   getBody() {
     const alert = (
-      <Alert variant="danger p-2 mb-1" show={this.state.updating === false}>
+      <Alert
+        variant="danger p-2 mb-2 mt-1"
+        show={this.state.updating === false}
+      >
         <small>
           Oops! You got an error! Please check your connection and try again.
         </small>
@@ -91,14 +100,12 @@ class ChangePasswordModal extends CenteredModal {
       />
     );
 
-    if (this.state.updating === false)
-      return (
-        <div>
-          {form}
-          {alert}
-        </div>
-      );
-    else return form;
+    return (
+      <div>
+        {form}
+        {alert}
+      </div>
+    );
   }
 
   isFormValid() {
@@ -117,11 +124,7 @@ class ChangePasswordModal extends CenteredModal {
 
     return (
       <ButtonToolbar>
-        <Button
-          onClick={this.props.onHide}
-          variant="light"
-          style={{ border: "1px solid #c6c6c6", marginInlineEnd: "8px" }}
-        >
+        <Button onClick={this.props.onHide} variant="light">
           Close
         </Button>
         <Button onClick={this.handleSubmit} disabled={!active}>
@@ -134,7 +137,7 @@ class ChangePasswordModal extends CenteredModal {
                 role="status"
                 aria-hidden="true"
               />{" "}
-              Submitting
+              Processing
             </div>
           ) : (
             "Save Change"

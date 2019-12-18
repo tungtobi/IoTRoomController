@@ -8,7 +8,23 @@ export const list = (onSuccess, onFailure) => {
   basePost("/admin/list-user", body, onSuccess, onFailure);
 };
 
-export const add = () => {};
+export const add = (user, onSuccess, onFailure) => {
+  const body = {
+    token: localStorage.getItem("token"),
+    ...user
+  };
+
+  basePost("/admin/add-user", body, onSuccess, onFailure);
+};
+
+export const remove = (username, onSuccess, onFailure) => {
+  const body = {
+    token: localStorage.getItem("token"),
+    username
+  };
+
+  basePost("/admin/delete-user", body, onSuccess, onFailure);
+};
 
 export const view = (username, onSuccess, onFailure) => {
   const filter = res => {
@@ -24,12 +40,19 @@ export const view = (username, onSuccess, onFailure) => {
   list(filter, onFailure);
 };
 
-export const modify = () => {};
-
-export const changePassword = (password, onSuccess, onFailure) => {
+export const modify = (info, onSuccess, onFailure) => {
   const body = {
     token: localStorage.getItem("token"),
-    username: localStorage.getItem("username"),
+    ...info
+  };
+
+  basePost("/admin/modify-user", body, onSuccess, onFailure);
+};
+
+export const changePassword = (username, password, onSuccess, onFailure) => {
+  const body = {
+    token: localStorage.getItem("token"),
+    username,
     password
   };
 

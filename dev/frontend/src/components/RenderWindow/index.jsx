@@ -19,10 +19,6 @@ class RenderWindow extends Component {
 
     this.handleFetchUsersSuccess = this.handleFetchUsersSuccess.bind(this);
     this.handleFetchUsersFailure = this.handleFetchUsersFailure.bind(this);
-
-    this.handleLockUserSuccess = this.handleLockUserSuccess.bind(this);
-    this.handleUnlockUserSuccess = this.handleUnlockUserSuccess.bind(this);
-    this.handleUpdateUserFailure = this.handleUpdateUserFailure.bind(this);
   }
 
   componentDidMount() {
@@ -48,30 +44,6 @@ class RenderWindow extends Component {
 
   handleFetchUsersFailure() {
     this.setState({ fetchUsersSuccess: false });
-  }
-
-  handleLockUserSuccess(res, req) {
-    this.changeLockingState(req.username, "lock");
-  }
-
-  handleUnlockUserSuccess(res, req) {
-    this.changeLockingState(req.username, "unlock");
-  }
-
-  handleUpdateUserFailure() {
-    this.setState({ fetchUsersSuccess: false });
-  }
-
-  changeLockingState(username, state) {
-    const newList = this.state.users.map(user => {
-      if (user.username === username) {
-        user.locking_state = state;
-      }
-
-      return user;
-    });
-
-    this.setState({ list: newList });
   }
 
   render() {
@@ -105,9 +77,6 @@ class RenderWindow extends Component {
               <AccountsPanel
                 list={this.state.users}
                 fetchSuccess={this.state.fetchUsersSuccess}
-                lockSuccess={this.handleLockUserSuccess}
-                onFailure={this.handleUpdateUserFailure}
-                unlockSuccess={this.handleUnlockUserSuccess}
               />
             </div>
           </Route>

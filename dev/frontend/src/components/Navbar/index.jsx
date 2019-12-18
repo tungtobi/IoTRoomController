@@ -30,6 +30,10 @@ class Navbar extends Component {
 
     this.handleFetchNotifySuccess = this.handleFetchNotifySuccess.bind(this);
     this.handleFetchProfileSuccess = this.handleFetchProfileSuccess.bind(this);
+
+    this.handleModifyProfileSuccess = this.handleModifyProfileSuccess.bind(
+      this
+    );
   }
 
   componentDidMount() {
@@ -67,8 +71,6 @@ class Navbar extends Component {
   }
 
   handleFetchProfileSuccess(res) {
-    console.log(res);
-
     this.setState({ profile: res });
   }
 
@@ -82,10 +84,26 @@ class Navbar extends Component {
     this.setState({ notify: notifications.reverse() });
   }
 
+  handleModifyProfileSuccess(res, req) {
+    const { profile } = this.state;
+
+    for (var key in req) {
+      if (key !== "username" && key !== "token") {
+        profile[key] = req[key];
+      }
+    }
+
+    this.setState({
+      showProfileEditor: false
+    });
+  }
+
   render() {
     const unseen = this.state.notify
       ? this.state.notify.filter(n => n.seen !== "true").length
       : 0;
+
+    const username = this.state.profile ? this.state.profile.username : null;
 
     return (
       <nav className="navbar navbar-white nav-fixed-top px-0">
@@ -119,6 +137,7 @@ class Navbar extends Component {
             overlay={
               <Popover className="myaccount-panel">
                 <MyAccountDropdownMenu
+                  username={username}
                   showProfileEditorModal={this.showProfileEditorModal}
                   showChangePasswordModal={this.showChangePasswordModal}
                 />
@@ -134,8 +153,10 @@ class Navbar extends Component {
           profile={this.state.profile}
           show={this.state.showProfileEditor}
           onHide={this.hideProfileEditorModal}
+          onSuccess={this.handleModifyProfileSuccess}
         />
         <ChangePasswordModal
+          username={username}
           show={this.state.showChangePassword}
           onHide={this.hideChangePasswordModal}
         />

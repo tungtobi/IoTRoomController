@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Card from "react-bootstrap/Card";
+
 import {
   Button,
   Table,
@@ -11,6 +12,8 @@ import {
 import * as userServices from "../../services/user";
 import CenteredAlert from "../CenteredAlert";
 import AccountEditorModal from "../AccountEditorModal";
+import AccountAdditionModal from "../AccountAdditionModal";
+import ChangePasswordModal from "../ChangePasswordModal";
 
 class AccountsPanel extends Component {
   constructor(props) {
@@ -18,28 +21,105 @@ class AccountsPanel extends Component {
     this.state = {
       list: props.list,
       fetchSuccess: props.fetchSuccess,
+
       username: null,
       locking_state: null,
+
       alert: {
+        action: null,
         show: false,
         title: null,
         body: null
       },
 
-      showEditor: false
+      showEditor: false,
+      showAddition: false,
+      showPassword: false
     };
 
     this.showAccountEditorModal = this.showAccountEditorModal.bind(this);
     this.hideAccountEditorModal = this.hideAccountEditorModal.bind(this);
+
+    this.hideAccountAdditionModal = this.hideAccountAdditionModal.bind(this);
+    this.showAccountAdditionModal = this.showAccountAdditionModal.bind(this);
+
+    this.hideChangePasswordModal = this.hideChangePasswordModal.bind(this);
+
+    this.handleAddUserSuccess = this.handleAddUserSuccess.bind(this);
+
+    this.lockSuccess = this.handleLockUserSuccess.bind(this);
+    this.unlockSuccess = this.handleUnlockUserSuccess.bind(this);
+    this.fetchLockingState = this.fetchLockingState.bind(this);
+
+    this.handleDeleteUserSuccess = this.handleDeleteUserSuccess.bind(this);
+    this.deleteAccount = this.deleteAccount.bind(this);
+
+    this.handleModifyUserSuccess = this.handleModifyUserSuccess.bind(this);
+
+    this.onFailure = this.handleUpdateUserFailure.bind(this);
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
-    return {
-      list: nextProps.list,
-      fetchSuccess: nextProps.fetchSuccess
-    };
+    if (!prevState.list)
+      return {
+        list: nextProps.list,
+        fetchSuccess: nextProps.fetchSuccess
+      };
+
+    return null;
   }
 
+  handleClickRemove(idx) {
+    const { username } = this.state.list[idx];
+
+    this.setState({
+      username,
+      alert: {
+        action: "delete",
+        show: true,
+        title: `Delete Account`,
+        body: (
+          <div>
+            Do you sure want to delete account <strong>{username}</strong>. This
+            action cannot undo!
+          </div>
+        )
+      }
+    });
+  }
+
+  // Fetch from server
+  async deleteAccount() {
+    const { username } = this.state;
+
+    await userServices.remove(
+      username,
+      this.handleDeleteUserSuccess,
+      console.log
+    );
+
+    this.setState({ alert: { show: false } });
+  }
+
+  handleDeleteUserSuccess(res, req) {
+    this.setState(prevState => ({
+      list: prevState.list.filter(user => user.username !== req.username)
+    }));
+  }
+
+  handleAddUserSuccess(res, req) {
+    const newUser = { ...req, locking_state: "unlock", role: "standard" };
+
+    let { list } = this.state;
+    list.push(newUser);
+
+    this.setState({
+      list,
+      showAddition: false
+    });
+  }
+
+  // Handle when click lock/unlock button
   handleClickLock(idx) {
     const { username, locking_state } = this.state.list[idx];
 
@@ -47,8 +127,9 @@ class AccountsPanel extends Component {
       username,
       locking_state,
       alert: {
+        action: "lock",
         show: true,
-        title: `${locking_state === "lock" ? "Unlock" : "Lock"} account`,
+        title: `${locking_state === "lock" ? "Unlock" : "Lock"} Account`,
         body: (
           <div>
             Do you sure want to {locking_state === "lock" ? "unlock" : "lock"}{" "}
@@ -57,6 +138,71 @@ class AccountsPanel extends Component {
         )
       }
     });
+  }
+
+  // Fetch Locking State Post to server
+  async fetchLockingState() {
+    const { username, locking_state } = this.state;
+
+    if (locking_state === "unlock")
+      await userServices.lock(username, this.lockSuccess, this.onFailure);
+    else
+      await userServices.unlock(username, this.unlockSuccess, this.onFailure);
+
+    this.setState({ alert: { show: false } });
+  }
+
+  // Change Locking State When Fetch Success
+  handleLockUserSuccess(res, req) {
+    this.changeLockingState(req.username, "lock");
+  }
+
+  handleUnlockUserSuccess(res, req) {
+    this.changeLockingState(req.username, "unlock");
+  }
+
+  handleUpdateUserFailure() {
+    this.setState({ fetchSuccess: false });
+  }
+
+  changeLockingState(username, state) {
+    const newList = this.state.list.map(user => {
+      if (user.username === username) {
+        user.locking_state = state;
+      }
+
+      return user;
+    });
+
+    this.setState({ list: newList });
+  }
+
+  // Handle modify user data
+  handleModifyUserSuccess(res, req) {
+    const { username } = req;
+
+    let newUser = this.state.list.find(user => user.username === username);
+
+    for (var key in req) {
+      if (key !== "username" && key !== "token") {
+        newUser[key] = req[key];
+      }
+    }
+
+    this.setState({
+      showEditor: false
+    });
+  }
+
+  // Modals
+  showChangePasswordModal(idx) {
+    const { username } = this.state.list[idx];
+
+    this.setState({ username, showPassword: true });
+  }
+
+  hideChangePasswordModal() {
+    this.setState({ showPassword: false });
   }
 
   showAccountEditorModal(idx) {
@@ -69,24 +215,12 @@ class AccountsPanel extends Component {
     this.setState({ showEditor: false });
   }
 
-  async changeLockingState() {
-    const { username, locking_state } = this.state;
+  showAccountAdditionModal() {
+    this.setState({ showAddition: true });
+  }
 
-    if (locking_state === "unlock") {
-      await userServices.lock(
-        username,
-        this.props.lockSuccess,
-        this.props.onFailure
-      );
-    } else {
-      await userServices.unlock(
-        username,
-        this.props.unlockSuccess,
-        this.props.onFailure
-      );
-    }
-
-    this.setState({ alert: { show: false } });
+  hideAccountAdditionModal() {
+    this.setState({ showAddition: false });
   }
 
   render() {
@@ -142,17 +276,19 @@ class AccountsPanel extends Component {
                         >
                           <i className="fas fa-user" />
                         </Button>
+
                         <Button
-                          // onClick={() => this.showAccountEditorModal(idx)}
+                          onClick={() => this.showChangePasswordModal(idx)}
                           variant="link p-2"
                         >
-                          <i className="fas fa-trash"></i>
+                          <i className="fas fa-key" />
                         </Button>
+
                         <Button
-                          // onClick={() => this.showAccountEditorModal(idx)}
+                          onClick={() => this.handleClickRemove(idx)}
                           variant="link p-2"
                         >
-                          <i className="fas fa-user-shield"></i>
+                          <i className="fas fa-trash" />
                         </Button>
                       </ButtonGroup>
                     </td>
@@ -164,12 +300,9 @@ class AccountsPanel extends Component {
           <Card.Footer className="hide-border mb-2 mt-n4">
             <Button
               variant="primary float-right"
-              onClick={this.props.showDevAddModal}
+              onClick={this.showAccountAdditionModal}
             >
-              <i className="fas fa-plus" /> Add new device
-            </Button>
-            <Button variant="light gray-outline float-right mr-2">
-              <i className="fas fa-plus" /> Nothing
+              <i className="fas fa-plus" /> Add New Account
             </Button>
           </Card.Footer>
 
@@ -177,9 +310,13 @@ class AccountsPanel extends Component {
             show={this.state.alert.show}
             onHide={() => this.setState({ alert: { show: false } })}
             title={this.state.alert.title}
-            button_name="Yes"
+            button_name="Yes, continue!"
             danger="true"
-            onSubmit={() => this.changeLockingState()}
+            onSubmit={
+              this.state.alert.action === "lock"
+                ? this.fetchLockingState
+                : this.deleteAccount
+            }
           >
             {this.state.alert.body}
           </CenteredAlert>
@@ -190,6 +327,19 @@ class AccountsPanel extends Component {
             profile={this.state.list.find(
               user => user.username === this.state.username
             )}
+            onSuccess={this.handleModifyUserSuccess}
+          />
+
+          <AccountAdditionModal
+            show={this.state.showAddition}
+            onHide={this.hideAccountAdditionModal}
+            onSuccess={this.handleAddUserSuccess}
+          />
+
+          <ChangePasswordModal
+            username={this.state.username}
+            show={this.state.showPassword}
+            onHide={this.hideChangePasswordModal}
           />
         </Card>
       );

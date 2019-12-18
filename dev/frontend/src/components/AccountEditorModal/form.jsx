@@ -3,55 +3,10 @@ import { Form, Col } from "react-bootstrap";
 import handleInput from "../../logic/validation";
 
 class AccountEditorForm extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      prevProfile: { ...props.profile },
-      profile: props.profile
-    };
-
-    this.handleChange = this.handleChange.bind(this);
-  }
-
-  handleChange(event) {
-    const { name, value } = event.target;
-    const { profile, prevProfile } = this.state;
-
-    profile[name] = value;
-
-    this.setState({
-      profile
-    });
-
-    console.log(profile);
-    console.log(prevProfile);
-
-    // if (name === "password" || name === "cfPassword") {
-    //   this.setState({
-    //     [name]: value
-    //   });
-
-    //   let target;
-    //   if (name === "password") target = this.state.cfPassword;
-    //   else target = this.state.password;
-
-    //   this.setState({
-    //     cfPasswordValid: value === target
-    //   });
-    // }
-
-    // const valid = handleInput(name, value, this.state.password);
-
-    // this.setState({
-    //   [name + "Valid"]: valid
-    // });
-  }
-
   render() {
-    let prev = this.state.profile;
+    let prev = this.props.profile;
 
-    if (!prev) return <p>Hello</p>;
+    if (!prev) return <p>Fail to fetch!</p>;
     else
       return (
         <Form>
@@ -72,7 +27,7 @@ class AccountEditorForm extends Component {
                   type="text"
                   name="first_name"
                   defaultValue={prev.first_name}
-                  onChange={this.handleChange}
+                  onChange={this.props.handleChange}
                   // isInvalid={!this.state.first_nameValid}
                 />
               </Form.Group>
@@ -84,7 +39,7 @@ class AccountEditorForm extends Component {
                   type="text"
                   name="last_name"
                   defaultValue={prev.last_name}
-                  onChange={this.handleChange}
+                  onChange={this.props.handleChange}
                   // isInvalid={!this.state.last_nameValid}
                 />
               </Form.Group>
@@ -96,7 +51,7 @@ class AccountEditorForm extends Component {
               type="email"
               name="email"
               defaultValue={prev.email}
-              onChange={this.handleChange}
+              onChange={this.props.handleChange}
               // isInvalid={!this.state.emailValid}
             />
             <Form.Control.Feedback type="invalid">
@@ -109,20 +64,30 @@ class AccountEditorForm extends Component {
               type="text"
               name="address"
               defaultValue={prev.address}
-              onChange={this.handleChange}
+              onChange={this.props.handleChange}
             />
           </Form.Group>
           <Form.Row>
             <Col>
               <Form.Group controlId="gender">
                 <Form.Label>Gender</Form.Label>
-                <Form.Control
+                {/* <Form.Control
                   type="text"
                   name="gender"
                   defaultValue={prev.gender}
-                  onChange={this.handleChange}
+                  onChange={this.props.handleChange}
                   // isInvalid={!this.state.genderValid}
-                />
+                /> */}
+                <Form.Control
+                  as="select"
+                  name="gender"
+                  defaultValue={prev.gender}
+                  onChange={this.props.handleChange}
+                >
+                  <option>Male</option>
+                  <option>Female</option>
+                  <option>Other</option>
+                </Form.Control>
               </Form.Group>
             </Col>
             <Col>
@@ -132,7 +97,7 @@ class AccountEditorForm extends Component {
                   type="text"
                   name="phone_number"
                   defaultValue={prev.phone_number}
-                  onChange={this.handleChange}
+                  onChange={this.props.handleChange}
                   // isInvalid={!this.state.phone_numberValid}
                 />
               </Form.Group>

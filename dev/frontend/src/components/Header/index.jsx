@@ -386,8 +386,17 @@ class Header extends Component {
 
   fetchData() {
     console.log("Fetching data...");
+    this.setState({
+      timeUpdate: {
+        seconds: -1,
+        minutes: -1,
+        hours: -1
+      }
+    });
     fetch(`http://ec2-54-237-117-36.compute-1.amazonaws.com/SensorData`)
-      .then(res => res.json())
+      .then(res => {
+        console.log(res.status);
+      })
       .then(data => {
         console.log("Data to render Charts: ", data);
         var currentSeconds = new Date().getSeconds(); //Current Seconds
@@ -405,7 +414,17 @@ class Header extends Component {
           data: data
         });
       })
-      .catch(console.log);
+      .catch(
+        console.log(
+          this.setState({
+            timeUpdate: {
+              seconds: -2,
+              minutes: -2,
+              hours: -2
+            }
+          })
+        )
+      );
   }
 
   componentDidMount() {

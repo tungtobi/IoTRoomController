@@ -83,17 +83,17 @@ class RenderWindow extends Component {
             ></RoomStatus>
           </Route>
           <Route path="/dashboard/devices">
-            <Devices
+            {/* <Devices
               devicesList={this.props.devicesList}
               removeDeviceList={this.props.removeDeviceList}
               devicesScenario={this.props.devicesScenario}
               removeDeviceScenario={this.props.removeDeviceScenario}
               showDevEditModal={this.props.showDevEditModal}
               showDevAddModal={this.props.showDevAddModal}
-            />
+            /> */}
           </Route>
           <Route path="/dashboard/history">
-            <HistoryCard devicesHistory={this.props.devicesHistory} />
+            {/* <HistoryCard devicesHistory={this.props.devicesHistory} /> */}
           </Route>
           <Route path="/dashboard/accounts">
             <div className="p-4 devices">

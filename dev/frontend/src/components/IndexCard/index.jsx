@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Card, Button } from "react-bootstrap";
+import Spinner from "react-bootstrap/Spinner";
 import "./index.css";
 
 class IndexCard extends Component {
@@ -16,6 +17,15 @@ class IndexCard extends Component {
     if (this.props.notification_time_update === "Update now") {
       return;
     }
+    if (this.props.timeUpdate.hours === -1) {
+      return;
+    }
+    // Set value hours, minutes, seconds = -2 when "Failed to get data"
+    if (this.props.timeUpdate.hours === -2) {
+      this.props.change_notification_time_update("Failed to get data");
+      return;
+    }
+
     var currentSeconds = new Date().getSeconds(); //Current Seconds
     var currentMinutes = new Date().getMinutes(); //Current Minutes
     var currentHours = new Date().getHours(); //Current Hours
@@ -64,19 +74,35 @@ class IndexCard extends Component {
           </div>
         </Card.Body>
         <Card.Footer>
-          <Button
-            variant="link"
-            onClick={() => {
-              this.props.handUpdateData();
-              this.props.change_notification_time_update("Updating...");
-            }}
-          >
-            <i className="fas fa-redo" />
-            <span> Update</span>
-          </Button>
-          <i className="text-muted btn float-right">
-            {this.props.notification_time_update}
-          </i>
+          {this.props.notification_time_update === "Updating..." ? (
+            <Button variant="link" disabled>
+              <Spinner
+                as="span"
+                animation="border"
+                size="sm"
+                role="status"
+                aria-hidden="true"
+                variant="primary"
+              />{" "}
+              Updating...
+            </Button>
+          ) : (
+            <span>
+              <Button
+                variant="link"
+                onClick={() => {
+                  this.props.handUpdateData();
+                  this.props.change_notification_time_update("Updating...");
+                }}
+              >
+                <i className="fas fa-redo" />
+                <span> Update</span>
+              </Button>
+              <i className="text-muted btn float-right">
+                {this.props.notification_time_update}
+              </i>
+            </span>
+          )}
         </Card.Footer>
       </Card>
     );

@@ -17,7 +17,7 @@ function basePost(endpoint, body, onSuccess, onFailure = console.log) {
       console.log(data);
 
       if (data.error_code === 0) onSuccess(data, body);
-      else onFailure();
+      else onFailure(data);
     })
     .catch(onFailure);
 }

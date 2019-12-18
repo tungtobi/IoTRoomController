@@ -5,6 +5,8 @@ import AccountAdditionForm from "./form";
 
 import * as userServices from "../../services/user";
 
+import getErrorMessage from "../../services/error";
+
 class AccountAdditionModal extends CenteredModal {
   constructor(props) {
     super(props);
@@ -20,12 +22,24 @@ class AccountAdditionModal extends CenteredModal {
       address: null,
 
       showAlert: false,
-      process: false
+      process: false,
+      response: null
     };
 
     this.onSubmit = this.onSubmit.bind(this);
     this.handleFailure = this.handleFailure.bind(this);
     this.handleChange = this.handleChange.bind(this);
+  }
+
+  static getDerivedStateFromProps(nextProps, prevState) {
+    if (nextProps.show === false) {
+      return {
+        process: false,
+        showAlert: false
+      };
+    }
+
+    return null;
   }
 
   handleChange(event) {
@@ -84,8 +98,12 @@ class AccountAdditionModal extends CenteredModal {
     await userServices.add(user, this.props.onSuccess, this.handleFailure);
   }
 
-  handleFailure() {
-    this.setState({ showAlert: true });
+  handleFailure(res) {
+    let response = "Time out";
+
+    if (res) response = getErrorMessage(res.error_code);
+
+    this.setState({ showAlert: true, process: false, response });
   }
 
   getTitle() {
@@ -104,8 +122,9 @@ class AccountAdditionModal extends CenteredModal {
           show={this.state.showAlert === true}
         >
           <small>
-            Oops! You got an error! Cannot create new account. Please check your
-            connection and try again.
+            Oops! You got an error! Cannot create new account.
+            <br />
+            {this.state.response}
           </small>
         </Alert>
       </div>

@@ -2,3 +2,19 @@ export const PROXY = "https://cors-anywhere.herokuapp.com/";
 export const BASE = "http://54.237.117.36:3000";
 
 export const POST = "POST";
+
+export const ERRORS = {
+  C100: "User-related Errors",
+  C101: "Wrong Parameter Format",
+  C102: "Incorrect Credentials",
+  C103: "Request Missing Arguments",
+  C104: "Incorrect Token",
+  C105: "Username Has Already Existed",
+  C200: "Device-related Errors",
+  C1: "Unknown Error",
+  C2: "Wrong Request Format",
+  C106: "Permission Denied",
+  C107: "Account Doesn't Exist",
+  C3: "This Feature Is Now Under Maintenance",
+  C300: "Mysql Query Error"
+};

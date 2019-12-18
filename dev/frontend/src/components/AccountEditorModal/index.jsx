@@ -5,6 +5,8 @@ import AccountEditorForm from "./form";
 
 import * as userServices from "../../services/user";
 
+import getErrorMessage from "../../services/error";
+
 class AccountEditorModal extends CenteredModal {
   constructor(props) {
     super(props);
@@ -14,10 +16,13 @@ class AccountEditorModal extends CenteredModal {
       prevProfile: props.profile,
       process: false,
       showAlert: false,
-      change: false
+      change: false,
+      response: null
     };
 
     this.handleChange = this.handleChange.bind(this);
+    this.handleFailure = this.handleFailure.bind(this);
+
     this.onSubmit = this.onSubmit.bind(this);
   }
 
@@ -87,11 +92,15 @@ class AccountEditorModal extends CenteredModal {
       ...change
     };
 
-    await userServices.modify(info, this.props.onSuccess, console.log);
+    await userServices.modify(info, this.props.onSuccess, this.handleFailure);
   }
 
-  handleFailure() {
-    this.setState({ showAlert: true });
+  handleFailure(res) {
+    let response = "Time out";
+
+    if (res) response = getErrorMessage(res.error_code);
+
+    this.setState({ showAlert: true, process: false, response });
   }
 
   getChange() {
@@ -125,8 +134,9 @@ class AccountEditorModal extends CenteredModal {
           show={this.state.showAlert === true}
         >
           <small>
-            Oops! You got an error! Cannot update these change. Please check
-            your connection and try again.
+            Oops! You got an error! Cannot update these change.
+            <br />
+            {this.state.response}
           </small>
         </Alert>
       </div>

@@ -17,6 +17,7 @@ class RenderWindow extends Component {
       users: null
     };
 
+    // List user accounts callback
     this.handleFetchUsersSuccess = this.handleFetchUsersSuccess.bind(this);
     this.handleFetchUsersFailure = this.handleFetchUsersFailure.bind(this);
   }
@@ -25,6 +26,7 @@ class RenderWindow extends Component {
     this.fetchUserList();
   }
 
+  // Fetch user list
   async fetchUserList() {
     await userServices.list(
       this.handleFetchUsersSuccess,
@@ -32,6 +34,7 @@ class RenderWindow extends Component {
     );
   }
 
+  // List users callback function
   handleFetchUsersSuccess(res) {
     let users = [];
     for (var propName in res) {

@@ -14,20 +14,30 @@ export const view = () => {};
 
 export const modify = () => {};
 
-export const lock = (username, onSuccess) => {
+export const changePassword = (password, onSuccess, onFailure) => {
   const body = {
     token: localStorage.getItem("token"),
-    username
+    username: localStorage.getItem("username"),
+    password
   };
 
-  basePost("/admin/lock-user", body, onSuccess);
+  basePost("/admin/modify-user", body, onSuccess, onFailure);
 };
 
-export const unlock = (username, onSuccess) => {
+export const lock = (username, onSuccess, onFailure) => {
   const body = {
     token: localStorage.getItem("token"),
     username
   };
 
-  basePost("/admin/unlock-user", body, onSuccess);
+  basePost("/admin/lock-user", body, onSuccess, onFailure);
+};
+
+export const unlock = (username, onSuccess, onFailure) => {
+  const body = {
+    token: localStorage.getItem("token"),
+    username
+  };
+
+  basePost("/admin/unlock-user", body, onSuccess, onFailure);
 };

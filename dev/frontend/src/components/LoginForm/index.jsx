@@ -40,30 +40,10 @@ class LoginForm extends Component {
 
   async handleLogin(event) {
     event.preventDefault();
+
     this.setState({
       isAuthening: true
     });
-
-    // const proxyurl = "https://cors-anywhere.herokuapp.com/";
-    // const url = "http://54.237.117.36:3000/login";
-
-    // fetch(proxyurl + url, {
-    //   method: "POST",
-    //   headers: {
-    //     Accept: "application/json",
-    //     "Content-Type": "application/json"
-    //   },
-    //   body: JSON.stringify({
-    //     username: this.state.username,
-    //     password: this.state.password
-    //   })
-    // })
-    //   .then(res => res.json())
-    //   .then(data => {
-    //     if (data.error_code === 0) this.handleLoginSuccess(data);
-    //     else this.handleLoginFailure();
-    //   })
-    //   .catch(this.handleLoginFailure);
 
     await sessionServices.login(
       this.state.username,
@@ -73,8 +53,9 @@ class LoginForm extends Component {
     );
   }
 
-  handleLoginSuccess(res) {
+  handleLoginSuccess(res, req) {
     localStorage.setItem("token", res.token);
+    localStorage.setItem("username", req.username);
     this.setState({ success: true, isAuthening: false });
   }
 

@@ -61,7 +61,11 @@ class Notification extends Component {
           </Button>
         </Popover.Title>
         <Popover.Content className="p-0">
-          {list.length === 0 ? (
+          {!list ? (
+            <div className="myaccount-menu-item">
+              Fail to fetch notification!
+            </div>
+          ) : list.length === 0 ? (
             <div className="myaccount-menu-item">
               You don't have any notification!
             </div>

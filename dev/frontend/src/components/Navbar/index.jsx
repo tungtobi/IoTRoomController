@@ -15,7 +15,7 @@ class Navbar extends Component {
     super(props);
 
     this.state = {
-      notify: [],
+      notify: null,
       showProfileEditor: false,
       showChangePassword: false
     };
@@ -41,7 +41,7 @@ class Navbar extends Component {
     this.setState({ showProfileEditor: true });
   }
 
-  hideChangePasswordModal() {
+  hideChangePasswordModal(event) {
     this.setState({ showChangePassword: false });
   }
 
@@ -64,7 +64,9 @@ class Navbar extends Component {
   }
 
   render() {
-    const unseen = this.state.notify.filter(n => n.seen !== "true").length;
+    const unseen = this.state.notify
+      ? this.state.notify.filter(n => n.seen !== "true").length
+      : 0;
 
     return (
       <nav className="navbar navbar-white nav-fixed-top px-0">
@@ -73,8 +75,8 @@ class Navbar extends Component {
         </span>
         <span className="form-inline pr-2 fit-content ">
           <OverlayTrigger
+            rootClose
             trigger="click"
-            ref="overlay"
             placement="bottom"
             overlay={
               <Popover className="notify-panel">
@@ -93,7 +95,7 @@ class Navbar extends Component {
           </OverlayTrigger>
 
           <OverlayTrigger
-            trigger="click"
+            trigger="focus"
             placement="bottom"
             overlay={
               <Popover className="myaccount-panel">
@@ -104,10 +106,7 @@ class Navbar extends Component {
               </Popover>
             }
           >
-            <Button
-              variant="link p-0 mx-2"
-              onClick={() => this.refs.overlay.hide()}
-            >
+            <Button variant="link p-0 mx-2">
               <i className="fas fa-user-circle navbar-icon" />
             </Button>
           </OverlayTrigger>

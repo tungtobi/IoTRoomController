@@ -50,9 +50,17 @@ class AccountsPanel extends Component {
     const { username, locking_state } = this.state;
 
     if (locking_state === "unlock") {
-      await userServices.lock(username, this.props.lockSuccess);
+      await userServices.lock(
+        username,
+        this.props.lockSuccess,
+        this.props.onFailure
+      );
     } else {
-      await userServices.unlock(username, this.props.unlockSuccess);
+      await userServices.unlock(
+        username,
+        this.props.unlockSuccess,
+        this.props.onFailure
+      );
     }
 
     this.setState({ alert: { show: false } });

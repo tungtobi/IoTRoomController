@@ -1,46 +1,18 @@
 import React, { Component } from "react";
 import { Form } from "react-bootstrap";
-import handleInput from "../../logic/validation";
 
 class ChangePasswordForm extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      password: null,
-      cfPassword: null,
-      passwordValid: true,
-      cfPasswordValid: true
-    };
-
-    this.handleChange = this.handleChange.bind(this);
-  }
-
-  handleChange(event) {
-    const { name, value } = event.target;
-
-    this.setState({
-      [name]: value
-    });
-
-    const valid = handleInput(name, value, this.state.password);
-
-    this.setState({
-      [name + "Valid"]: valid
-    });
-  }
-
   render() {
     return (
-      <Form>
+      <Form onSubmit={this.props.onSubmit}>
         <Form.Group controlId="password">
           <Form.Label>New Password</Form.Label>
           <Form.Control
             type="password"
             placeholder="password"
             name="password"
-            onChange={this.handleChange}
-            isInvalid={!this.state.passwordValid}
+            onChange={this.props.onChange}
+            isInvalid={!this.props.passwordValid}
           />
           <Form.Control.Feedback type="invalid">
             Password must be at least 5 characters long
@@ -52,8 +24,8 @@ class ChangePasswordForm extends Component {
             type="password"
             placeholder="retype password"
             name="cfPassword"
-            onChange={this.handleChange}
-            isInvalid={!this.state.cfPasswordValid}
+            onChange={this.props.onChange}
+            isInvalid={!this.props.cfPasswordValid}
           />
           <Form.Control.Feedback type="invalid">
             Invalid confirmed password

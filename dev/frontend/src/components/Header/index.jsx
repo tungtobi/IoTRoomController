@@ -294,10 +294,10 @@ class Header extends Component {
     });
 
     this.fetchData();
-    console.log(
-      "Length data when call handUpdateData(): ",
-      this.state.data.length
-    );
+    // console.log(
+    //   "Length data when call handUpdateData(): ",
+    //   this.state.data.length
+    // );
     this.changeValue();
   }
 
@@ -389,17 +389,17 @@ class Header extends Component {
             series: series_Temperature
           }
         }
-      },
-      () => console.log(this.state)
+      }
+      // () => console.log(this.state)
     );
-    console.log(this.state.roomStatusData.AQI.series[0].data);
+    // console.log(this.state.roomStatusData.AQI.series[0].data);
   }
 
   fetchData() {
     fetch(`http://ec2-54-237-117-36.compute-1.amazonaws.com/SensorData`)
       .then(res => res.json())
       .then(data => {
-        console.log(data);
+        // console.log(data);
 
         this.setState({
           data: data

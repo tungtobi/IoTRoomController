@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Accordion, Card, Button, Row, Col, Spinner } from "react-bootstrap";
-import forecastOf from "../../logic/forecast";
+import { forecastOf, getDayFromDate } from "../../logic/forecast";
 import getDateList from "../../logic/datelist";
 import ForecastDetail from "../ForecastDetail";
 import CITY_LIST from "../../resources/citylist.json";
@@ -28,7 +28,6 @@ class ForecastsWindow extends Component {
 
     this.myRef = React.createRef();
 
-    this.getDayFromDate = this.getDayFromDate.bind(this);
     this.filterCity = this.filterCity.bind(this);
     this.handleSelect = this.handleSelect.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
@@ -69,22 +68,6 @@ class ForecastsWindow extends Component {
     this.setState({
       select: option.value
     });
-  }
-
-  getDayFromDate(date) {
-    const weekday = [
-      "Sunday",
-      "Monday",
-      "Tuesday",
-      "Wednesday",
-      "Thursday",
-      "Friday",
-      "Saturday"
-    ];
-
-    const dt = new Date(date);
-
-    return weekday[dt.getDay()];
   }
 
   filterCity(value) {
@@ -179,7 +162,7 @@ class ForecastsWindow extends Component {
                     <Card.Header className="bg-light-blue">
                       <Row>
                         <Col className="white-text">
-                          <h3>{this.getDayFromDate(date)}</h3>
+                          <h3>{getDayFromDate(date)}</h3>
                           {date}
                         </Col>
 

@@ -13,12 +13,15 @@ class RenderWindow extends Component {
     super(props);
 
     this.state = {
-      fetchUsersSucess: null,
+      fetchUsersSuccess: null,
       users: null
     };
 
-    this.handleFetchUsersSucess = this.handleFetchUsersSucess.bind(this);
+    this.handleFetchUsersSuccess = this.handleFetchUsersSuccess.bind(this);
     this.handleFetchUsersFailure = this.handleFetchUsersFailure.bind(this);
+
+    this.handleLockUserSuccess = this.handleLockUserSuccess.bind(this);
+    this.handleUnlockUserSuccess = this.handleUnlockUserSuccess.bind(this);
   }
 
   componentDidMount() {
@@ -27,23 +30,43 @@ class RenderWindow extends Component {
 
   async fetchUserList() {
     await userServices.list(
-      this.handleFetchUsersSucess,
+      this.handleFetchUsersSuccess,
       this.handleFetchUsersFailure
     );
   }
 
-  handleFetchUsersSucess(res) {
+  handleFetchUsersSuccess(res) {
     let users = [];
     for (var propName in res) {
       if (propName.startsWith("user_")) {
-        users.push(res[propName]);
+        if (res[propName].role !== "admin") users.push(res[propName]);
       }
     }
-    this.setState({ users, fetchUsersSucess: true });
+    this.setState({ users, fetchUsersSuccess: true });
   }
 
   handleFetchUsersFailure() {
-    this.setState({ fetchUsersSucess: false });
+    this.setState({ fetchUsersSuccess: false });
+  }
+
+  handleLockUserSuccess(res, req) {
+    this.changeLockingState(req.username, "lock");
+  }
+
+  handleUnlockUserSuccess(res, req) {
+    this.changeLockingState(req.username, "unlock");
+  }
+
+  changeLockingState(username, state) {
+    const newList = this.state.users.map(user => {
+      if (user.username === username) {
+        user.locking_state = state;
+      }
+
+      return user;
+    });
+
+    this.setState({ list: newList });
   }
 
   render() {
@@ -76,7 +99,9 @@ class RenderWindow extends Component {
             <div className="p-4 devices">
               <AccountsPanel
                 list={this.state.users}
-                fetchSucess={this.state.fetchUsersSucess}
+                fetchSuccess={this.state.fetchUsersSuccess}
+                lockSuccess={this.handleLockUserSuccess}
+                unlockSuccess={this.handleUnlockUserSuccess}
               />
             </div>
           </Route>

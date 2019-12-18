@@ -19,9 +19,6 @@ class AccountsPanel extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      list: props.list,
-      fetchSuccess: props.fetchSuccess,
-
       username: null,
       locking_state: null,
 
@@ -30,47 +27,17 @@ class AccountsPanel extends Component {
         show: false,
         title: null,
         body: null
-      },
-
-      showEditor: false,
-      showAddition: false,
-      showPassword: false
+      }
     };
 
-    this.showAccountEditorModal = this.showAccountEditorModal.bind(this);
-    this.hideAccountEditorModal = this.hideAccountEditorModal.bind(this);
-
-    this.hideAccountAdditionModal = this.hideAccountAdditionModal.bind(this);
-    this.showAccountAdditionModal = this.showAccountAdditionModal.bind(this);
-
-    this.hideChangePasswordModal = this.hideChangePasswordModal.bind(this);
-
-    this.handleAddUserSuccess = this.handleAddUserSuccess.bind(this);
-
-    this.lockSuccess = this.handleLockUserSuccess.bind(this);
-    this.unlockSuccess = this.handleUnlockUserSuccess.bind(this);
+    // Fetch from server
     this.fetchLockingState = this.fetchLockingState.bind(this);
-
-    this.handleDeleteUserSuccess = this.handleDeleteUserSuccess.bind(this);
-    this.deleteAccount = this.deleteAccount.bind(this);
-
-    this.handleModifyUserSuccess = this.handleModifyUserSuccess.bind(this);
-
-    this.onFailure = this.handleUpdateUserFailure.bind(this);
+    this.fetchDeleteAccount = this.fetchDeleteAccount.bind(this);
   }
 
-  static getDerivedStateFromProps(nextProps, prevState) {
-    if (!prevState.list)
-      return {
-        list: nextProps.list,
-        fetchSuccess: nextProps.fetchSuccess
-      };
-
-    return null;
-  }
-
+  // Handle click button
   handleClickRemove(idx) {
-    const { username } = this.state.list[idx];
+    const { username } = this.props.list[idx];
 
     this.setState({
       username,
@@ -88,40 +55,8 @@ class AccountsPanel extends Component {
     });
   }
 
-  // Fetch from server
-  async deleteAccount() {
-    const { username } = this.state;
-
-    await userServices.remove(
-      username,
-      this.handleDeleteUserSuccess,
-      console.log
-    );
-
-    this.setState({ alert: { show: false } });
-  }
-
-  handleDeleteUserSuccess(res, req) {
-    this.setState(prevState => ({
-      list: prevState.list.filter(user => user.username !== req.username)
-    }));
-  }
-
-  handleAddUserSuccess(res, req) {
-    const newUser = { ...req, locking_state: "unlock", role: "standard" };
-
-    let { list } = this.state;
-    list.push(newUser);
-
-    this.setState({
-      list,
-      showAddition: false
-    });
-  }
-
-  // Handle when click lock/unlock button
   handleClickLock(idx) {
-    const { username, locking_state } = this.state.list[idx];
+    const { username, locking_state } = this.props.list[idx];
 
     this.setState({
       username,
@@ -140,91 +75,56 @@ class AccountsPanel extends Component {
     });
   }
 
-  // Fetch Locking State Post to server
-  async fetchLockingState() {
-    const { username, locking_state } = this.state;
+  handleClickProfile(idx) {
+    const { username } = this.props.list[idx];
 
-    if (locking_state === "unlock")
-      await userServices.lock(username, this.lockSuccess, this.onFailure);
-    else
-      await userServices.unlock(username, this.unlockSuccess, this.onFailure);
+    this.setState({ username });
+
+    this.props.show.edit();
+  }
+
+  handleClickPassword(idx) {
+    const { username } = this.props.list[idx];
+
+    this.setState({ username });
+
+    this.props.show.changePswd();
+  }
+
+  // Fetch from server
+  async fetchDeleteAccount() {
+    const { username } = this.state;
+
+    await userServices.remove(
+      username,
+      this.props.callback.onDeleteSuccess,
+      this.props.callback.onFailure
+    );
 
     this.setState({ alert: { show: false } });
   }
 
-  // Change Locking State When Fetch Success
-  handleLockUserSuccess(res, req) {
-    this.changeLockingState(req.username, "lock");
-  }
+  async fetchLockingState() {
+    const { username, locking_state } = this.state;
 
-  handleUnlockUserSuccess(res, req) {
-    this.changeLockingState(req.username, "unlock");
-  }
+    if (locking_state === "unlock")
+      await userServices.lock(
+        username,
+        this.props.callback.onLockSuccess,
+        this.props.callback.onFailure
+      );
+    else
+      await userServices.unlock(
+        username,
+        this.props.callback.onUnlockSuccess,
+        this.props.callback.onFailure
+      );
 
-  handleUpdateUserFailure() {
-    this.setState({ fetchSuccess: false });
-  }
-
-  changeLockingState(username, state) {
-    const newList = this.state.list.map(user => {
-      if (user.username === username) {
-        user.locking_state = state;
-      }
-
-      return user;
-    });
-
-    this.setState({ list: newList });
-  }
-
-  // Handle modify user data
-  handleModifyUserSuccess(res, req) {
-    const { username } = req;
-
-    let newUser = this.state.list.find(user => user.username === username);
-
-    for (var key in req) {
-      if (key !== "username" && key !== "token") {
-        newUser[key] = req[key];
-      }
-    }
-
-    this.setState({
-      showEditor: false
-    });
-  }
-
-  // Modals
-  showChangePasswordModal(idx) {
-    const { username } = this.state.list[idx];
-
-    this.setState({ username, showPassword: true });
-  }
-
-  hideChangePasswordModal() {
-    this.setState({ showPassword: false });
-  }
-
-  showAccountEditorModal(idx) {
-    const { username } = this.state.list[idx];
-
-    this.setState({ username, showEditor: true });
-  }
-
-  hideAccountEditorModal() {
-    this.setState({ showEditor: false });
-  }
-
-  showAccountAdditionModal() {
-    this.setState({ showAddition: true });
-  }
-
-  hideAccountAdditionModal() {
-    this.setState({ showAddition: false });
+    this.setState({ alert: { show: false } });
   }
 
   render() {
-    const { fetchSuccess } = this.state;
+    const { fetchSuccess } = this.props;
 
     if (fetchSuccess === true)
       return (
@@ -247,7 +147,7 @@ class AccountsPanel extends Component {
                 </tr>
               </thead>
               <tbody>
-                {this.state.list.map((item, idx) => (
+                {this.props.list.map((item, idx) => (
                   <tr key={idx}>
                     <td>{idx + 1}</td>
                     <td>{item.username}</td>
@@ -271,14 +171,14 @@ class AccountsPanel extends Component {
                     <td className="p-0">
                       <ButtonGroup>
                         <Button
-                          onClick={() => this.showAccountEditorModal(idx)}
+                          onClick={() => this.handleClickProfile(idx)}
                           variant="link p-2"
                         >
                           <i className="fas fa-user" />
                         </Button>
 
                         <Button
-                          onClick={() => this.showChangePasswordModal(idx)}
+                          onClick={() => this.handleClickPassword(idx)}
                           variant="link p-2"
                         >
                           <i className="fas fa-key" />
@@ -298,10 +198,7 @@ class AccountsPanel extends Component {
             </Table>
           </Card.Body>
           <Card.Footer className="hide-border mb-2 mt-n4">
-            <Button
-              variant="primary float-right"
-              onClick={this.showAccountAdditionModal}
-            >
+            <Button variant="primary float-right" onClick={this.props.show.add}>
               <i className="fas fa-plus" /> Add New Account
             </Button>
           </Card.Footer>
@@ -315,31 +212,31 @@ class AccountsPanel extends Component {
             onSubmit={
               this.state.alert.action === "lock"
                 ? this.fetchLockingState
-                : this.deleteAccount
+                : this.fetchDeleteAccount
             }
           >
             {this.state.alert.body}
           </CenteredAlert>
 
           <AccountEditorModal
-            show={this.state.showEditor}
-            onHide={this.hideAccountEditorModal}
-            profile={this.state.list.find(
+            show={this.props.visible.edit}
+            onHide={this.props.hide.edit}
+            profile={this.props.list.find(
               user => user.username === this.state.username
             )}
-            onSuccess={this.handleModifyUserSuccess}
+            onSuccess={this.props.callback.onModifySuccess}
           />
 
           <AccountAdditionModal
-            show={this.state.showAddition}
-            onHide={this.hideAccountAdditionModal}
-            onSuccess={this.handleAddUserSuccess}
+            show={this.props.visible.add}
+            onHide={this.props.hide.add}
+            onSuccess={this.props.callback.onAddSuccess}
           />
 
           <ChangePasswordModal
             username={this.state.username}
-            show={this.state.showPassword}
-            onHide={this.hideChangePasswordModal}
+            show={this.props.visible.changePswd}
+            onHide={this.props.hide.changePswd}
           />
         </Card>
       );

@@ -7,6 +7,7 @@ import MyAccountDropdownMenu from "../MyAccountDropdownMenu";
 import ChangePasswordModal from "../ChangePasswordModal";
 
 import * as notifyServices from "../../services/notify";
+import * as userServices from "../../services/user";
 
 import "./index.css";
 
@@ -16,6 +17,7 @@ class Navbar extends Component {
 
     this.state = {
       notify: null,
+      profile: null,
       showProfileEditor: false,
       showChangePassword: false
     };
@@ -27,10 +29,12 @@ class Navbar extends Component {
     this.showChangePasswordModal = this.showChangePasswordModal.bind(this);
 
     this.handleFetchNotifySuccess = this.handleFetchNotifySuccess.bind(this);
+    this.handleFetchProfileSuccess = this.handleFetchProfileSuccess.bind(this);
   }
 
   componentDidMount() {
     this.fetchNotifications();
+    this.fetchProfile();
   }
 
   hideProfileEditorModal() {
@@ -51,6 +55,21 @@ class Navbar extends Component {
 
   async fetchNotifications() {
     await notifyServices.list(this.handleFetchNotifySuccess);
+  }
+
+  async fetchProfile() {
+    const username = localStorage.getItem("username");
+    await userServices.view(
+      username,
+      this.handleFetchProfileSuccess,
+      console.log
+    );
+  }
+
+  handleFetchProfileSuccess(res) {
+    console.log(res);
+
+    this.setState({ profile: res });
   }
 
   handleFetchNotifySuccess(res) {
@@ -112,6 +131,7 @@ class Navbar extends Component {
           </OverlayTrigger>
         </span>
         <AccountEditorModal
+          profile={this.state.profile}
           show={this.state.showProfileEditor}
           onHide={this.hideProfileEditorModal}
         />

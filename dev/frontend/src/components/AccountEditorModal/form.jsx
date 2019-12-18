@@ -1,6 +1,5 @@
 import React, { Component } from "react";
-import { Form } from "react-bootstrap";
-import Select from "react-select";
+import { Form, Col } from "react-bootstrap";
 import handleInput from "../../logic/validation";
 
 class AccountEditorForm extends Component {
@@ -8,110 +7,150 @@ class AccountEditorForm extends Component {
     super(props);
 
     this.state = {
-      password: null,
-      cfPassword: null,
-      usernameValid: true,
-      passwordValid: true,
-      cfPasswordValid: null
+      prevProfile: Object.assign({}, props.profile),
+      profile: props.profile
     };
 
     this.handleChange = this.handleChange.bind(this);
   }
 
-  initValue() {
-    return {
-      name: "Tung Lam",
-      pswd: "123456",
-      desc: "A test account thing a not nice thit",
-      devices: [{ value: "chocolate", label: "Chocolate" }]
-    };
-  }
-
   handleChange(event) {
-    const name = event.target.name;
-    const value = event.target.value;
+    const { name, value } = event.target;
+    const { profile, prevProfile } = this.state;
 
-    if (name === "password" || name === "cfPassword") {
-      this.setState({
-        [name]: value
-      });
-
-      let target;
-      if (name === "password") target = this.state.cfPassword;
-      else target = this.state.password;
-
-      this.setState({
-        cfPasswordValid: value === target
-      });
-    }
-
-    const valid = handleInput(name, value, this.state.password);
+    profile[name] = value;
 
     this.setState({
-      [name + "Valid"]: valid
+      profile
     });
+
+    console.log(profile);
+    console.log(prevProfile);
+
+    // if (name === "password" || name === "cfPassword") {
+    //   this.setState({
+    //     [name]: value
+    //   });
+
+    //   let target;
+    //   if (name === "password") target = this.state.cfPassword;
+    //   else target = this.state.password;
+
+    //   this.setState({
+    //     cfPasswordValid: value === target
+    //   });
+    // }
+
+    // const valid = handleInput(name, value, this.state.password);
+
+    // this.setState({
+    //   [name + "Valid"]: valid
+    // });
   }
 
   render() {
-    const options = [
-      { value: "chocolate", label: "Chocolate" },
-      { value: "strawberry", label: "Strawberry" },
-      { value: "vanilla", label: "Vanilla" }
-    ];
+    let prev = this.state.profile;
 
-    const prev = this.initValue();
-
-    return (
-      <Form>
-        <Form.Group controlId="username">
-          <Form.Label>Username</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="username"
-            name="username"
-            defaultValue={prev.name}
-            onChange={this.handleChange}
-            isInvalid={!this.state.usernameValid}
-            disabled
-          />
-          <Form.Control.Feedback type="invalid">
-            Tên đăng nhập có độ dài 3-30 ký tự và không được chứa các ký tự đặc
-            biệt
-          </Form.Control.Feedback>
-        </Form.Group>
-        <Form.Group controlId="password">
-          <Form.Label>Password</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="password"
-            name="password"
-            defaultValue={prev.pswd}
-            onChange={this.handleChange}
-            isInvalid={!this.state.passwordValid}
-          />
-          <Form.Control.Feedback type="invalid">
-            Mật khẩu có đội dài tối thiểu 6 ký tự
-          </Form.Control.Feedback>
-        </Form.Group>
-        <Form.Group controlId="description">
-          <Form.Label>Description</Form.Label>
-          <Form.Control
-            as="textarea"
-            placeholder="description..."
-            defaultValue={prev.desc}
-          />
-        </Form.Group>
-        <Form.Group controlId="devices">
-          <Form.Label>Devices</Form.Label>
-          <Select
-            name="devices"
-            options={options}
-            defaultValue={prev.devices}
-            isMulti
-          />
-        </Form.Group>
-      </Form>
-    );
+    if (!prev) return <p>Hello</p>;
+    else
+      return (
+        <Form>
+          <Form.Group controlId="username">
+            <Form.Label>Username</Form.Label>
+            <Form.Control
+              type="text"
+              name="username"
+              defaultValue={prev.username}
+              disabled
+            />
+          </Form.Group>
+          <Form.Row>
+            <Col>
+              <Form.Group controlId="first_name">
+                <Form.Label>First Name</Form.Label>
+                <Form.Control
+                  type="text"
+                  name="first_name"
+                  defaultValue={prev.first_name}
+                  onChange={this.handleChange}
+                  // isInvalid={!this.state.first_nameValid}
+                />
+              </Form.Group>
+            </Col>
+            <Col>
+              <Form.Group controlId="last_name">
+                <Form.Label>Last Name</Form.Label>
+                <Form.Control
+                  type="text"
+                  name="last_name"
+                  defaultValue={prev.last_name}
+                  onChange={this.handleChange}
+                  // isInvalid={!this.state.last_nameValid}
+                />
+              </Form.Group>
+            </Col>
+          </Form.Row>
+          <Form.Group controlId="email">
+            <Form.Label>Email</Form.Label>
+            <Form.Control
+              type="email"
+              name="email"
+              defaultValue={prev.email}
+              onChange={this.handleChange}
+              // isInvalid={!this.state.emailValid}
+            />
+            <Form.Control.Feedback type="invalid">
+              Invalid email address
+            </Form.Control.Feedback>
+          </Form.Group>
+          <Form.Group controlId="email">
+            <Form.Label>Address</Form.Label>
+            <Form.Control
+              type="text"
+              name="address"
+              defaultValue={prev.address}
+              onChange={this.handleChange}
+            />
+          </Form.Group>
+          <Form.Row>
+            <Col>
+              <Form.Group controlId="gender">
+                <Form.Label>Gender</Form.Label>
+                <Form.Control
+                  type="text"
+                  name="gender"
+                  defaultValue={prev.gender}
+                  onChange={this.handleChange}
+                  // isInvalid={!this.state.genderValid}
+                />
+              </Form.Group>
+            </Col>
+            <Col>
+              <Form.Group controlId="phone_number">
+                <Form.Label>Phone Number</Form.Label>
+                <Form.Control
+                  type="text"
+                  name="phone_number"
+                  defaultValue={prev.phone_number}
+                  onChange={this.handleChange}
+                  // isInvalid={!this.state.phone_numberValid}
+                />
+              </Form.Group>
+            </Col>
+            <Col>
+              <Form.Group controlId="role">
+                <Form.Label>Role</Form.Label>
+                <Form.Control
+                  type="text"
+                  name="role"
+                  defaultValue={prev.role}
+                  disabled
+                />
+              </Form.Group>
+            </Col>
+          </Form.Row>
+        </Form>
+      );
   }
 }
 

@@ -10,7 +10,19 @@ export const list = (onSuccess, onFailure) => {
 
 export const add = () => {};
 
-export const view = () => {};
+export const view = (username, onSuccess, onFailure) => {
+  const filter = res => {
+    for (var propName in res) {
+      if (propName.startsWith("user_")) {
+        if (res[propName].username === username) {
+          onSuccess(res[propName]);
+        }
+      }
+    }
+  };
+
+  list(filter, onFailure);
+};
 
 export const modify = () => {};
 

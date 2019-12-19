@@ -1,8 +1,6 @@
 import { PROXY, BASE, POST } from "./const";
 
 function basePost(endpoint, body, onSuccess, onFailure = console.log) {
-  console.log(body);
-
   const url = PROXY + BASE + endpoint;
 
   fetch(url, {

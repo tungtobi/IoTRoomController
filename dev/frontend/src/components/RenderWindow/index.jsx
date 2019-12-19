@@ -93,14 +93,16 @@ class RenderWindow extends Component {
     let users = [];
     for (var propName in res) {
       if (propName.startsWith("user_")) {
-        // if (res[propName].role !== "admin")
-        users.push(res[propName]);
+        if (res[propName].username !== this.props.username)
+          users.push(res[propName]);
       }
     }
     this.setState({ users, filtered: users, fetchUsersSuccess: true });
   }
 
   handleFetchUsersFailure(res) {
+    console.log(res);
+
     let response = "Time out";
 
     if (res) response = getErrorMessage(res.error_code);

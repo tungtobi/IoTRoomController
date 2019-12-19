@@ -6,12 +6,16 @@ import { Redirect } from "react-router-dom";
 
 import "./index.css";
 
+import * as userServices from "../../services/user";
+
 class Header extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
       isLogin: null,
+      profile: null,
+
       timeUpdate: {
         seconds: 0,
         minutes: 0,
@@ -277,8 +281,10 @@ class Header extends Component {
       ],
       data: []
     };
+
     this.handUpdateData = this.handUpdateData.bind(this);
     this.changeValue = this.changeValue.bind(this);
+    this.handleFetchProfileSuccess = this.handleFetchProfileSuccess.bind(this);
   }
 
   handUpdateData() {
@@ -408,12 +414,23 @@ class Header extends Component {
       .catch(console.log);
   }
 
+  async fetchProfile() {
+    await userServices.view(this.handleFetchProfileSuccess, console.log);
+  }
+
+  handleFetchProfileSuccess(res) {
+    const { error_code, ...profile } = res;
+
+    this.setState({ profile });
+  }
+
   componentDidMount() {
     const token = localStorage.getItem("token");
     this.setState({ isLogin: token !== null });
 
     this.getCurrentWindow();
     this.handUpdateData();
+    this.fetchProfile();
   }
 
   getCurrentWindow() {
@@ -436,6 +453,8 @@ class Header extends Component {
   render() {
     if (this.state.isLogin === false) return <Redirect to="/" />;
 
+    const username = this.state.profile ? this.state.profile.username : null;
+
     return (
       <div className="background-light">
         <div className="menu-horizontal">
@@ -447,10 +466,14 @@ class Header extends Component {
           />
         </div>
         <div className="nav-fixed-top">
-          <Navbar nameWindow={this.state.nameWindow}></Navbar>
+          <Navbar
+            profile={this.state.profile}
+            nameWindow={this.state.nameWindow}
+          ></Navbar>
         </div>
         <div className="dashboard-content">
           <RenderWindow
+            username={username}
             timeUpdate={this.state.timeUpdate}
             nameWindow={this.state.nameWindow}
             devicesList={this.state.devicesList}

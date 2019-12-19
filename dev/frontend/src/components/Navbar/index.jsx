@@ -7,7 +7,6 @@ import MyAccountDropdownMenu from "../MyAccountDropdownMenu";
 import ChangePasswordModal from "../ChangePasswordModal";
 
 import * as notifyServices from "../../services/notify";
-import * as userServices from "../../services/user";
 
 import "./index.css";
 
@@ -17,7 +16,6 @@ class Navbar extends Component {
 
     this.state = {
       notify: null,
-      profile: null,
       showProfileEditor: false,
       showChangePassword: false,
       showFailAlert: false,
@@ -31,7 +29,6 @@ class Navbar extends Component {
     this.showChangePasswordModal = this.showChangePasswordModal.bind(this);
 
     this.handleFetchNotifySuccess = this.handleFetchNotifySuccess.bind(this);
-    this.handleFetchProfileSuccess = this.handleFetchProfileSuccess.bind(this);
 
     this.handleModifyProfileSuccess = this.handleModifyProfileSuccess.bind(
       this
@@ -40,7 +37,6 @@ class Navbar extends Component {
 
   componentDidMount() {
     this.fetchNotifications();
-    this.fetchProfile();
   }
 
   hideProfileEditorModal() {
@@ -69,16 +65,6 @@ class Navbar extends Component {
 
   async fetchNotifications() {
     await notifyServices.list(this.handleFetchNotifySuccess);
-  }
-
-  async fetchProfile() {
-    await userServices.view(this.handleFetchProfileSuccess, console.log);
-  }
-
-  handleFetchProfileSuccess(res) {
-    const { error_code, ...profile } = res;
-
-    this.setState({ profile });
   }
 
   handleFetchNotifySuccess(res) {
@@ -110,7 +96,7 @@ class Navbar extends Component {
       ? this.state.notify.filter(n => n.seen !== "true").length
       : 0;
 
-    const { username } = this.state.profile ? this.state.profile : {};
+    const { username } = this.props.profile ? this.props.profile : {};
 
     return (
       <nav className="navbar navbar-white nav-fixed-top px-0">
@@ -158,14 +144,14 @@ class Navbar extends Component {
         </span>
         <AccountEditorModal
           self
-          profile={this.state.profile}
+          profile={this.props.profile}
           show={this.state.showProfileEditor}
           onHide={this.hideProfileEditorModal}
           onSuccess={this.handleModifyProfileSuccess}
         />
         <ChangePasswordModal
           self
-          prev={this.state.profile}
+          prev={this.props.profile}
           show={this.state.showChangePassword}
           onHide={this.hideChangePasswordModal}
         />

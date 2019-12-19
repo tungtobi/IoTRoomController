@@ -319,6 +319,7 @@ class RenderWindow extends Component {
                   isProcess={this.state.process}
                   sort={this.sortBy}
                   filter={this.updateFilter}
+                  default={this.state.filter}
                   callback={{
                     onAddSuccess: this.handleAddUserSuccess,
                     onModifySuccess: this.handleModifyUserSuccess,

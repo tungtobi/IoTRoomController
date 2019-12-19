@@ -75,7 +75,7 @@ class AccountsPanel extends Component {
         body: (
           <div>
             Do you sure want to delete account <strong>{username}</strong>. This
-            action cannot undo!
+            action cannot be undo!
           </div>
         )
       }
@@ -225,6 +225,7 @@ class AccountsPanel extends Component {
                   <Form.Control
                     type="text"
                     name="username"
+                    defaultValue={this.props.default.username}
                     onChange={this.handleChangeFilter}
                   />
                 </th>
@@ -232,6 +233,7 @@ class AccountsPanel extends Component {
                   <Form.Control
                     type="text"
                     name="first_name"
+                    defaultValue={this.props.default.first_name}
                     onChange={this.handleChangeFilter}
                   />
                 </th>
@@ -239,6 +241,7 @@ class AccountsPanel extends Component {
                   <Form.Control
                     type="text"
                     name="last_name"
+                    defaultValue={this.props.default.last_name}
                     onChange={this.handleChangeFilter}
                   />
                 </th>
@@ -246,6 +249,7 @@ class AccountsPanel extends Component {
                   <Form.Control
                     as="select"
                     name="gender"
+                    defaultValue={this.props.default.gender}
                     onChange={this.handleChangeFilter}
                   >
                     <option>all</option>
@@ -258,6 +262,7 @@ class AccountsPanel extends Component {
                   <Form.Control
                     type="text"
                     name="address"
+                    defaultValue={this.props.default.address}
                     onChange={this.handleChangeFilter}
                   />
                 </th>
@@ -265,6 +270,7 @@ class AccountsPanel extends Component {
                   <Form.Control
                     type="text"
                     name="enmail"
+                    defaultValue={this.props.default.email}
                     onChange={this.handleChangeFilter}
                   />
                 </th>
@@ -272,6 +278,7 @@ class AccountsPanel extends Component {
                   <Form.Control
                     type="text"
                     name="phone_number"
+                    defaultValue={this.props.default.phone_number}
                     onChange={this.handleChangeFilter}
                   />
                 </th>
@@ -279,6 +286,7 @@ class AccountsPanel extends Component {
                   <Form.Control
                     as="select"
                     name="role"
+                    defaultValue={this.props.default.role}
                     onChange={this.handleChangeFilter}
                   >
                     <option>all</option>
@@ -290,6 +298,7 @@ class AccountsPanel extends Component {
                   <Form.Control
                     as="select"
                     name="locking_state"
+                    defaultValue={this.props.default.locking_state}
                     onChange={this.handleChangeFilter}
                   >
                     <option>all</option>

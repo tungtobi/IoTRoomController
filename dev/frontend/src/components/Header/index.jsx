@@ -32,21 +32,21 @@ class Header extends Component {
           icon: "fas fa-cloud-sun",
           nameItem: "Forecasts"
         },
-        {
-          link: "/dashboard/devices",
-          icon: "fas fa-tv",
-          nameItem: "Devices"
-        },
+        // {
+        //   link: "/dashboard/devices",
+        //   icon: "fas fa-tv",
+        //   nameItem: "Devices"
+        // },
         {
           link: "/dashboard/remotes",
           icon: "fas fa-gamepad",
           nameItem: "Remotes"
         },
-        {
-          link: "/dashboard/history",
-          icon: "fas fa-history",
-          nameItem: "History"
-        },
+        // {
+        //   link: "/dashboard/history",
+        //   icon: "fas fa-history",
+        //   nameItem: "History"
+        // },
         {
           link: "/dashboard/accounts",
           icon: "fas fa-user-circle",

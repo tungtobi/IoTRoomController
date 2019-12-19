@@ -107,6 +107,27 @@ class AccountAdditionForm extends Component {
               />
             </Form.Group>
           </Col>
+          <Col>
+            <Form.Group controlId="role">
+              <Form.Label>Role</Form.Label>
+              {/* <Form.Control
+                  type="text"
+                  name="role"
+                  defaultValue={prev.role}
+                  disabled={this.props.self}
+                /> */}
+              <Form.Control
+                as="select"
+                name="role"
+                defaultValue="standard"
+                onChange={this.props.handleChange}
+                disabled={this.props.self}
+              >
+                <option>standard</option>
+                <option>admin</option>
+              </Form.Control>
+            </Form.Group>
+          </Col>
         </Form.Row>
       </Form>
     );

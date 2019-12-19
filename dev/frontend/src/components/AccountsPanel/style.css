@@ -1,0 +1,30 @@
+th > button {
+  font-weight: bold !important;
+  color: #212529 !important;
+}
+
+th > button:hover,
+th > button:visited,
+th > button:link,
+th > button:active,
+th > button:focus {
+  text-decoration: none !important;
+}
+
+.glow-blue,
+.glow-red,
+.glow-yellow {
+  color: #999999 !important;
+}
+
+.glow-blue:hover {
+  color: #007bff !important;
+}
+
+.glow-red:hover {
+  color: #dc3545 !important;
+}
+
+.glow-yellow:hover {
+  color: #fcd410 !important;
+}

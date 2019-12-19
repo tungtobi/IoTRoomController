@@ -87,12 +87,24 @@ class AccountEditorModal extends CenteredModal {
 
     const { username } = this.state.profile;
 
-    const info = {
-      username,
-      ...change
-    };
+    if (!this.props.self) {
+      const info = {
+        username,
+        ...change
+      };
 
-    await userServices.modify(info, this.props.onSuccess, this.handleFailure);
+      await userServices.modify(info, this.props.onSuccess, this.handleFailure);
+    } else {
+      const info = {
+        ...change
+      };
+
+      await userServices.modifySelf(
+        info,
+        this.props.onSuccess,
+        this.handleFailure
+      );
+    }
   }
 
   handleFailure(res) {
@@ -128,6 +140,7 @@ class AccountEditorModal extends CenteredModal {
           profile={this.state.profile}
           onSubmit={this.onSubmit}
           handleChange={this.handleChange}
+          self={this.props.self}
         />
         <Alert
           variant="danger p-2 mb-2 mt-1"

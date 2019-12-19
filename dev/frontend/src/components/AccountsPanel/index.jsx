@@ -1,5 +1,7 @@
 import React, { Component } from "react";
-import Card from "react-bootstrap/Card";
+import { Card, Form } from "react-bootstrap";
+
+import "./style.css";
 
 import {
   Button,
@@ -41,6 +43,7 @@ class AccountsPanel extends Component {
         address: DIRECTION.NONE,
         email: DIRECTION.NONE,
         phone_number: DIRECTION.NONE,
+        role: DIRECTION.NONE,
         locking_state: DIRECTION.NONE
       }
     };
@@ -48,6 +51,16 @@ class AccountsPanel extends Component {
     // Fetch from server
     this.fetchLockingState = this.fetchLockingState.bind(this);
     this.fetchDeleteAccount = this.fetchDeleteAccount.bind(this);
+
+    this.handleChangeFilter = this.handleChangeFilter.bind(this);
+  }
+
+  handleChangeFilter(event) {
+    const { name, value } = event.target;
+
+    console.log(value);
+
+    this.props.filter(name, value);
   }
 
   // Handle click button
@@ -172,7 +185,7 @@ class AccountsPanel extends Component {
       <Card>
         <Card.Title>Accounts Manager</Card.Title>
         <Card.Body>
-          <Table responsive hover striped>
+          <Table responsive hover striped size="sm">
             <thead>
               <tr>
                 <th scope="col" className="align-middle">
@@ -186,24 +199,105 @@ class AccountsPanel extends Component {
                   "address",
                   "email",
                   "phone_number",
+                  "role",
                   "locking_state"
                 ].map((property, idx) => (
                   <th scope="col" key={idx} className="align-middle">
-                    <ButtonGroup>
-                      {property.toProperCase()}
-                      <Button
-                        variant="link py-0 px-1"
-                        onClick={() => this.sortBy(property)}
-                      >
-                        <i className={this.state.sortIcon[property]}></i>
-                      </Button>
-                    </ButtonGroup>
+                    <Button
+                      variant="link p-0"
+                      onClick={() => this.sortBy(property)}
+                    >
+                      {property.toProperCase() === "Locking State"
+                        ? "Active"
+                        : property.toProperCase()}{" "}
+                      <i className={this.state.sortIcon[property]}></i>
+                    </Button>
                   </th>
                 ))}
 
                 <th scope="col" className="align-middle">
                   Action
                 </th>
+              </tr>
+              <tr>
+                <th scope="col" />
+                <th scope="col">
+                  <Form.Control
+                    type="text"
+                    name="username"
+                    onChange={this.handleChangeFilter}
+                  />
+                </th>
+                <th scope="col">
+                  <Form.Control
+                    type="text"
+                    name="first_name"
+                    onChange={this.handleChangeFilter}
+                  />
+                </th>
+                <th scope="col">
+                  <Form.Control
+                    type="text"
+                    name="last_name"
+                    onChange={this.handleChangeFilter}
+                  />
+                </th>
+                <th scope="col">
+                  <Form.Control
+                    as="select"
+                    name="gender"
+                    onChange={this.handleChangeFilter}
+                  >
+                    <option>all</option>
+                    <option>Male</option>
+                    <option>Female</option>
+                    <option>Other</option>
+                  </Form.Control>
+                </th>
+                <th scope="col">
+                  <Form.Control
+                    type="text"
+                    name="address"
+                    onChange={this.handleChangeFilter}
+                  />
+                </th>
+                <th scope="col">
+                  <Form.Control
+                    type="text"
+                    name="enmail"
+                    onChange={this.handleChangeFilter}
+                  />
+                </th>
+                <th scope="col">
+                  <Form.Control
+                    type="text"
+                    name="phone_number"
+                    onChange={this.handleChangeFilter}
+                  />
+                </th>
+                <th scope="col">
+                  <Form.Control
+                    as="select"
+                    name="role"
+                    onChange={this.handleChangeFilter}
+                  >
+                    <option>all</option>
+                    <option>admin</option>
+                    <option>standard</option>
+                  </Form.Control>
+                </th>
+                <th scope="col">
+                  <Form.Control
+                    as="select"
+                    name="locking_state"
+                    onChange={this.handleChangeFilter}
+                  >
+                    <option>all</option>
+                    <option>lock</option>
+                    <option>unlock</option>
+                  </Form.Control>
+                </th>
+                <th scope="col" />
               </tr>
             </thead>
             <tbody>
@@ -217,32 +311,37 @@ class AccountsPanel extends Component {
                   <td>{item.address}</td>
                   <td>{item.email}</td>
                   <td>{item.phone_number}</td>
+                  <td>{item.role}</td>
                   <td>
                     <FormCheck custom type="switch">
                       <FormCheck.Input
                         checked={item.locking_state === "unlock"}
                         onChange={console.log}
+                        isInvalid={item.locking_state === "lock"}
                       />
                       <FormCheck.Label
                         onClick={() => this.handleClickLock(idx)}
                       ></FormCheck.Label>
                     </FormCheck>
                   </td>
-                  <td className="p-0">
+                  <td className="pr-1 pl-0">
                     <ButtonGroup>
                       <Button
+                        className="glow-blue"
                         onClick={() => this.handleClickProfile(idx)}
                         variant="link p-2"
                       >
                         <i className="fas fa-user" />
                       </Button>
                       <Button
+                        className="glow-yellow"
                         onClick={() => this.handleClickPassword(idx)}
                         variant="link p-2"
                       >
                         <i className="fas fa-key" />
                       </Button>
                       <Button
+                        className="glow-red"
                         onClick={() => this.handleClickRemove(idx)}
                         variant="link p-2"
                       >
@@ -309,21 +408,15 @@ class AccountsPanel extends Component {
 
         <ChangePasswordModal
           username={this.state.username}
+          prev={this.props.list.find(
+            user => user.username === this.state.username
+          )}
           show={this.props.visible.changePswd}
           onHide={this.props.hide.changePswd}
+          onSuccess={this.props.callback.onChangePswdSuccess}
         />
       </Card>
     );
-    // else if (fetchSuccess === false)
-    //   return <FailureAlert message={this.props.response} />;
-    // else
-    //   return (
-    //     // <Card>
-    //     //   <Card.Title>Accounts Manager</Card.Title>
-    //     //   <Card.Body></Card.Body>
-    //     // </Card>
-    //     <Loading />
-    //   );
   }
 }
 

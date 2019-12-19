@@ -12,14 +12,17 @@ class AccountAdditionModal extends CenteredModal {
     super(props);
 
     this.state = {
-      username: null,
-      password: null,
-      first_name: null,
-      last_name: null,
-      phone_number: null,
-      email: null,
-      gender: "Male",
-      address: null,
+      username: "test_acc_",
+      password: "123456",
+      first_name: "Jane",
+      last_name: "Doe",
+      phone_number: "0123456789",
+      email: "janedoe@example.com",
+      gender: "Female",
+      address: "133 Xuan Thuy, Cau Giay",
+      role: "standard",
+
+      temp: 0,
 
       showAlert: false,
       process: false,
@@ -81,19 +84,25 @@ class AccountAdditionModal extends CenteredModal {
       phone_number,
       email,
       gender,
-      address
+      address,
+      role
     } = this.state;
 
+    const usernamePrefix = username + this.state.temp;
+
     const user = {
-      username,
+      username: usernamePrefix,
       password,
       first_name,
       last_name,
       phone_number,
       email,
       gender,
-      address
+      address,
+      role
     };
+
+    this.setState(prevState => ({ temp: prevState.temp + 1 }));
 
     await userServices.add(user, this.props.onSuccess, this.handleFailure);
   }

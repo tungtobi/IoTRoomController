@@ -7,6 +7,8 @@ import * as sessionServices from "../../services/session";
 import "../HomeBanner/style.css";
 import "./style.css";
 
+import getErrorMessage from "../../services/error";
+
 class LoginForm extends Component {
   constructor(props) {
     super(props);
@@ -17,7 +19,8 @@ class LoginForm extends Component {
       usernameValid: null,
       passwordValid: null,
       isAuthening: null,
-      success: null
+      success: null,
+      response: null
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -55,12 +58,15 @@ class LoginForm extends Component {
 
   handleLoginSuccess(res, req) {
     localStorage.setItem("token", res.token);
-    localStorage.setItem("username", req.username);
     this.setState({ success: true, isAuthening: false });
   }
 
-  handleLoginFailure() {
-    this.setState({ success: false, isAuthening: false });
+  handleLoginFailure(res) {
+    let response = "Time out";
+
+    if (res) response = getErrorMessage(res.error_code);
+
+    this.setState({ success: false, isAuthening: false, response });
   }
 
   render() {
@@ -113,8 +119,9 @@ class LoginForm extends Component {
         <Form.Group>
           <Alert variant="danger p-2" show={this.state.success === false}>
             <small>
-              Oops! It looks like you may have forgotten your password.{" "}
-              <a href="#reset-password">Click here to reset it.</a>
+              Oops! You got an error!.
+              <br />
+              {this.state.response}.
             </small>
           </Alert>
         </Form.Group>

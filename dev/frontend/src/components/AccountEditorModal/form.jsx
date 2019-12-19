@@ -105,12 +105,22 @@ class AccountEditorForm extends Component {
             <Col>
               <Form.Group controlId="role">
                 <Form.Label>Role</Form.Label>
-                <Form.Control
+                {/* <Form.Control
                   type="text"
                   name="role"
                   defaultValue={prev.role}
-                  disabled
-                />
+                  disabled={this.props.self}
+                /> */}
+                <Form.Control
+                  as="select"
+                  name="role"
+                  defaultValue={prev.role}
+                  onChange={this.props.handleChange}
+                  disabled={this.props.self}
+                >
+                  <option>standard</option>
+                  <option>admin</option>
+                </Form.Control>
               </Form.Group>
             </Col>
           </Form.Row>

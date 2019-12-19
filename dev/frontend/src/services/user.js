@@ -14,6 +14,8 @@ export const add = (user, onSuccess, onFailure) => {
     ...user
   };
 
+  console.log(body);
+
   basePost("/admin/add-user", body, onSuccess, onFailure);
 };
 
@@ -26,18 +28,12 @@ export const remove = (username, onSuccess, onFailure) => {
   basePost("/admin/delete-user", body, onSuccess, onFailure);
 };
 
-export const view = (username, onSuccess, onFailure) => {
-  const filter = res => {
-    for (var propName in res) {
-      if (propName.startsWith("user_")) {
-        if (res[propName].username === username) {
-          onSuccess(res[propName]);
-        }
-      }
-    }
+export const view = (onSuccess, onFailure) => {
+  const body = {
+    token: localStorage.getItem("token")
   };
 
-  list(filter, onFailure);
+  basePost("/user/info", body, onSuccess, onFailure);
 };
 
 export const modify = (info, onSuccess, onFailure) => {
@@ -47,6 +43,15 @@ export const modify = (info, onSuccess, onFailure) => {
   };
 
   basePost("/admin/modify-user", body, onSuccess, onFailure);
+};
+
+export const modifySelf = (info, onSuccess, onFailure) => {
+  const body = {
+    token: localStorage.getItem("token"),
+    ...info
+  };
+
+  basePost("/user/modify-user", body, onSuccess, onFailure);
 };
 
 export const changePassword = (username, password, onSuccess, onFailure) => {
@@ -59,6 +64,14 @@ export const changePassword = (username, password, onSuccess, onFailure) => {
   basePost("/admin/modify-user", body, onSuccess, onFailure);
 };
 
+export const changeSelfPassword = (password, onSuccess, onFailure) => {
+  const body = {
+    token: localStorage.getItem("token"),
+    password
+  };
+
+  basePost("/user/modify-user", body, onSuccess, onFailure);
+};
 export const lock = (username, onSuccess, onFailure) => {
   const body = {
     token: localStorage.getItem("token"),

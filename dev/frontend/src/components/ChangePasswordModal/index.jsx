@@ -7,6 +7,8 @@ import handleInput from "../../logic/validation";
 
 import * as userServices from "../../services/user";
 
+import getErrorMessage from "../../services/error";
+
 class ChangePasswordModal extends CenteredModal {
   constructor(props) {
     super(props);
@@ -16,7 +18,8 @@ class ChangePasswordModal extends CenteredModal {
       cfPassword: null,
       passwordValid: true,
       cfPasswordValid: true,
-      updating: null
+      updating: null,
+      response: null
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -50,33 +53,58 @@ class ChangePasswordModal extends CenteredModal {
     this.setState({
       [name + "Valid"]: valid
     });
+
+    this.setState(prev => ({
+      cfPasswordValid:
+        prev.password === prev.cfPassword || prev.cfPassword === null
+    }));
+
+    if (name === "password")
+      this.setState(prevState => ({
+        passwordValid:
+          prevState.passwordValid &&
+          prevState.password !== this.props.prev.password
+      }));
   }
 
   async handleSubmit() {
     const { password } = this.state;
-    const { username } = this.props;
-
     this.setState({ updating: true });
 
-    await userServices.changePassword(
-      username,
-      password,
-      this.onSuccess,
-      this.onFailure
-    );
+    if (!this.props.self) {
+      const { username } = this.props;
+
+      await userServices.changePassword(
+        username,
+        password,
+        this.onSuccess,
+        this.onFailure
+      );
+    } else {
+      await userServices.changeSelfPassword(
+        password,
+        this.onSuccess,
+        this.onFailure
+      );
+    }
   }
 
-  onSuccess() {
+  onSuccess(res, req) {
     this.props.onHide();
     this.setState({ updating: null });
+    this.props.onSuccess(req);
   }
 
-  onFailure() {
-    this.setState({ updating: false });
+  onFailure(res) {
+    let response = "Time out";
+
+    if (res) response = getErrorMessage(res.error_code);
+
+    this.setState({ updating: false, response });
   }
 
   getTitle() {
-    return "Change password";
+    return "Change Password";
   }
 
   getBody() {
@@ -87,6 +115,8 @@ class ChangePasswordModal extends CenteredModal {
       >
         <small>
           Oops! You got an error! Please check your connection and try again.
+          <br />
+          {this.state.response}.
         </small>
       </Alert>
     );

@@ -14,7 +14,8 @@ class ChangePasswordForm extends Component {
             isInvalid={!this.props.passwordValid}
           />
           <Form.Control.Feedback type="invalid">
-            Password must be at least 5 characters long
+            Password must be at least 5 characters long and must be different
+            from the old password
           </Form.Control.Feedback>
         </Form.Group>
         <Form.Group controlId="cfPassword">

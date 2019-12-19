@@ -19,7 +19,9 @@ class Navbar extends Component {
       notify: null,
       profile: null,
       showProfileEditor: false,
-      showChangePassword: false
+      showChangePassword: false,
+      showFailAlert: false,
+      response: null
     };
 
     this.hideProfileEditorModal = this.hideProfileEditorModal.bind(this);
@@ -57,21 +59,26 @@ class Navbar extends Component {
     this.setState({ showChangePassword: true });
   }
 
+  showFailureAlert() {
+    this.setState({ showFailAlert: true });
+  }
+
+  hideFailureAlert() {
+    this.setState({ showFailAlert: false });
+  }
+
   async fetchNotifications() {
     await notifyServices.list(this.handleFetchNotifySuccess);
   }
 
   async fetchProfile() {
-    const username = localStorage.getItem("username");
-    await userServices.view(
-      username,
-      this.handleFetchProfileSuccess,
-      console.log
-    );
+    await userServices.view(this.handleFetchProfileSuccess, console.log);
   }
 
   handleFetchProfileSuccess(res) {
-    this.setState({ profile: res });
+    const { error_code, ...profile } = res;
+
+    this.setState({ profile });
   }
 
   handleFetchNotifySuccess(res) {
@@ -103,7 +110,7 @@ class Navbar extends Component {
       ? this.state.notify.filter(n => n.seen !== "true").length
       : 0;
 
-    const username = this.state.profile ? this.state.profile.username : null;
+    const { username } = this.state.profile ? this.state.profile : {};
 
     return (
       <nav className="navbar navbar-white nav-fixed-top px-0">
@@ -150,13 +157,15 @@ class Navbar extends Component {
           </OverlayTrigger>
         </span>
         <AccountEditorModal
+          self
           profile={this.state.profile}
           show={this.state.showProfileEditor}
           onHide={this.hideProfileEditorModal}
           onSuccess={this.handleModifyProfileSuccess}
         />
         <ChangePasswordModal
-          username={username}
+          self
+          prev={this.state.profile}
           show={this.state.showChangePassword}
           onHide={this.hideChangePasswordModal}
         />

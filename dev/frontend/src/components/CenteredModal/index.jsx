@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 import { Modal } from "react-bootstrap";
 
 class CenteredModal extends Component {
@@ -16,7 +17,7 @@ class CenteredModal extends Component {
   getFooter() {}
 
   render() {
-    const { onSuccess, onFailure, ...rest } = this.props;
+    const { onSuccess, onFailure, self, ...rest } = this.props;
     return (
       <Modal {...rest} centered>
         <Modal.Header closeButton>
@@ -28,5 +29,9 @@ class CenteredModal extends Component {
     );
   }
 }
+
+CenteredModal.propTypes = {
+  self: PropTypes.bool
+};
 
 export default CenteredModal;

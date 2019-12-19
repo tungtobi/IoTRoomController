@@ -20,6 +20,20 @@ class RenderWindow extends Component {
       fetchUsersSuccess: null,
       users: null,
 
+      filtered: null,
+
+      filter: {
+        username: "",
+        first_name: "",
+        last_name: "",
+        gender: "all",
+        address: "",
+        email: "",
+        phone_number: "",
+        role: "all",
+        locking_state: "all"
+      },
+
       showEditor: false,
       showAddition: false,
       showPassword: false,
@@ -62,6 +76,7 @@ class RenderWindow extends Component {
 
     // Sort
     this.sortBy = this.sortBy.bind(this);
+    this.updateFilter = this.updateFilter.bind(this);
   }
 
   componentDidMount() {
@@ -78,10 +93,11 @@ class RenderWindow extends Component {
     let users = [];
     for (var propName in res) {
       if (propName.startsWith("user_")) {
-        if (res[propName].role !== "admin") users.push(res[propName]);
+        // if (res[propName].role !== "admin")
+        users.push(res[propName]);
       }
     }
-    this.setState({ users, fetchUsersSuccess: true });
+    this.setState({ users, filtered: users, fetchUsersSuccess: true });
   }
 
   handleFetchUsersFailure(res) {
@@ -92,10 +108,33 @@ class RenderWindow extends Component {
     this.setState({ fetchUsersSuccess: false, response });
   }
 
+  // Change password callback function
+  onChangePswdSuccess(req) {
+    const { username, password } = req;
+
+    const newList = this.state.users.map(user => {
+      if (user.username === username) {
+        user.password = password;
+      }
+
+      return user;
+    });
+
+    this.setState(prevState => ({
+      users: newList,
+      filtered: this.filter(newList, prevState.filter)
+    }));
+  }
+
   // Delete user callback function
   handleDeleteUserSuccess(res, req) {
     this.setState(prevState => ({
       users: prevState.users.filter(user => user.username !== req.username),
+      filtered: this.filter(
+        prevState.users.filter(user => user.username !== req.username),
+        prevState.filter
+      ),
+
       showAlert: false,
       process: false
     }));
@@ -103,15 +142,16 @@ class RenderWindow extends Component {
 
   // Add user callback function
   handleAddUserSuccess(res, req) {
-    const newUser = { ...req, locking_state: "unlock", role: "standard" };
+    const newUser = { ...req, locking_state: "unlock" };
 
     let { users } = this.state;
     users.push(newUser);
 
-    this.setState({
+    this.setState(prevState => ({
       users,
+      filtered: this.filter(users, prevState.filter),
       showAddition: false
-    });
+    }));
   }
 
   // Change Locking State callback function
@@ -132,7 +172,12 @@ class RenderWindow extends Component {
       return user;
     });
 
-    this.setState({ users: newList, showAlert: false, process: false });
+    this.setState(prevState => ({
+      users: newList,
+      filtered: this.filter(newList, prevState.filter),
+      showAlert: false,
+      process: false
+    }));
   }
 
   // Modify user callback function
@@ -150,6 +195,8 @@ class RenderWindow extends Component {
     this.setState({
       showEditor: false
     });
+
+    this.updateFilter();
   }
 
   // Modals
@@ -189,21 +236,47 @@ class RenderWindow extends Component {
     this.setState({ process: true });
   }
 
+  // Filter user list
+  updateFilter(name, value) {
+    const { users, filter } = this.state;
+
+    if (name) filter[name] = value;
+
+    this.setState({ filtered: this.filter(users, filter), filter });
+  }
+
+  filter(users, filter) {
+    const filtered = users.filter(
+      user =>
+        user.username.startsWith(filter.username) &&
+        user.last_name.startsWith(filter.last_name) &&
+        user.first_name.startsWith(filter.first_name) &&
+        user.address.startsWith(filter.address) &&
+        user.email.startsWith(filter.email) &&
+        user.phone_number.startsWith(filter.phone_number) &&
+        (user.gender === filter.gender || filter.gender === "all") &&
+        (user.role === filter.role || filter.role === "all") &&
+        (user.locking_state === filter.locking_state ||
+          filter.locking_state === "all")
+    );
+
+    return filtered;
+  }
+
   // Sort user list by property
   sortBy(property, direct) {
     let sorted;
 
-    if (direct === "up")
-      sorted = [...this.state.users].sort((a, b) =>
-        a[property] < b[property] ? 1 : b[property] < a[property] ? -1 : 0
-      );
-    else
-      sorted = [...this.state.users].sort((a, b) =>
-        a[property] > b[property] ? 1 : b[property] > a[property] ? -1 : 0
-      );
+    sorted = [...this.state.users].sort((a, b) =>
+      a[property] < b[property] ? 1 : b[property] < a[property] ? -1 : 0
+    );
+    if (direct === "down") sorted = sorted.reverse();
 
-    this.setState(prev => ({
-      users: sorted
+    console.log(sorted);
+
+    this.setState(prevState => ({
+      users: sorted,
+      filtered: this.filter(sorted, prevState.filter)
     }));
   }
 
@@ -239,11 +312,12 @@ class RenderWindow extends Component {
             <div className="p-4">
               {fetchUsersSuccess === true ? (
                 <AccountsPanel
-                  list={this.state.users}
+                  list={this.state.filtered}
                   response={this.state.response}
                   process={() => this.process()}
                   isProcess={this.state.process}
                   sort={this.sortBy}
+                  filter={this.updateFilter}
                   callback={{
                     onAddSuccess: this.handleAddUserSuccess,
                     onModifySuccess: this.handleModifyUserSuccess,

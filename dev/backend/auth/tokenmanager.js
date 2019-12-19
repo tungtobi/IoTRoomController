@@ -4,7 +4,10 @@ function get_role (username, callback){
 	mysqldatabase.query (query, function (response){
 		if (response.error_code === 0 && response.result.length === 1){
 			return callback({error_code: 0, role: response.result[0].role});
-		} else return callback ({error_code: 100});
+		} else if (response.error_code === 0 && response.result.length != 1){
+			return callback({error_code: 107});
+		}
+		else return callback ({error_code: 100});
 	})
 }
 function verify_token(token, callback){

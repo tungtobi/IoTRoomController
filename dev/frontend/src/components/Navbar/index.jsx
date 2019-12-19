@@ -7,6 +7,7 @@ import MyAccountDropdownMenu from "../MyAccountDropdownMenu";
 import ChangePasswordModal from "../ChangePasswordModal";
 
 import * as notifyServices from "../../services/notify";
+import * as userServices from "../../services/user";
 
 import "./index.css";
 
@@ -15,7 +16,8 @@ class Navbar extends Component {
     super(props);
 
     this.state = {
-      notify: [],
+      notify: null,
+      profile: null,
       showProfileEditor: false,
       showChangePassword: false
     };
@@ -27,10 +29,12 @@ class Navbar extends Component {
     this.showChangePasswordModal = this.showChangePasswordModal.bind(this);
 
     this.handleFetchNotifySuccess = this.handleFetchNotifySuccess.bind(this);
+    this.handleFetchProfileSuccess = this.handleFetchProfileSuccess.bind(this);
   }
 
   componentDidMount() {
     this.fetchNotifications();
+    this.fetchProfile();
   }
 
   hideProfileEditorModal() {
@@ -41,7 +45,7 @@ class Navbar extends Component {
     this.setState({ showProfileEditor: true });
   }
 
-  hideChangePasswordModal() {
+  hideChangePasswordModal(event) {
     this.setState({ showChangePassword: false });
   }
 
@@ -51,6 +55,21 @@ class Navbar extends Component {
 
   async fetchNotifications() {
     await notifyServices.list(this.handleFetchNotifySuccess);
+  }
+
+  async fetchProfile() {
+    const username = localStorage.getItem("username");
+    await userServices.view(
+      username,
+      this.handleFetchProfileSuccess,
+      console.log
+    );
+  }
+
+  handleFetchProfileSuccess(res) {
+    console.log(res);
+
+    this.setState({ profile: res });
   }
 
   handleFetchNotifySuccess(res) {
@@ -64,7 +83,9 @@ class Navbar extends Component {
   }
 
   render() {
-    const unseen = this.state.notify.filter(n => n.seen !== "true").length;
+    const unseen = this.state.notify
+      ? this.state.notify.filter(n => n.seen !== "true").length
+      : 0;
 
     return (
       <nav className="navbar navbar-white nav-fixed-top px-0">
@@ -73,8 +94,8 @@ class Navbar extends Component {
         </span>
         <span className="form-inline pr-2 fit-content ">
           <OverlayTrigger
+            rootClose
             trigger="click"
-            ref="overlay"
             placement="bottom"
             overlay={
               <Popover className="notify-panel">
@@ -93,7 +114,7 @@ class Navbar extends Component {
           </OverlayTrigger>
 
           <OverlayTrigger
-            trigger="click"
+            trigger="focus"
             placement="bottom"
             overlay={
               <Popover className="myaccount-panel">
@@ -104,15 +125,13 @@ class Navbar extends Component {
               </Popover>
             }
           >
-            <Button
-              variant="link p-0 mx-2"
-              onClick={() => this.refs.overlay.hide()}
-            >
+            <Button variant="link p-0 mx-2">
               <i className="fas fa-user-circle navbar-icon" />
             </Button>
           </OverlayTrigger>
         </span>
         <AccountEditorModal
+          profile={this.state.profile}
           show={this.state.showProfileEditor}
           onHide={this.hideProfileEditorModal}
         />

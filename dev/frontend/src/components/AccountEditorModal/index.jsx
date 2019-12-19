@@ -5,11 +5,16 @@ import AccountEditorForm from "./form";
 
 class AccountEditorModal extends CenteredModal {
   getTitle() {
-    return "Edit a account";
+    return "User Profile";
   }
 
   getBody() {
-    return <AccountEditorForm onSubmit={this.props.onSubmit} />;
+    return (
+      <AccountEditorForm
+        profile={this.props.profile}
+        onSubmit={this.props.onSubmit}
+      />
+    );
   }
 
   getFooter() {

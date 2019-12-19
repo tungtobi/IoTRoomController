@@ -3,20 +3,13 @@
 }
 
 .myaccount-menu-item {
-  padding: 0.5rem 0.75rem !important;
-  display: block;
-  width: 100%;
-  clear: both;
+  padding: 0.5rem 0.75rem;
   font-weight: 400;
   color: #212529;
-  text-align: inherit;
-  white-space: nowrap;
-  background-color: transparent;
-  border: 0;
   cursor: pointer;
 }
 
 .myaccount-menu-item:focus,
 .myaccount-menu-item:hover {
-  background-color: rgba(0, 0, 0, 0.075) !important;
+  background-color: rgba(0, 0, 0, 0.075);
 }

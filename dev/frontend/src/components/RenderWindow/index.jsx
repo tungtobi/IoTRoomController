@@ -22,6 +22,7 @@ class RenderWindow extends Component {
 
     this.handleLockUserSuccess = this.handleLockUserSuccess.bind(this);
     this.handleUnlockUserSuccess = this.handleUnlockUserSuccess.bind(this);
+    this.handleUpdateUserFailure = this.handleUpdateUserFailure.bind(this);
   }
 
   componentDidMount() {
@@ -55,6 +56,10 @@ class RenderWindow extends Component {
 
   handleUnlockUserSuccess(res, req) {
     this.changeLockingState(req.username, "unlock");
+  }
+
+  handleUpdateUserFailure() {
+    this.setState({ fetchUsersSuccess: false });
   }
 
   changeLockingState(username, state) {
@@ -101,6 +106,7 @@ class RenderWindow extends Component {
                 list={this.state.users}
                 fetchSuccess={this.state.fetchUsersSuccess}
                 lockSuccess={this.handleLockUserSuccess}
+                onFailure={this.handleUpdateUserFailure}
                 unlockSuccess={this.handleUnlockUserSuccess}
               />
             </div>

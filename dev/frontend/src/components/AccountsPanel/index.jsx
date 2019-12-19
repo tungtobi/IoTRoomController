@@ -1,8 +1,16 @@
 import React, { Component } from "react";
 import Card from "react-bootstrap/Card";
-import { Button, Table, Spinner, Alert, FormCheck } from "react-bootstrap";
+import {
+  Button,
+  Table,
+  Spinner,
+  Alert,
+  FormCheck,
+  ButtonGroup
+} from "react-bootstrap";
 import * as userServices from "../../services/user";
 import CenteredAlert from "../CenteredAlert";
+import AccountEditorModal from "../AccountEditorModal";
 
 class AccountsPanel extends Component {
   constructor(props) {
@@ -16,8 +24,13 @@ class AccountsPanel extends Component {
         show: false,
         title: null,
         body: null
-      }
+      },
+
+      showEditor: false
     };
+
+    this.showAccountEditorModal = this.showAccountEditorModal.bind(this);
+    this.hideAccountEditorModal = this.hideAccountEditorModal.bind(this);
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
@@ -46,13 +59,31 @@ class AccountsPanel extends Component {
     });
   }
 
+  showAccountEditorModal(idx) {
+    const { username } = this.state.list[idx];
+
+    this.setState({ username, showEditor: true });
+  }
+
+  hideAccountEditorModal() {
+    this.setState({ showEditor: false });
+  }
+
   async changeLockingState() {
     const { username, locking_state } = this.state;
 
     if (locking_state === "unlock") {
-      await userServices.lock(username, this.props.lockSuccess);
+      await userServices.lock(
+        username,
+        this.props.lockSuccess,
+        this.props.onFailure
+      );
     } else {
-      await userServices.unlock(username, this.props.unlockSuccess);
+      await userServices.unlock(
+        username,
+        this.props.unlockSuccess,
+        this.props.onFailure
+      );
     }
 
     this.setState({ alert: { show: false } });
@@ -60,6 +91,7 @@ class AccountsPanel extends Component {
 
   render() {
     const { fetchSuccess } = this.state;
+
     if (fetchSuccess === true)
       return (
         <Card>
@@ -103,21 +135,26 @@ class AccountsPanel extends Component {
                       </FormCheck>
                     </td>
                     <td className="p-0">
-                      <button
-                        onClick={() => this.props.showDevEditModal()}
-                        type="button"
-                        className="btn btn-link"
-                      >
-                        <i className="far fa-edit"></i>
-                      </button>
-                      <button
-                        onClick={() => this.props.removeDevice(item.seria)}
-                        style={{ color: "Tomato" }}
-                        type="button"
-                        className="btn btn-link"
-                      >
-                        <i className="fas fa-trash"></i>
-                      </button>
+                      <ButtonGroup>
+                        <Button
+                          onClick={() => this.showAccountEditorModal(idx)}
+                          variant="link p-2"
+                        >
+                          <i className="fas fa-user" />
+                        </Button>
+                        <Button
+                          // onClick={() => this.showAccountEditorModal(idx)}
+                          variant="link p-2"
+                        >
+                          <i className="fas fa-trash"></i>
+                        </Button>
+                        <Button
+                          // onClick={() => this.showAccountEditorModal(idx)}
+                          variant="link p-2"
+                        >
+                          <i className="fas fa-user-shield"></i>
+                        </Button>
+                      </ButtonGroup>
                     </td>
                   </tr>
                 ))}
@@ -135,6 +172,7 @@ class AccountsPanel extends Component {
               <i className="fas fa-plus" /> Nothing
             </Button>
           </Card.Footer>
+
           <CenteredAlert
             show={this.state.alert.show}
             onHide={() => this.setState({ alert: { show: false } })}
@@ -145,6 +183,14 @@ class AccountsPanel extends Component {
           >
             {this.state.alert.body}
           </CenteredAlert>
+
+          <AccountEditorModal
+            show={this.state.showEditor}
+            onHide={this.hideAccountEditorModal}
+            profile={this.state.list.find(
+              user => user.username === this.state.username
+            )}
+          />
         </Card>
       );
     else if (fetchSuccess === false)

@@ -81,7 +81,7 @@ class LoginForm extends Component {
           <Form.Label>Username</Form.Label>
           <Form.Control
             type="text"
-            placeholder="eg: lamnt"
+            placeholder="eg: admin"
             name="username"
             onChange={this.handleChange}
             isInvalid={this.state.usernameValid === false}
@@ -96,7 +96,7 @@ class LoginForm extends Component {
           <Form.Label>Password</Form.Label>
           <Form.Control
             type="password"
-            placeholder="eg: ******"
+            placeholder="eg: admin"
             name="password"
             onChange={this.handleChange}
             isInvalid={this.state.passwordValid === false}

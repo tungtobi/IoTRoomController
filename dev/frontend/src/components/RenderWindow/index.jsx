@@ -6,7 +6,11 @@ import HistoryCard from "../HistoryCard";
 import "./index.css";
 import ForecastsWindow from "../Forecasts";
 import AccountsPanel from "../AccountsPanel";
+import FailureAlert from "../FailureAlert";
+
 import * as userServices from "../../services/user";
+import getErrorMessage from "../../services/error";
+import Loading from "../Loading";
 
 class RenderWindow extends Component {
   constructor(props) {
@@ -18,7 +22,12 @@ class RenderWindow extends Component {
 
       showEditor: false,
       showAddition: false,
-      showPassword: false
+      showPassword: false,
+      showAlert: false,
+
+      process: false,
+
+      response: null
     };
 
     // List users callback
@@ -50,6 +59,9 @@ class RenderWindow extends Component {
 
     this.showChangePasswordModal = this.showChangePasswordModal.bind(this);
     this.hideChangePasswordModal = this.hideChangePasswordModal.bind(this);
+
+    // Sort
+    this.sortBy = this.sortBy.bind(this);
   }
 
   componentDidMount() {
@@ -73,13 +85,19 @@ class RenderWindow extends Component {
   }
 
   handleFetchUsersFailure(res) {
-    this.setState({ fetchUsersSuccess: false });
+    let response = "Time out";
+
+    if (res) response = getErrorMessage(res.error_code);
+
+    this.setState({ fetchUsersSuccess: false, response });
   }
 
   // Delete user callback function
   handleDeleteUserSuccess(res, req) {
     this.setState(prevState => ({
-      users: prevState.users.filter(user => user.username !== req.username)
+      users: prevState.users.filter(user => user.username !== req.username),
+      showAlert: false,
+      process: false
     }));
   }
 
@@ -114,7 +132,7 @@ class RenderWindow extends Component {
       return user;
     });
 
-    this.setState({ users: newList });
+    this.setState({ users: newList, showAlert: false, process: false });
   }
 
   // Modify user callback function
@@ -159,7 +177,39 @@ class RenderWindow extends Component {
     this.setState({ showAddition: false });
   }
 
+  showAlert() {
+    this.setState({ showAlert: true });
+  }
+
+  hideAlert() {
+    this.setState({ showAlert: false });
+  }
+
+  process() {
+    this.setState({ process: true });
+  }
+
+  // Sort user list by property
+  sortBy(property, direct) {
+    let sorted;
+
+    if (direct === "up")
+      sorted = [...this.state.users].sort((a, b) =>
+        a[property] < b[property] ? 1 : b[property] < a[property] ? -1 : 0
+      );
+    else
+      sorted = [...this.state.users].sort((a, b) =>
+        a[property] > b[property] ? 1 : b[property] > a[property] ? -1 : 0
+      );
+
+    this.setState(prev => ({
+      users: sorted
+    }));
+  }
+
   render() {
+    const { fetchUsersSuccess } = this.state;
+
     return (
       <div className="window-body">
         <Switch>
@@ -186,34 +236,46 @@ class RenderWindow extends Component {
             <HistoryCard devicesHistory={this.props.devicesHistory} />
           </Route>
           <Route path="/dashboard/accounts">
-            <div className="p-4 devices">
-              <AccountsPanel
-                list={this.state.users}
-                callback={{
-                  onAddSuccess: this.handleAddUserSuccess,
-                  onModifySuccess: this.handleModifyUserSuccess,
-                  onDeleteSuccess: this.handleDeleteUserSuccess,
-                  onLockSuccess: this.handleLockUserSuccess,
-                  onUnlockSuccess: this.handleUnlockUserSuccess,
-                  onFailure: this.handleFailure
-                }}
-                fetchSuccess={this.state.fetchUsersSuccess}
-                show={{
-                  edit: this.showAccountEditorModal,
-                  add: this.showAccountAdditionModal,
-                  changePswd: this.showChangePasswordModal
-                }}
-                hide={{
-                  edit: this.hideAccountEditorModal,
-                  add: this.hideAccountAdditionModal,
-                  changePswd: this.hideChangePasswordModal
-                }}
-                visible={{
-                  edit: this.state.showEditor,
-                  add: this.state.showAddition,
-                  changePswd: this.state.showPassword
-                }}
-              />
+            <div className="p-4">
+              {fetchUsersSuccess === true ? (
+                <AccountsPanel
+                  list={this.state.users}
+                  response={this.state.response}
+                  process={() => this.process()}
+                  isProcess={this.state.process}
+                  sort={this.sortBy}
+                  callback={{
+                    onAddSuccess: this.handleAddUserSuccess,
+                    onModifySuccess: this.handleModifyUserSuccess,
+                    onDeleteSuccess: this.handleDeleteUserSuccess,
+                    onLockSuccess: this.handleLockUserSuccess,
+                    onUnlockSuccess: this.handleUnlockUserSuccess,
+                    onFailure: this.handleFailure
+                  }}
+                  show={{
+                    edit: this.showAccountEditorModal,
+                    add: this.showAccountAdditionModal,
+                    changePswd: this.showChangePasswordModal,
+                    alert: () => this.showAlert()
+                  }}
+                  hide={{
+                    edit: this.hideAccountEditorModal,
+                    add: this.hideAccountAdditionModal,
+                    changePswd: this.hideChangePasswordModal,
+                    alert: () => this.hideAlert()
+                  }}
+                  visible={{
+                    edit: this.state.showEditor,
+                    add: this.state.showAddition,
+                    changePswd: this.state.showPassword,
+                    alert: this.state.showAlert
+                  }}
+                />
+              ) : fetchUsersSuccess === false ? (
+                <FailureAlert message={this.state.response} />
+              ) : (
+                <Loading />
+              )}
             </div>
           </Route>
           <Route path="/dashboard/forecasts">

@@ -5,7 +5,6 @@ import {
   Button,
   Table,
   Spinner,
-  Alert,
   FormCheck,
   ButtonGroup
 } from "react-bootstrap";
@@ -14,6 +13,12 @@ import CenteredAlert from "../CenteredAlert";
 import AccountEditorModal from "../AccountEditorModal";
 import AccountAdditionModal from "../AccountAdditionModal";
 import ChangePasswordModal from "../ChangePasswordModal";
+
+const DIRECTION = {
+  NONE: "fas fa-sort",
+  DOWN: "fas fa-sort-down",
+  UP: "fas fa-sort-up"
+};
 
 class AccountsPanel extends Component {
   constructor(props) {
@@ -24,9 +29,19 @@ class AccountsPanel extends Component {
 
       alert: {
         action: null,
-        show: false,
         title: null,
         body: null
+      },
+
+      sortIcon: {
+        username: DIRECTION.NONE,
+        first_name: DIRECTION.NONE,
+        last_name: DIRECTION.NONE,
+        gender: DIRECTION.NONE,
+        address: DIRECTION.NONE,
+        email: DIRECTION.NONE,
+        phone_number: DIRECTION.NONE,
+        locking_state: DIRECTION.NONE
       }
     };
 
@@ -43,7 +58,6 @@ class AccountsPanel extends Component {
       username,
       alert: {
         action: "delete",
-        show: true,
         title: `Delete Account`,
         body: (
           <div>
@@ -53,6 +67,8 @@ class AccountsPanel extends Component {
         )
       }
     });
+
+    this.props.show.alert();
   }
 
   handleClickLock(idx) {
@@ -63,7 +79,6 @@ class AccountsPanel extends Component {
       locking_state,
       alert: {
         action: "lock",
-        show: true,
         title: `${locking_state === "lock" ? "Unlock" : "Lock"} Account`,
         body: (
           <div>
@@ -73,6 +88,8 @@ class AccountsPanel extends Component {
         )
       }
     });
+
+    this.props.show.alert();
   }
 
   handleClickProfile(idx) {
@@ -93,6 +110,8 @@ class AccountsPanel extends Component {
 
   // Fetch from server
   async fetchDeleteAccount() {
+    this.props.process();
+
     const { username } = this.state;
 
     await userServices.remove(
@@ -100,11 +119,11 @@ class AccountsPanel extends Component {
       this.props.callback.onDeleteSuccess,
       this.props.callback.onFailure
     );
-
-    this.setState({ alert: { show: false } });
   }
 
   async fetchLockingState() {
+    this.props.process();
+
     const { username, locking_state } = this.state;
 
     if (locking_state === "unlock")
@@ -119,154 +138,192 @@ class AccountsPanel extends Component {
         this.props.callback.onUnlockSuccess,
         this.props.callback.onFailure
       );
+  }
 
-    this.setState({ alert: { show: false } });
+  sortBy(property) {
+    let { sortIcon } = this.state;
+
+    const prevDirect = sortIcon[property];
+
+    if (prevDirect === DIRECTION.NONE) {
+      sortIcon[property] = DIRECTION.UP;
+      this.props.sort(property, "down");
+    } else if (prevDirect === DIRECTION.UP) {
+      sortIcon[property] = DIRECTION.DOWN;
+      this.props.sort(property, "up");
+    } else if (prevDirect === DIRECTION.DOWN) {
+      sortIcon[property] = DIRECTION.UP;
+      this.props.sort(property, "down");
+    }
+
+    this.setState({
+      sortIcon
+    });
   }
 
   render() {
-    const { fetchSuccess } = this.props;
+    String.prototype.toProperCase = function() {
+      return this.replace("_", " ").replace(/\w\S*/g, function(txt) {
+        return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+      });
+    };
 
-    if (fetchSuccess === true)
-      return (
-        <Card>
-          <Card.Title>Accounts Manager</Card.Title>
-          <Card.Body>
-            <Table responsive hover striped>
-              <thead>
-                <tr>
-                  <th scope="col">#</th>
-                  <th scope="col">Username</th>
-                  <th scope="col">First Name</th>
-                  <th scope="col">Last Name</th>
-                  <th scope="col">Gender</th>
-                  <th scope="col">Address</th>
-                  <th scope="col">Email</th>
-                  <th scope="col">Phone Number</th>
-                  <th scope="col">Active</th>
-                  <th scope="col">Action</th>
-                </tr>
-              </thead>
-              <tbody>
-                {this.props.list.map((item, idx) => (
-                  <tr key={idx}>
-                    <td>{idx + 1}</td>
-                    <td>{item.username}</td>
-                    <td>{item.first_name}</td>
-                    <td>{item.last_name}</td>
-                    <td>{item.gender}</td>
-                    <td>{item.address}</td>
-                    <td>{item.email}</td>
-                    <td>{item.phone_number}</td>
-                    <td>
-                      <FormCheck custom type="switch">
-                        <FormCheck.Input
-                          checked={item.locking_state === "unlock"}
-                          onChange={console.log}
-                        />
-                        <FormCheck.Label
-                          onClick={() => this.handleClickLock(idx)}
-                        ></FormCheck.Label>
-                      </FormCheck>
-                    </td>
-                    <td className="p-0">
-                      <ButtonGroup>
-                        <Button
-                          onClick={() => this.handleClickProfile(idx)}
-                          variant="link p-2"
-                        >
-                          <i className="fas fa-user" />
-                        </Button>
-
-                        <Button
-                          onClick={() => this.handleClickPassword(idx)}
-                          variant="link p-2"
-                        >
-                          <i className="fas fa-key" />
-                        </Button>
-
-                        <Button
-                          onClick={() => this.handleClickRemove(idx)}
-                          variant="link p-2"
-                        >
-                          <i className="fas fa-trash" />
-                        </Button>
-                      </ButtonGroup>
-                    </td>
-                  </tr>
+    return (
+      <Card>
+        <Card.Title>Accounts Manager</Card.Title>
+        <Card.Body>
+          <Table responsive hover striped>
+            <thead>
+              <tr>
+                <th scope="col" className="align-middle">
+                  #
+                </th>
+                {[
+                  "username",
+                  "first_name",
+                  "last_name",
+                  "gender",
+                  "address",
+                  "email",
+                  "phone_number",
+                  "locking_state"
+                ].map((property, idx) => (
+                  <th scope="col" key={idx} className="align-middle">
+                    <ButtonGroup>
+                      {property.toProperCase()}
+                      <Button
+                        variant="link py-0 px-1"
+                        onClick={() => this.sortBy(property)}
+                      >
+                        <i className={this.state.sortIcon[property]}></i>
+                      </Button>
+                    </ButtonGroup>
+                  </th>
                 ))}
-              </tbody>
-            </Table>
-          </Card.Body>
-          <Card.Footer className="hide-border mb-2 mt-n4">
-            <Button variant="primary float-right" onClick={this.props.show.add}>
-              <i className="fas fa-plus" /> Add New Account
-            </Button>
-          </Card.Footer>
 
-          <CenteredAlert
-            show={this.state.alert.show}
-            onHide={() => this.setState({ alert: { show: false } })}
-            title={this.state.alert.title}
-            button_name="Yes, continue!"
-            danger="true"
-            onSubmit={
-              this.state.alert.action === "lock"
-                ? this.fetchLockingState
-                : this.fetchDeleteAccount
-            }
-          >
-            {this.state.alert.body}
-          </CenteredAlert>
+                <th scope="col" className="align-middle">
+                  Action
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {this.props.list.map((item, idx) => (
+                <tr key={idx}>
+                  <td>{idx + 1}</td>
+                  <td>{item.username}</td>
+                  <td>{item.first_name}</td>
+                  <td>{item.last_name}</td>
+                  <td>{item.gender}</td>
+                  <td>{item.address}</td>
+                  <td>{item.email}</td>
+                  <td>{item.phone_number}</td>
+                  <td>
+                    <FormCheck custom type="switch">
+                      <FormCheck.Input
+                        checked={item.locking_state === "unlock"}
+                        onChange={console.log}
+                      />
+                      <FormCheck.Label
+                        onClick={() => this.handleClickLock(idx)}
+                      ></FormCheck.Label>
+                    </FormCheck>
+                  </td>
+                  <td className="p-0">
+                    <ButtonGroup>
+                      <Button
+                        onClick={() => this.handleClickProfile(idx)}
+                        variant="link p-2"
+                      >
+                        <i className="fas fa-user" />
+                      </Button>
+                      <Button
+                        onClick={() => this.handleClickPassword(idx)}
+                        variant="link p-2"
+                      >
+                        <i className="fas fa-key" />
+                      </Button>
+                      <Button
+                        onClick={() => this.handleClickRemove(idx)}
+                        variant="link p-2"
+                      >
+                        <i className="fas fa-trash" />
+                      </Button>
+                    </ButtonGroup>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </Table>
+        </Card.Body>
+        <Card.Footer className="hide-border mb-2 mt-n4">
+          <Button variant="primary float-right" onClick={this.props.show.add}>
+            <i className="fas fa-plus" /> Add New Account
+          </Button>
+        </Card.Footer>
 
-          <AccountEditorModal
-            show={this.props.visible.edit}
-            onHide={this.props.hide.edit}
-            profile={this.props.list.find(
-              user => user.username === this.state.username
-            )}
-            onSuccess={this.props.callback.onModifySuccess}
-          />
+        <CenteredAlert
+          show={this.props.visible.alert}
+          onHide={this.props.hide.alert}
+          title={this.state.alert.title}
+          disabled={this.props.isProcess === true}
+          button_name={
+            this.props.isProcess === true ? (
+              <div>
+                <Spinner
+                  as="span"
+                  animation="border"
+                  size="sm"
+                  role="status"
+                  aria-hidden="true"
+                />{" "}
+                Processing
+              </div>
+            ) : (
+              "Yes, continue!"
+            )
+          }
+          danger="true"
+          onSubmit={
+            this.state.alert.action === "lock"
+              ? this.fetchLockingState
+              : this.fetchDeleteAccount
+          }
+        >
+          {this.state.alert.body}
+        </CenteredAlert>
 
-          <AccountAdditionModal
-            show={this.props.visible.add}
-            onHide={this.props.hide.add}
-            onSuccess={this.props.callback.onAddSuccess}
-          />
+        <AccountEditorModal
+          show={this.props.visible.edit}
+          onHide={this.props.hide.edit}
+          profile={this.props.list.find(
+            user => user.username === this.state.username
+          )}
+          onSuccess={this.props.callback.onModifySuccess}
+        />
 
-          <ChangePasswordModal
-            username={this.state.username}
-            show={this.props.visible.changePswd}
-            onHide={this.props.hide.changePswd}
-          />
-        </Card>
-      );
-    else if (fetchSuccess === false)
-      return (
-        <Alert variant="danger">
-          <Alert.Heading>Oh snap! You got an error!</Alert.Heading>
-          <p>
-            Check your connection and try again. Duis mollis, est non commodo
-            luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit.
-            Cras mattis consectetur purus sit amet fermentum.
-          </p>
-        </Alert>
-      );
-    else
-      return (
-        <Card>
-          <Card.Title>Accounts Manager</Card.Title>
-          <Card.Body>
-            <Spinner
-              as="span"
-              animation="border"
-              size="sm"
-              role="status"
-              aria-hidden="true"
-            />{" "}
-            Loading
-          </Card.Body>
-        </Card>
-      );
+        <AccountAdditionModal
+          show={this.props.visible.add}
+          onHide={this.props.hide.add}
+          onSuccess={this.props.callback.onAddSuccess}
+        />
+
+        <ChangePasswordModal
+          username={this.state.username}
+          show={this.props.visible.changePswd}
+          onHide={this.props.hide.changePswd}
+        />
+      </Card>
+    );
+    // else if (fetchSuccess === false)
+    //   return <FailureAlert message={this.props.response} />;
+    // else
+    //   return (
+    //     // <Card>
+    //     //   <Card.Title>Accounts Manager</Card.Title>
+    //     //   <Card.Body></Card.Body>
+    //     // </Card>
+    //     <Loading />
+    //   );
   }
 }
 

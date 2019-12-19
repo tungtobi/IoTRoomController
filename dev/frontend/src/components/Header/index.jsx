@@ -3,7 +3,7 @@ import Navbar from "../Navbar";
 import Leftbar from "../Leftbar";
 import RenderWindow from "../RenderWindow";
 import { Redirect } from "react-router-dom";
-
+import * as userServices from "../../services/user";
 import "./index.css";
 
 class Header extends Component {
@@ -279,6 +279,9 @@ class Header extends Component {
     };
     this.handUpdateData = this.handUpdateData.bind(this);
     this.changeValue = this.changeValue.bind(this);
+
+    this.handleFetchDataSuccess = this.handleFetchDataSuccess.bind(this);
+    this.handleFetchDataFailed = this.handleFetchDataFailed.bind(this);
   }
 
   handUpdateData() {
@@ -384,7 +387,11 @@ class Header extends Component {
     // console.log(this.state.roomStatusData.AQI.series[0].data);
   }
 
-  fetchData() {
+  async fetchData() {
+    await userServices.data(
+      this.handleFetchDataSuccess,
+      this.handleFetchDataSuccess
+    );
     console.log("Fetching data...");
     this.setState({
       timeUpdate: {
@@ -393,38 +400,33 @@ class Header extends Component {
         hours: -1
       }
     });
-    fetch(`http://ec2-54-237-117-36.compute-1.amazonaws.com/SensorData`)
-      .then(res => {
-        console.log(res.status);
-      })
-      .then(data => {
-        console.log("Data to render Charts: ", data);
-        var currentSeconds = new Date().getSeconds(); //Current Seconds
-        var currentMinutes = new Date().getMinutes(); //Current Minutes
-        var currentHours = new Date().getHours(); //Current Hours
-        this.setState({
-          timeUpdate: {
-            seconds: currentSeconds,
-            minutes: currentMinutes,
-            hours: currentHours
-          }
-        });
-        console.log("Fetch data done!");
-        this.setState({
-          data: data
-        });
-      })
-      .catch(
-        console.log(
-          this.setState({
-            timeUpdate: {
-              seconds: -2,
-              minutes: -2,
-              hours: -2
-            }
-          })
-        )
-      );
+  }
+
+  handleFetchDataSuccess(data) {
+    console.log("Data to render Charts: ", data.result);
+    var currentSeconds = new Date().getSeconds(); //Current Seconds
+    var currentMinutes = new Date().getMinutes(); //Current Minutes
+    var currentHours = new Date().getHours(); //Current Hours
+
+    this.setState({
+      data: data.result,
+      timeUpdate: {
+        seconds: currentSeconds,
+        minutes: currentMinutes,
+        hours: currentHours
+      }
+    });
+    console.log("Fetch data done!");
+  }
+
+  handleFetchDataFailed() {
+    this.setState({
+      timeUpdate: {
+        seconds: -2,
+        minutes: -2,
+        hours: -2
+      }
+    });
   }
 
   componentDidMount() {

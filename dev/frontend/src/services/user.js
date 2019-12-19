@@ -10,6 +10,14 @@ export const list = (onSuccess, onFailure) => {
 
 export const add = () => {};
 
+export const data = (onSuccess, onFailure) => {
+  const body = {
+    token: localStorage.getItem("token")
+  };
+
+  basePost("/iot/data", body, onSuccess, onFailure);
+};
+
 export const view = (username, onSuccess, onFailure) => {
   const filter = res => {
     for (var propName in res) {

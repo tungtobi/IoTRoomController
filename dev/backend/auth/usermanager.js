@@ -32,7 +32,9 @@ exports.user_info = function (token, res){
 			mysqldatabase.query ("select * from users where username='" + username + "'", function (response){
 				if (response.error_code === 0){
 					if (response.result.length === 1){
-						return res.end (JSON.stringify (response.result[0]));
+						var json = response.result[0];
+						json['error_code'] = 0;
+						return res.end (JSON.stringify (json));
 					} else return res.end (JSON.stringify ({error_code: 107}));
 				} else return res.end (JSON.stringify({error_code: response.error_code}));
 			})

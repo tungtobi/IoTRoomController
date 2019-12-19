@@ -12,6 +12,7 @@ exports.modifyUser = function(req, res){
 	if (info.email != null && validate_string(info.email, {uc: true, lc: true, cs:"@._", dg:true}) == false) return res.end(JSON.stringify({error_code: 101}));
 	if (info.phone_number != null && validate_string(info.phone_number, {dg: true, cs: "+"}) == false) return res.end(JSON.stringify({error_code: 101}));
 	if (info.address != null && validate_string(info.address, {uc: true, lc: true, sp: true, cs: ",.", dg:true}) == false) return res.end(JSON.stringify({error_code: 101}));
+	if (info.role != null && (validate_string(info.role, {lc: true}) == false || (info.role != "standard" && info.role != "admin"))) return res.end(JSON.stringify({error_code: 101}));
 
 	mysqldatabase.query ("select * from users where username = '" + info.username + "'", 
 		function (result){
@@ -26,6 +27,7 @@ exports.modifyUser = function(req, res){
 				if (info.email != null) query += ", email='" + info.email + "'";
 				if (info.phone_number != null) query += ", phone_number='" + info.phone_number + "'";
 				if (info.address != null) query += ", address='" + info.address + "'";
+				if (info.role != null) query += ", role='" + info.role + "'";
 				query += " where username='" + info.username + "'";
 
 				mysqldatabase.query (query, function (result){

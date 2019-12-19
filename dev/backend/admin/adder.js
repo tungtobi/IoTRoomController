@@ -23,7 +23,7 @@ exports.addUser = function(req, res){
 	if (validate_string(info.email, {uc: true, lc: true, cs:"@._", dg:true}) == false) return res.end(JSON.stringify({error_code: 101}));
 	if (validate_string(info.phone_number, {dg: true, cs: "+"}) == false) return res.end(JSON.stringify({error_code: 101}));
 	if (validate_string(info.address, {uc: true, lc: true, sp: true, cs: ",.", dg:true}) == false) return res.end(JSON.stringify({error_code: 101}));
-	if (validate_string(info.role, {lc: true}) == false) return res.end(JSON.stringify({error_code: 101}));
+	if (validate_string(info.role, {lc: true}) == false || (info.role != "standard" && info.role != "admin")) return res.end(JSON.stringify({error_code: 101}));
 
 	mysqldatabase.query ("select * from users where username = '" + info.username + "'", 
 		function (result){

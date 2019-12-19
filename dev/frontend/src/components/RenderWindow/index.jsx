@@ -267,14 +267,11 @@ class RenderWindow extends Component {
 
   // Sort user list by property
   sortBy(property, direct) {
-    let sorted;
-
-    sorted = [...this.state.users].sort((a, b) =>
+    let sorted = [...this.state.users].sort((a, b) =>
       a[property] < b[property] ? 1 : b[property] < a[property] ? -1 : 0
     );
-    if (direct === "down") sorted = sorted.reverse();
 
-    console.log(sorted);
+    if (direct === "down") sorted = sorted.reverse();
 
     this.setState(prevState => ({
       users: sorted,
@@ -314,7 +311,9 @@ class RenderWindow extends Component {
             <div className="p-4">
               {fetchUsersSuccess === true ? (
                 <AccountsPanel
-                  list={this.state.filtered}
+                  list={this.state.filtered.filter(
+                    user => user.username !== this.props.username
+                  )}
                   response={this.state.response}
                   process={() => this.process()}
                   isProcess={this.state.process}

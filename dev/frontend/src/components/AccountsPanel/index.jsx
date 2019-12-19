@@ -353,6 +353,7 @@ class AccountsPanel extends Component {
               ))}
             </tbody>
           </Table>
+          {this.props.list.length === 0 && "Not found!"}
         </Card.Body>
         <Card.Footer className="hide-border mb-2 mt-n4">
           <Button variant="primary float-right" onClick={this.props.show.add}>

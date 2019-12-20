@@ -11,6 +11,7 @@ import * as userServices from "../../services/user";
 import getErrorMessage from "../../services/error";
 
 import "./index.css";
+import Unavailable from "../Unavailable";
 
 class RenderWindow extends Component {
   constructor(props) {
@@ -256,11 +257,16 @@ class RenderWindow extends Component {
 
   // Sort user list by property
   sortBy(property, direct) {
-    let sorted = [...this.state.users].sort((a, b) =>
-      a[property] < b[property] ? 1 : b[property] < a[property] ? -1 : 0
-    );
+    let sorted;
 
-    if (direct === "down") sorted = sorted.reverse();
+    if (direct === "up")
+      sorted = [...this.state.users].sort((a, b) =>
+        a[property] < b[property] ? 1 : b[property] < a[property] ? -1 : 0
+      );
+    else
+      sorted = [...this.state.users].sort((a, b) =>
+        a[property] > b[property] ? 1 : b[property] > a[property] ? -1 : 0
+      );
 
     this.setState(prevState => ({
       users: sorted,
@@ -327,6 +333,9 @@ class RenderWindow extends Component {
             </Route>
             <Route path="/dashboard/forecasts">
               <ForecastsWindow />
+            </Route>
+            <Route path="/dashboard/remotes">
+              <Unavailable />
             </Route>
           </Switch>
         </div>

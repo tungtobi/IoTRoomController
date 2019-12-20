@@ -46,8 +46,8 @@ class ChartsPanel extends Component {
             show: true,
             tools: {
               download: true,
-              selection: false,
-              zoom: true,
+              selection: true,
+              zoom: false,
               zoomin: true,
               zoomout: true,
               pan: false,

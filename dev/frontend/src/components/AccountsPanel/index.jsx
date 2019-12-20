@@ -283,7 +283,7 @@ class AccountsPanel extends Component {
                         onClick={() => this.handleClickProfile(idx)}
                         variant="link p-2"
                       >
-                        <i className="fas fa-user" />
+                        <i className="fas fa-user-edit" />
                       </Button>
                       <Button
                         className="glow-yellow"

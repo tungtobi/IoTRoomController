@@ -19,21 +19,11 @@ class Leftbar extends Component {
           icon: "fas fa-cloud-sun",
           nameItem: "Forecasts"
         },
-        // {
-        //   link: "/dashboard/devices",
-        //   icon: "fas fa-tv",
-        //   nameItem: "Devices"
-        // },
         {
           link: "/dashboard/remotes",
           icon: "fas fa-gamepad",
           nameItem: "Remotes"
         },
-        // {
-        //   link: "/dashboard/history",
-        //   icon: "fas fa-history",
-        //   nameItem: "History"
-        // },
         {
           link: "/dashboard/accounts",
           icon: "fas fa-user-circle",
@@ -80,9 +70,9 @@ class Leftbar extends Component {
         <div className="leftbar d-block d-md-none max-width-59">
           <div className="small-logo"></div>
           <MenuNoTitle
-            selected={this.props.selected}
+            selected={this.state.selected}
             menuItems={this.state.menuItems}
-            changeWindow={this.props.changeWindow}
+            changeWindow={this.changeWindow}
           ></MenuNoTitle>
         </div>
       </div>

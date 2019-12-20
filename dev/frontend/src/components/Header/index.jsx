@@ -10,6 +10,34 @@ class Header extends Component {
   constructor(props) {
     super(props);
 
+    const options = {
+      chart: {
+        type: "area",
+        stacked: false,
+        height: 350,
+        zoom: {
+          type: "x",
+          enabled: true,
+          autoScaleYaxis: true
+        },
+        toolbar: {
+          autoSelected: "zoom"
+        }
+      },
+      fill: {
+        type: "gradient",
+        gradient: {
+          shadeIntensity: 1,
+          opacityFrom: 0.7,
+          opacityTo: 0.9,
+          stops: [0, 90, 100]
+        }
+      },
+      xaxis: {
+        labels: { show: false }
+      }
+    };
+
     this.state = {
       isLogin: null,
       profile: null,
@@ -149,21 +177,16 @@ class Header extends Component {
       ],
       roomStatusData: {
         Temperature: {
+          chart: {
+            zoom: {
+              enabled: true,
+              type: "x",
+              autoScaleYaxis: false
+            }
+          },
           title: "Temperature",
-          options: {
-            xaxis: {
-              categories: []
-            }
-          },
-          fill: {
-            type: "gradient",
-            gradient: {
-              shadeIntensity: 1,
-              opacityFrom: 0.7,
-              opacityTo: 0.9,
-              stops: [0, 90, 100]
-            }
-          },
+          options: { ...options },
+
           series: [
             {
               name: "Temperature",
@@ -173,20 +196,8 @@ class Header extends Component {
         },
         Humidity: {
           title: "Humidity",
-          options: {
-            xaxis: {
-              categories: []
-            }
-          },
-          fill: {
-            type: "gradient",
-            gradient: {
-              shadeIntensity: 1,
-              opacityFrom: 0.7,
-              opacityTo: 0.9,
-              stops: [0, 90, 100]
-            }
-          },
+          options: { ...options },
+
           series: [
             {
               name: "Humidity",
@@ -195,21 +206,13 @@ class Header extends Component {
           ]
         },
         AQI: {
+          zoom: {
+            enabled: true,
+            type: "x",
+            autoScaleYaxis: false
+          },
           title: "AQI",
-          options: {
-            xaxis: {
-              categories: []
-            }
-          },
-          fill: {
-            type: "gradient",
-            gradient: {
-              shadeIntensity: 1,
-              opacityFrom: 0.7,
-              opacityTo: 0.9,
-              stops: [0, 90, 100]
-            }
-          },
+          options: { ...options },
           series: [
             {
               name: "AQI",
@@ -260,25 +263,40 @@ class Header extends Component {
       return;
     }
     var lengthData = this.state.data.length - 1;
-    var num_xaxis = Math.floor(lengthData / 60);
+
+    let categories = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+
     var indexes2Chart = {
       AQI: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
       Humidity: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
       Temperature: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
     };
-    var categories = ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0"];
+
+    console.log(indexes2Chart);
 
     var i;
-    var index_array = 9;
+    var index_array = lengthData;
+    var deltaTime = 1;
+    var num_xaxis = Math.floor(lengthData / deltaTime);
     for (i = num_xaxis; i >= 0; i--) {
-      indexes2Chart.AQI[index_array] = this.state.data[i * 60].AQI;
-      indexes2Chart.Humidity[index_array] = this.state.data[i * 60].Humidity;
+      // Chi so de tao chart
+      indexes2Chart.AQI[index_array] = this.state.data[i * deltaTime].AQI;
+      indexes2Chart.Humidity[index_array] = this.state.data[
+        i * deltaTime
+      ].Humidity;
       indexes2Chart.Temperature[index_array] = this.state.data[
-        i * 60
+        i * deltaTime
       ].Temperature;
-      categories[index_array] = this.state.data[i * 60].Date.substring(8, 10);
+      // Chuc
+      categories[index_array] = this.state.data[i * deltaTime].Date;
+      // console.log(
+      //   "asfasfdasdfffddfdf: ",
+      //   parseInt(this.state.data[i * 60].Date.substring(8, 10), 10)
+      // );
       index_array--;
     }
+
+    console.log(indexes2Chart.optionsNew);
 
     var series_AQI = [
       {
@@ -300,12 +318,6 @@ class Header extends Component {
         data: indexes2Chart.Temperature
       }
     ];
-
-    var options = {
-      xaxis: {
-        categories: categories
-      }
-    };
 
     var now_AQI = this.state.data[lengthData - 1].AQI;
     var now_Humidity = this.state.data[lengthData - 1].Humidity;
@@ -333,23 +345,37 @@ class Header extends Component {
       }
     ];
 
+    console.log(indexes2Chart.optionsNew);
+
     this.setState(prevState => ({
       indexes: now_indexes,
       roomStatusData: {
         ...prevState.roomStatusData,
         AQI: {
           ...prevState.roomStatusData.AQI,
-          options: options,
+          options: {
+            xaxis: {
+              categories
+            }
+          },
           series: series_AQI
         },
         Humidity: {
           ...prevState.roomStatusData.Humidity,
-          options: options,
+          options: {
+            xaxis: {
+              categories
+            }
+          },
           series: series_Humidity
         },
         Temperature: {
           ...prevState.roomStatusData.Temperature,
-          options: options,
+          options: {
+            xaxis: {
+              categories
+            }
+          },
           series: series_Temperature
         }
       }

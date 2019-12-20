@@ -28,19 +28,19 @@ class IndexesPanel extends Component {
 
     const { data } = props;
 
-    const lengthData = data.length;
+    // const lengthData = data.length;
 
-    if (lengthData === 0) return null;
+    // if (lengthData === 0) return null;
 
-    const nowAQI = data[lengthData - 1].AQI;
-    const nowHumidity = data[lengthData - 1].Humidity;
-    const nowTemperature = data[lengthData - 1].Temperature;
+    // const nowAQI = data[lengthData - 1].AQI;
+    // const nowHumidity = data[lengthData - 1].Humidity;
+    // const nowTemperature = data[lengthData - 1].Temperature;
 
     let indexes = state.indexes;
 
-    indexes[0].index = nowAQI + " PM2.5";
-    indexes[1].index = nowHumidity + " %";
-    indexes[2].index = nowTemperature + " °C";
+    indexes[0].index = data.AQI + " PM2.5";
+    indexes[1].index = data.Humidity + " %";
+    indexes[2].index = data.Temperature + " °C";
 
     return { indexes };
   }

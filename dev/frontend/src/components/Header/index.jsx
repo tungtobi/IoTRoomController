@@ -6,11 +6,9 @@ import Leftbar from "../Leftbar";
 import RenderWindow from "../RenderWindow";
 
 import * as userServices from "../../services/user";
-import * as iotServices from "../../services/iot";
 import getErrorMessage from "../../services/error";
 
 import "./index.css";
-import Loading from "../Loading";
 
 class Header extends Component {
   constructor(props) {
@@ -19,72 +17,30 @@ class Header extends Component {
     this.state = {
       isLogin: null,
       profile: null,
-
-      timeUpdate: {
-        seconds: 0,
-        minutes: 0,
-        hours: 0
-      },
-
       fetchSuccess: null,
-      failureResponse: null,
-
-      data: []
+      failureResponse: null
     };
 
-    this.handUpdateData = this.handUpdateData.bind(this);
     this.handleFetchProfileSuccess = this.handleFetchProfileSuccess.bind(this);
-
-    this.handleFetchDataSuccess = this.handleFetchDataSuccess.bind(this);
-    this.handleFetchDataFailed = this.handleFetchDataFailed.bind(this);
+    this.handleFetchProfileFailure = this.handleFetchProfileFailure.bind(this);
   }
 
-  handUpdateData() {
-    this.fetchData();
-  }
-
-  async fetchData() {
-    await iotServices.data(
-      this.handleFetchDataSuccess,
-      this.handleFetchDataSuccess
-    );
-  }
-
-  handleFetchDataSuccess(data) {
-    var current = new Date();
-
-    this.setState({
-      data: data.result,
-      fetchSuccess: true,
-      timeUpdate: {
-        seconds: current.getSeconds,
-        minutes: current.getMinutes,
-        hours: current.getHours
-      }
-    });
-  }
-
-  handleFetchDataFailed(res) {
-    console.log(res);
-
+  handleFetchProfileFailure(res) {
     let failureResponse = "Time out";
 
     if (res) failureResponse = getErrorMessage(res.error_code);
 
     this.setState({
-      timeUpdate: {
-        seconds: -2,
-        minutes: -2,
-        hours: -2
-      },
-
       fetchSuccess: false,
       failureResponse
     });
   }
 
   async fetchProfile() {
-    await userServices.view(this.handleFetchProfileSuccess, console.log);
+    await userServices.view(
+      this.handleFetchProfileSuccess,
+      this.handleFetchProfileFailure
+    );
   }
 
   handleFetchProfileSuccess(res) {
@@ -97,7 +53,6 @@ class Header extends Component {
     const token = localStorage.getItem("token");
     this.setState({ isLogin: token !== null });
 
-    this.handUpdateData();
     this.fetchProfile();
   }
 
@@ -120,13 +75,10 @@ class Header extends Component {
         </div>
         <div className="dashboard-content">
           <RenderWindow
-            initialFetchSuccesss={this.state.fetchSuccess}
-            initialFailureResponse={this.state.failureResponse}
+            fetchProfileSuccess={this.state.fetchSuccess}
+            response={this.state.failureResponse}
             username={username}
             isAdmin={isAdmin}
-            timeUpdate={this.state.timeUpdate}
-            handUpdateData={this.handUpdateData}
-            iotData={this.state.data}
           ></RenderWindow>
         </div>
       </div>

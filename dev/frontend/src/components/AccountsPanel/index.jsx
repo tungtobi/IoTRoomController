@@ -18,7 +18,6 @@ import "../../logic/string";
 import * as userServices from "../../services/user";
 
 import "./style.css";
-import { Redirect } from "react-router-dom";
 
 const DIRECTION = {
   NONE: "fas fa-sort",

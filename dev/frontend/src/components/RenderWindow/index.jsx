@@ -12,17 +12,25 @@ import getErrorMessage from "../../services/error";
 
 import "./index.css";
 import Unavailable from "../Unavailable";
+import * as iotServices from "../../services/iot";
 
 class RenderWindow extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      fetchUsersSuccess: null,
+      // IoT Data
+      iotCurrent: null,
+      iotDatas: null,
+      timeUpdate: {
+        seconds: 0,
+        minutes: 0,
+        hours: 0
+      },
 
+      // Users
       users: null,
       filtered: null,
-
       filter: {
         username: "",
         first_name: "",
@@ -35,14 +43,30 @@ class RenderWindow extends Component {
         locking_state: "all"
       },
 
+      // Modal/Alert show checking
       showEditor: false,
       showAddition: false,
       showPassword: false,
       showAlert: false,
 
+      fetchIoTChartSuccess: null,
+      fetchIoTCurrentSuccess: null,
+      fetchUsersSuccess: null,
       process: false,
       response: null
     };
+
+    // Fetch IoT Data callback
+    this.handleFetchIoTDatasSuccess = this.handleFetchIoTDatasSuccess.bind(
+      this
+    );
+    this.handleFetchIoTDatasFailed = this.handleFetchIoTDatasFailed.bind(this);
+    this.handleFetchIoTCurrentSuccess = this.handleFetchIoTCurrentSuccess.bind(
+      this
+    );
+    this.handleFetchIoTCurrentFailed = this.handleFetchIoTCurrentFailed.bind(
+      this
+    );
 
     // List users callback
     this.handleFetchUsersSuccess = this.handleFetchUsersSuccess.bind(this);
@@ -79,11 +103,72 @@ class RenderWindow extends Component {
     this.updateFilter = this.updateFilter.bind(this);
   }
 
+  componentDidMount() {
+    this.fetchIoTDatas();
+    this.fetchIoTCurrent();
+  }
+
   componentDidUpdate(prevProps, prevState) {
-    if (!prevProps.isAdmin && !prevState.fetchUsersSuccess) {
+    if (!prevProps.isAdmin && prevState.fetchUsersSuccess === null) {
       if (this.props.isAdmin === true) this.fetchUserList();
       else if (this.props.isAdmin === false) return this.handleNoFetch();
     }
+  }
+
+  // Fetch IoT Data
+  async fetchIoTDatas() {
+    await iotServices.chart(
+      this.handleFetchIoTDatasSuccess,
+      this.handleFetchIoTDatasFailed
+    );
+  }
+
+  // Fetch IoT Data callback function
+  handleFetchIoTDatasSuccess(data) {
+    this.setState({
+      iotDatas: data.result,
+      fetchIoTChartSuccess: true
+    });
+  }
+
+  handleFetchIoTDatasFailed(res) {
+    const response = getErrorMessage(res);
+
+    this.setState({
+      fetchIoTChartSuccess: false,
+      response
+    });
+  }
+
+  async fetchIoTCurrent() {
+    await iotServices.current(
+      this.handleFetchIoTCurrentSuccess,
+      this.handleFetchIoTCurrentFailed
+    );
+  }
+
+  // Fetch IoT Data callback function
+  handleFetchIoTCurrentSuccess(data) {
+    var current = new Date();
+
+    this.setState({
+      iotCurrent: data,
+      timeUpdate: {
+        seconds: current.get,
+        minutes: current.getMinutes,
+        hours: current.getHours
+      },
+      fetchIoTCurrentSuccess: true
+    });
+  }
+
+  handleFetchIoTCurrentFailed(res) {
+    const response = getErrorMessage(res);
+
+    this.setState({
+      fetchIoTCurrentSuccess: false,
+      response
+    });
   }
 
   // Fetch user list
@@ -108,9 +193,7 @@ class RenderWindow extends Component {
   }
 
   handleFetchUsersFailure(res) {
-    let response = "Time out";
-
-    if (res) response = getErrorMessage(res.error_code);
+    const response = getErrorMessage(res);
 
     this.setState({ fetchUsersSuccess: false, response });
   }
@@ -283,7 +366,10 @@ class RenderWindow extends Component {
 
   render() {
     const fetchSuccess =
-      this.state.fetchUsersSuccess && this.props.initialFetchSuccesss;
+      this.props.fetchProfileSuccess &&
+      this.state.fetchUsersSuccess &&
+      this.state.fetchIoTChartSuccess &&
+      this.state.fetchIoTCurrentSuccess;
 
     if (fetchSuccess === true)
       return (
@@ -291,10 +377,10 @@ class RenderWindow extends Component {
           <Switch>
             <Route exact path="/dashboard">
               <RoomStatus
-                data={this.props.iotData}
-                indexes={this.props.indexes}
-                timeUpdate={this.props.timeUpdate}
-                handUpdateData={this.props.handUpdateData}
+                chart={this.state.iotDatas}
+                indexes={this.state.iotCurrent}
+                timeUpdate={this.state.timeUpdate}
+                handUpdateData={() => this.fetchIoTCurrent()}
               ></RoomStatus>
             </Route>
             <Route path="/dashboard/accounts">
@@ -353,7 +439,7 @@ class RenderWindow extends Component {
         </div>
       );
     else if (fetchSuccess === false) {
-      const message = this.props.initialFailureResponse && this.state.response;
+      const message = this.props.response && this.state.response;
       return <FailureAlert message={message} />;
     } else return <Loading />;
   }

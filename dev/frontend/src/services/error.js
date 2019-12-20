@@ -1,9 +1,10 @@
 import * as CONST from "./const";
 
-export default function(code) {
-  if (!code) return "Unknow error!";
+export default function(res) {
+  if (!res) return "Unknow error!";
 
-  const message = `Code ${code}: ` + CONST.ERRORS[`C${code}`];
+  const message =
+    `Code ${res.error_code}: ` + CONST.ERRORS[`C${res.error_code}`];
 
   return message;
 }

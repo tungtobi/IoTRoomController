@@ -62,9 +62,7 @@ class LoginForm extends Component {
   }
 
   handleLoginFailure(res) {
-    let response = "Time out";
-
-    if (res) response = getErrorMessage(res.error_code);
+    const response = getErrorMessage(res);
 
     this.setState({ success: false, isAuthening: false, response });
   }

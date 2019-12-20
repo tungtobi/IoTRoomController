@@ -108,9 +108,7 @@ class AccountEditorModal extends CenteredModal {
   }
 
   handleFailure(res) {
-    let response = "Time out";
-
-    if (res) response = getErrorMessage(res.error_code);
+    const response = getErrorMessage(res);
 
     this.setState({ showAlert: true, process: false, response });
   }

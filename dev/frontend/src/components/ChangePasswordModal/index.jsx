@@ -96,9 +96,7 @@ class ChangePasswordModal extends CenteredModal {
   }
 
   onFailure(res) {
-    let response = "Time out";
-
-    if (res) response = getErrorMessage(res.error_code);
+    const response = getErrorMessage(res);
 
     this.setState({ updating: false, response });
   }

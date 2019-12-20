@@ -10,11 +10,11 @@ class RoomStatus extends Component {
     return (
       <div className="p-4">
         <IndexesPanel
-          data={this.props.data}
+          data={this.props.indexes}
           timeUpdate={this.props.timeUpdate}
           handUpdateData={this.props.handUpdateData}
         />
-        <ChartsPanel data={this.props.data} />
+        <ChartsPanel data={this.props.chart} />
       </div>
     );
   }

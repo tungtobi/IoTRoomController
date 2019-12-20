@@ -26,28 +26,8 @@ class Header extends Component {
         Temperature: {
           title: "Temperature",
           options: {
-            legend: {
-              float: false,
-              position: "bottom", // whether to position legends in 1 of 4
-              // direction - top, bottom, left, right
-              horizontalAlign: "center", // when position top/bottom, you can
-              // specify whether to align legends
-              // left, right or center
-              verticalAlign: "middle"
-            },
             xaxis: {
-              categories: [
-                "10",
-                "11",
-                "12",
-                "13",
-                "14",
-                "15",
-                "16",
-                "17",
-                "18",
-                "19"
-              ]
+              categories: []
             }
           },
           fill: {
@@ -62,7 +42,7 @@ class Header extends Component {
           series: [
             {
               name: "Temperature",
-              data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+              data: []
             }
           ]
         },
@@ -70,18 +50,7 @@ class Header extends Component {
           title: "Humidity",
           options: {
             xaxis: {
-              categories: [
-                "10",
-                "11",
-                "12",
-                "13",
-                "14",
-                "15",
-                "16",
-                "17",
-                "18",
-                "19"
-              ]
+              categories: []
             }
           },
           fill: {
@@ -96,7 +65,7 @@ class Header extends Component {
           series: [
             {
               name: "Humidity",
-              data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+              data: []
             }
           ]
         },
@@ -104,18 +73,7 @@ class Header extends Component {
           title: "AQI",
           options: {
             xaxis: {
-              categories: [
-                "10",
-                "11",
-                "12",
-                "13",
-                "14",
-                "15",
-                "16",
-                "17",
-                "18",
-                "19"
-              ]
+              categories: []
             }
           },
           fill: {
@@ -130,7 +88,7 @@ class Header extends Component {
           series: [
             {
               name: "AQI",
-              data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+              data: []
             }
           ]
         }
@@ -138,17 +96,17 @@ class Header extends Component {
       indexes: [
         {
           title: "AQI",
-          index: "0 PM2.5",
+          index: "-- PM2.5",
           icon: "fas fa-wind item-icon-green p-3"
         },
         {
           title: "Humidity",
-          index: "0 %",
+          index: "-- %",
           icon: "fas fa-tint item-icon-blue p-3"
         },
         {
           title: "Temperature",
-          index: "0 °C",
+          index: "-- °C",
           icon: "fas fa-temperature-low item-icon-orange p-3"
         }
       ],
@@ -158,25 +116,17 @@ class Header extends Component {
     this.handUpdateData = this.handUpdateData.bind(this);
     this.changeValue = this.changeValue.bind(this);
     this.handleFetchProfileSuccess = this.handleFetchProfileSuccess.bind(this);
+
+    this.handleFetchDataSuccess = this.handleFetchDataSuccess.bind(this);
+    this.handleFetchDataFailed = this.handleFetchDataFailed.bind(this);
   }
 
   handUpdateData() {
-    var currentSeconds = new Date().getSeconds(); //Current Seconds
-    var currentMinutes = new Date().getMinutes(); //Current Minutes
-    var currentHours = new Date().getHours(); //Current Hours
-    this.setState({
-      timeUpdate: {
-        seconds: currentSeconds,
-        minutes: currentMinutes,
-        hours: currentHours
-      }
-    });
-
     this.fetchData();
-    // console.log(
-    //   "Length data when call handUpdateData(): ",
-    //   this.state.data.length
-    // );
+    console.log(
+      "Length data before update handUpdateData(): ",
+      this.state.data.length
+    );
     this.changeValue();
   }
 
@@ -191,6 +141,7 @@ class Header extends Component {
       Humidity: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
       Temperature: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
     };
+    var categories = ["0", "0", "0", "0", "0", "0", "0", "0", "0", "0"];
 
     var i;
     var index_array = 9;
@@ -200,6 +151,7 @@ class Header extends Component {
       indexes2Chart.Temperature[index_array] = this.state.data[
         i * 60
       ].Temperature;
+      categories[index_array] = this.state.data[i * 60].Date.substring(8, 10);
       index_array--;
     }
 
@@ -223,6 +175,12 @@ class Header extends Component {
         data: indexes2Chart.Temperature
       }
     ];
+
+    var options = {
+      xaxis: {
+        categories: categories
+      }
+    };
 
     var now_AQI = this.state.data[lengthData - 1].AQI;
     var now_Humidity = this.state.data[lengthData - 1].Humidity;
@@ -250,41 +208,75 @@ class Header extends Component {
       }
     ];
 
-    this.setState(
-      {
-        indexes: now_indexes,
-        roomStatusData: {
-          ...this.state.roomStatusData,
-          AQI: {
-            ...this.state.roomStatusData.AQI,
-            series: series_AQI
-          },
-          Humidity: {
-            ...this.state.roomStatusData.Humidity,
-            series: series_Humidity
-          },
-          Temperature: {
-            ...this.state.roomStatusData.Temperature,
-            series: series_Temperature
-          }
+    this.setState(prevState => ({
+      indexes: now_indexes,
+      roomStatusData: {
+        ...prevState.roomStatusData,
+        AQI: {
+          ...prevState.roomStatusData.AQI,
+          options: options,
+          series: series_AQI
+        },
+        Humidity: {
+          ...prevState.roomStatusData.Humidity,
+          options: options,
+          series: series_Humidity
+        },
+        Temperature: {
+          ...prevState.roomStatusData.Temperature,
+          options: options,
+          series: series_Temperature
         }
       }
-      // () => console.log(this.state)
+    }));
+    console.log(
+      "Categoties in Temp: ",
+      this.state.roomStatusData.Temperature.options.xaxis.categories
     );
-    // console.log(this.state.roomStatusData.AQI.series[0].data);
   }
 
-  fetchData() {
-    fetch(`http://ec2-54-237-117-36.compute-1.amazonaws.com/SensorData`)
-      .then(res => res.json())
-      .then(data => {
-        // console.log(data);
+  async fetchData() {
+    await userServices.data(
+      this.handleFetchDataSuccess,
+      this.handleFetchDataSuccess
+    );
 
-        this.setState({
-          data: data
-        });
-      })
-      .catch(console.log);
+    console.log("Fetching data...");
+    this.setState({
+      timeUpdate: {
+        seconds: -1,
+        minutes: -1,
+        hours: -1
+      }
+    });
+  }
+
+  handleFetchDataSuccess(data) {
+    console.log("Data to render Charts: ", data.result);
+    var currentSeconds = new Date().getSeconds(); //Current Seconds
+    var currentMinutes = new Date().getMinutes(); //Current Minutes
+    var currentHours = new Date().getHours(); //Current Hours
+
+    this.setState({
+      data: data.result,
+      timeUpdate: {
+        seconds: currentSeconds,
+        minutes: currentMinutes,
+        hours: currentHours
+      }
+    });
+
+    console.log("Fetch data done!");
+  }
+
+  handleFetchDataFailed() {
+    this.setState({
+      timeUpdate: {
+        seconds: -2,
+        minutes: -2,
+        hours: -2
+      }
+    });
   }
 
   async fetchProfile() {

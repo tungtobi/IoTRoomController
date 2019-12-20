@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Card, Button } from "react-bootstrap";
+import { Card, Button, Spinner } from "react-bootstrap";
 
 import calcTimeUpdated from "../../logic/calcTime";
 
@@ -18,6 +18,15 @@ class IndexCard extends Component {
 
   compareTime() {
     if (this.props.notify === "Update now") return;
+
+    if (this.props.timeUpdate.hours === -1) return;
+
+    // Set value hours, minutes, seconds = -2 when "Failed to get data"
+    if (this.props.timeUpdate.hours === -2) {
+      this.props.changeNotify("Failed to get data");
+      return;
+    }
+
     const text = calcTimeUpdated(this.props.timeUpdate);
     this.props.changeNotify(text);
   }
@@ -39,17 +48,35 @@ class IndexCard extends Component {
           </div>
         </Card.Body>
         <Card.Footer>
-          <Button
-            variant="link"
-            onClick={() => {
-              this.props.handUpdateData();
-              this.props.changeNotify("Updating...");
-            }}
-          >
-            <i className="fas fa-redo" />
-            <span> Update</span>
-          </Button>
-          <i className="text-muted btn float-right">{this.props.notify}</i>
+          {this.props.notify === "Updating..." ? (
+            <Button variant="link" disabled>
+              <Spinner
+                as="span"
+                animation="border"
+                size="sm"
+                role="status"
+                aria-hidden="true"
+                variant="primary"
+              />{" "}
+              Updating...
+            </Button>
+          ) : (
+            <span>
+              <Button
+                variant="link"
+                onClick={() => {
+                  this.props.handUpdateData();
+                  this.props.changeNotify("Updating...");
+                }}
+              >
+                <i className="fas fa-redo" />
+                <span> Update</span>
+              </Button>
+              <i className="text-muted btn float-right">
+                <small>{this.props.notify}</small>
+              </i>
+            </span>
+          )}
         </Card.Footer>
       </Card>
     );

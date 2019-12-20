@@ -89,3 +89,11 @@ export const unlock = (username, onSuccess, onFailure) => {
 
   basePost("/admin/unlock-user", body, onSuccess, onFailure);
 };
+
+export const data = (onSuccess, onFailure) => {
+  const body = {
+    token: localStorage.getItem("token")
+  };
+
+  basePost("/iot/data", body, onSuccess, onFailure);
+};

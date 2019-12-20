@@ -44,6 +44,7 @@ class Navbar extends Component {
   }
 
   showProfileEditorModal() {
+    this.refs.profileOverlay.hide();
     if (this.props.profile) this.setState({ showProfileEditor: true });
   }
 
@@ -52,6 +53,7 @@ class Navbar extends Component {
   }
 
   showChangePasswordModal() {
+    this.refs.profileOverlay.hide();
     if (this.props.profile) this.setState({ showChangePassword: true });
   }
 
@@ -125,7 +127,9 @@ class Navbar extends Component {
           </OverlayTrigger>
 
           <OverlayTrigger
-            trigger="focus"
+            rootClose
+            trigger="click"
+            ref="profileOverlay"
             placement="bottom"
             overlay={
               <Popover className="myaccount-panel">

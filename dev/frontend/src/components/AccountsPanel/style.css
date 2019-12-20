@@ -33,3 +33,7 @@ th > button:focus {
   font-size: 200px;
   margin-bottom: -10px;
 }
+
+.__react_component_tooltip {
+  width: fit-content;
+}

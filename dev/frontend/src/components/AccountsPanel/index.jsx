@@ -8,6 +8,7 @@ import {
   FormCheck,
   ButtonGroup
 } from "react-bootstrap";
+import Tooltip from "react-tooltip";
 
 import CenteredAlert from "../CenteredAlert";
 import AccountEditorModal from "../AccountEditorModal";
@@ -279,26 +280,34 @@ class AccountsPanel extends Component {
                   <td className="pr-1 pl-0">
                     <ButtonGroup>
                       <Button
+                        data-tip="Modify User Profile"
                         className="glow-blue"
                         onClick={() => this.handleClickProfile(idx)}
                         variant="link p-2"
                       >
                         <i className="fas fa-user-edit" />
                       </Button>
+                      <Tooltip place="top" type="dark" effect="solid" />
+
                       <Button
+                        data-tip="Change Account Password"
                         className="glow-yellow"
                         onClick={() => this.handleClickPassword(idx)}
                         variant="link p-2"
                       >
                         <i className="fas fa-key" />
                       </Button>
+                      <Tooltip place="top" type="dark" effect="solid" />
+
                       <Button
+                        data-tip="Delete Account"
                         className="glow-red"
                         onClick={() => this.handleClickRemove(idx)}
                         variant="link p-2"
                       >
                         <i className="fas fa-trash" />
                       </Button>
+                      <Tooltip place="top" type="dark" effect="solid" />
                     </ButtonGroup>
                   </td>
                 </tr>

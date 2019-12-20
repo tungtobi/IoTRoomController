@@ -1,20 +1,23 @@
 import React, { Component } from "react";
-import { Card, Form } from "react-bootstrap";
-
-import "./style.css";
-
 import {
+  Card,
+  Form,
   Button,
   Table,
   Spinner,
   FormCheck,
   ButtonGroup
 } from "react-bootstrap";
-import * as userServices from "../../services/user";
+
 import CenteredAlert from "../CenteredAlert";
 import AccountEditorModal from "../AccountEditorModal";
 import AccountAdditionModal from "../AccountAdditionModal";
 import ChangePasswordModal from "../ChangePasswordModal";
+
+import "../../logic/string";
+import * as userServices from "../../services/user";
+
+import "./style.css";
 
 const DIRECTION = {
   NONE: "fas fa-sort",
@@ -57,9 +60,6 @@ class AccountsPanel extends Component {
 
   handleChangeFilter(event) {
     const { name, value } = event.target;
-
-    console.log(value);
-
     this.props.filter(name, value);
   }
 
@@ -175,34 +175,51 @@ class AccountsPanel extends Component {
   }
 
   render() {
-    String.prototype.toProperCase = function() {
-      return this.replace("_", " ").replace(/\w\S*/g, function(txt) {
-        return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
-      });
-    };
+    const dataCols = [
+      "username",
+      "first_name",
+      "last_name",
+      "gender",
+      "address",
+      "email",
+      "phone_number",
+      "role",
+      "locking_state"
+    ];
+
+    const searchInput = name => (
+      <Form.Control
+        type="text"
+        name={name}
+        defaultValue={this.props.default[name]}
+        onChange={this.handleChangeFilter}
+      />
+    );
+
+    const searchSelect = (name, options) => (
+      <Form.Control
+        as="select"
+        name={name}
+        defaultValue={this.props.default[name]}
+        onChange={this.handleChangeFilter}
+      >
+        <option>all</option>
+        {options.map((op, idx) => (
+          <option key={idx}>{op}</option>
+        ))}
+      </Form.Control>
+    );
 
     return (
       <Card>
         <Card.Title>Accounts Manager</Card.Title>
         <Card.Body>
           <Table responsive hover striped size="sm">
-            <thead>
+            <thead className="align-middle">
               <tr>
-                <th scope="col" className="align-middle">
-                  #
-                </th>
-                {[
-                  "username",
-                  "first_name",
-                  "last_name",
-                  "gender",
-                  "address",
-                  "email",
-                  "phone_number",
-                  "role",
-                  "locking_state"
-                ].map((property, idx) => (
-                  <th scope="col" key={idx} className="align-middle">
+                <th scope="col">#</th>
+                {dataCols.map((property, idx) => (
+                  <th scope="col" key={idx}>
                     <Button
                       variant="link p-0"
                       onClick={() => this.sortBy(property)}
@@ -214,99 +231,25 @@ class AccountsPanel extends Component {
                     </Button>
                   </th>
                 ))}
-
-                <th scope="col" className="align-middle">
-                  Action
-                </th>
+                <th scope="col">Action</th>
               </tr>
               <tr>
                 <th scope="col" />
+                <th scope="col">{searchInput("username")}</th>
+                <th scope="col">{searchInput("first_name")}</th>
+                <th scope="col">{searchInput("last_name")}</th>
                 <th scope="col">
-                  <Form.Control
-                    type="text"
-                    name="username"
-                    defaultValue={this.props.default.username}
-                    onChange={this.handleChangeFilter}
-                  />
+                  {searchSelect("gender", ["Male", "Female", "Other"])}
+                </th>
+                <th scope="col">{searchInput("address")}</th>
+                <th scope="col">{searchInput("email")}</th>
+                <th scope="col">{searchInput("phone_number")}</th>
+                <th scope="col">
+                  {searchSelect("role", ["admin", "standard"])}
                 </th>
                 <th scope="col">
-                  <Form.Control
-                    type="text"
-                    name="first_name"
-                    defaultValue={this.props.default.first_name}
-                    onChange={this.handleChangeFilter}
-                  />
+                  {searchSelect("locking_state", ["lock", "unlock"])}
                 </th>
-                <th scope="col">
-                  <Form.Control
-                    type="text"
-                    name="last_name"
-                    defaultValue={this.props.default.last_name}
-                    onChange={this.handleChangeFilter}
-                  />
-                </th>
-                <th scope="col">
-                  <Form.Control
-                    as="select"
-                    name="gender"
-                    defaultValue={this.props.default.gender}
-                    onChange={this.handleChangeFilter}
-                  >
-                    <option>all</option>
-                    <option>Male</option>
-                    <option>Female</option>
-                    <option>Other</option>
-                  </Form.Control>
-                </th>
-                <th scope="col">
-                  <Form.Control
-                    type="text"
-                    name="address"
-                    defaultValue={this.props.default.address}
-                    onChange={this.handleChangeFilter}
-                  />
-                </th>
-                <th scope="col">
-                  <Form.Control
-                    type="text"
-                    name="enmail"
-                    defaultValue={this.props.default.email}
-                    onChange={this.handleChangeFilter}
-                  />
-                </th>
-                <th scope="col">
-                  <Form.Control
-                    type="text"
-                    name="phone_number"
-                    defaultValue={this.props.default.phone_number}
-                    onChange={this.handleChangeFilter}
-                  />
-                </th>
-                <th scope="col">
-                  <Form.Control
-                    as="select"
-                    name="role"
-                    defaultValue={this.props.default.role}
-                    onChange={this.handleChangeFilter}
-                  >
-                    <option>all</option>
-                    <option>admin</option>
-                    <option>standard</option>
-                  </Form.Control>
-                </th>
-                <th scope="col">
-                  <Form.Control
-                    as="select"
-                    name="locking_state"
-                    defaultValue={this.props.default.locking_state}
-                    onChange={this.handleChangeFilter}
-                  >
-                    <option>all</option>
-                    <option>lock</option>
-                    <option>unlock</option>
-                  </Form.Control>
-                </th>
-                <th scope="col" />
               </tr>
             </thead>
             <tbody>
@@ -362,7 +305,12 @@ class AccountsPanel extends Component {
               ))}
             </tbody>
           </Table>
-          {this.props.list.length === 0 && "Not found!"}
+          {this.props.list.length === 0 && (
+            <div className="text-center glow-red">
+              <i className="fas fa-times big-not-found"></i>
+              <h3>Not found!</h3>
+            </div>
+          )}
         </Card.Body>
         <Card.Footer className="hide-border mb-2 mt-n4">
           <Button variant="primary float-right" onClick={this.props.show.add}>

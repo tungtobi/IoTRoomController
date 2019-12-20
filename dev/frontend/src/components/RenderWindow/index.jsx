@@ -1,16 +1,16 @@
 import React, { Component } from "react";
 import { Switch, Route } from "react-router-dom";
+
 import RoomStatus from "../RoomStatus";
-import Devices from "../Devices";
-import HistoryCard from "../HistoryCard";
-import "./index.css";
 import ForecastsWindow from "../Forecasts";
 import AccountsPanel from "../AccountsPanel";
 import FailureAlert from "../FailureAlert";
+import Loading from "../Loading";
 
 import * as userServices from "../../services/user";
 import getErrorMessage from "../../services/error";
-import Loading from "../Loading";
+
+import "./index.css";
 
 class RenderWindow extends Component {
   constructor(props) {
@@ -18,8 +18,8 @@ class RenderWindow extends Component {
 
     this.state = {
       fetchUsersSuccess: null,
-      users: null,
 
+      users: null,
       filtered: null,
 
       filter: {
@@ -40,7 +40,6 @@ class RenderWindow extends Component {
       showAlert: false,
 
       process: false,
-
       response: null
     };
 
@@ -74,7 +73,7 @@ class RenderWindow extends Component {
     this.showChangePasswordModal = this.showChangePasswordModal.bind(this);
     this.hideChangePasswordModal = this.hideChangePasswordModal.bind(this);
 
-    // Sort
+    // Sort & Filter
     this.sortBy = this.sortBy.bind(this);
     this.updateFilter = this.updateFilter.bind(this);
   }
@@ -101,8 +100,6 @@ class RenderWindow extends Component {
   }
 
   handleFetchUsersFailure(res) {
-    console.log(res);
-
     let response = "Time out";
 
     if (res) response = getErrorMessage(res.error_code);
@@ -167,10 +164,7 @@ class RenderWindow extends Component {
 
   changeLockingState(username, state) {
     const newList = this.state.users.map(user => {
-      if (user.username === username) {
-        user.locking_state = state;
-      }
-
+      if (user.username === username) user.locking_state = state;
       return user;
     });
 
@@ -188,15 +182,10 @@ class RenderWindow extends Component {
 
     let newUser = this.state.users.find(user => user.username === username);
 
-    for (var key in req) {
-      if (key !== "username" && key !== "token") {
-        newUser[key] = req[key];
-      }
-    }
+    for (var key in req)
+      if (key !== "username" && key !== "token") newUser[key] = req[key];
 
-    this.setState({
-      showEditor: false
-    });
+    this.setState({ showEditor: false });
 
     this.updateFilter();
   }
@@ -289,23 +278,9 @@ class RenderWindow extends Component {
             <RoomStatus
               indexes={this.props.indexes}
               timeUpdate={this.props.timeUpdate}
-              roomStatusLabels={this.props.roomStatusLabels}
               roomStatusData={this.props.roomStatusData}
               handUpdateData={this.props.handUpdateData}
             ></RoomStatus>
-          </Route>
-          <Route path="/dashboard/devices">
-            <Devices
-              devicesList={this.props.devicesList}
-              removeDeviceList={this.props.removeDeviceList}
-              devicesScenario={this.props.devicesScenario}
-              removeDeviceScenario={this.props.removeDeviceScenario}
-              showDevEditModal={this.props.showDevEditModal}
-              showDevAddModal={this.props.showDevAddModal}
-            />
-          </Route>
-          <Route path="/dashboard/history">
-            <HistoryCard devicesHistory={this.props.devicesHistory} />
           </Route>
           <Route path="/dashboard/accounts">
             <div className="p-4">

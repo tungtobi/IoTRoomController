@@ -47,7 +47,7 @@ class Navbar extends Component {
     this.setState({ showProfileEditor: true });
   }
 
-  hideChangePasswordModal(event) {
+  hideChangePasswordModal() {
     this.setState({ showChangePassword: false });
   }
 

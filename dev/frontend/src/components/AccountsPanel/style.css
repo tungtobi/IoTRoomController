@@ -28,3 +28,8 @@ th > button:focus {
 .glow-yellow:hover {
   color: #fcb310 !important;
 }
+
+.big-not-found {
+  font-size: 350px;
+  margin-bottom: -20px;
+}

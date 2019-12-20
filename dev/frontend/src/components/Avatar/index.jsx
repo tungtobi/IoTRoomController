@@ -1,16 +1,15 @@
 import React, { Component } from "react";
+
 import "./index.css";
+import logo from "../../img/logo.png";
+
 class Avatar extends Component {
-  state = {
-    src: this.props.avatar.src,
-    name: this.props.avatar.name
-  };
   render() {
     return (
       <div className="avatar mb-2">
         <img
-          src={this.state.src}
-          alt={this.state.name}
+          src={logo}
+          alt="logo"
           className="avatar-img rounded-circle float-left"
         ></img>
       </div>

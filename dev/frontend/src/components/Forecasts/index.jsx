@@ -173,6 +173,7 @@ class ForecastsWindow extends Component {
                             eventKey={idx}
                             onClick={() => this.handleExpand(idx)}
                           >
+                            Hourly{" "}
                             <i
                               className={
                                 "fas fa-chevron-down rotate " +

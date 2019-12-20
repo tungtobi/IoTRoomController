@@ -11,11 +11,8 @@ class RoomStatus extends Component {
           timeUpdate={this.props.timeUpdate}
           indexes={this.props.indexes}
           handUpdateData={this.props.handUpdateData}
-        ></IndexesPanel>
-        <ChartsPanel
-          roomStatusLabels={this.props.roomStatusLabels}
-          roomStatusData={this.props.roomStatusData}
-        ></ChartsPanel>
+        />
+        <ChartsPanel roomStatusData={this.props.roomStatusData} />
       </div>
     );
   }

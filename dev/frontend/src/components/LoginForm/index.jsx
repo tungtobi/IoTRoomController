@@ -78,9 +78,7 @@ class LoginForm extends Component {
           <h2>Sign in</h2>
           <small>
             If you don't have an account, please contact admin to{" "}
-            <span>
-              <i className="blue-text">sign up</i>
-            </span>
+            <a href="#sign-up">sign up</a>
           </small>
         </Form.Label>
         <Form.Group>

@@ -1,8 +1,10 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+
 import HomeBanner from "./components/HomeBanner/index";
 import Header from "./components/Header";
+
 import "bootstrap/dist/css/bootstrap.min.css";
 
 //Store

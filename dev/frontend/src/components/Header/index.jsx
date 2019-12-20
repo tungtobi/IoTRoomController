@@ -1,12 +1,13 @@
 import React, { Component } from "react";
+import { Redirect } from "react-router-dom";
+
 import Navbar from "../Navbar";
 import Leftbar from "../Leftbar";
 import RenderWindow from "../RenderWindow";
-import { Redirect } from "react-router-dom";
-
-import "./index.css";
 
 import * as userServices from "../../services/user";
+
+import "./index.css";
 
 class Header extends Component {
   constructor(props) {
@@ -21,134 +22,6 @@ class Header extends Component {
         minutes: 0,
         hours: 0
       },
-      menuItems: [
-        {
-          link: "/dashboard",
-          icon: "fas fa-chart-line",
-          nameItem: "Room Status"
-        },
-        {
-          link: "/dashboard/forecasts",
-          icon: "fas fa-cloud-sun",
-          nameItem: "Forecasts"
-        },
-        // {
-        //   link: "/dashboard/devices",
-        //   icon: "fas fa-tv",
-        //   nameItem: "Devices"
-        // },
-        {
-          link: "/dashboard/remotes",
-          icon: "fas fa-gamepad",
-          nameItem: "Remotes"
-        },
-        // {
-        //   link: "/dashboard/history",
-        //   icon: "fas fa-history",
-        //   nameItem: "History"
-        // },
-        {
-          link: "/dashboard/accounts",
-          icon: "fas fa-user-circle",
-          nameItem: "Accounts"
-        }
-      ],
-      avatar: {
-        src:
-          "https://yt3.ggpht.com/a/AGF-l7-rOqnsoRaW8LTM75Y2vuElIySnOe18OPUNnA=s900-c-k-c0xffffffff-no-rj-mo",
-        name: "Nguyen Viet Linh"
-      },
-
-      devicesList: [
-        {
-          id: "1",
-          name: "Air Conditioner Test",
-          seria: "C02TD0QGFVH3",
-          createdDate: "16/10/2019 - 07:00 am",
-          status: "Active",
-          accounts: ["Dad", "Mom"]
-        },
-        {
-          id: "2",
-          name: "Projector Test",
-          seria: "C03TD0QJHV4",
-          createdDate: "16/10/2019 - 07:00 am",
-          status: "Active",
-          accounts: ["Dad", "Mom", "Bro"]
-        },
-        {
-          id: "3",
-          name: "Projector Test",
-          seria: "C03TD0QJHV5",
-          createdDate: "16/10/2019 - 07:00 am",
-          status: "Deactive",
-          accounts: ["Dad", "Mom"]
-        }
-      ],
-      devicesScenario: [
-        {
-          code: "123",
-          id: "1",
-          name: "Air Conditioner Test",
-          seria: "C02TD0QGFVH3",
-          operator: "Turn on",
-          time: "04:00 pm",
-          note: "...."
-        },
-        {
-          code: "234",
-          id: "2",
-          name: "Air Conditioner Test",
-          seria: "C02TD0QGFVH3",
-          operator: "Turn off",
-          time: "07:00 am",
-          note: "...."
-        }
-      ],
-      devicesHistory: [
-        {
-          date: "Yesterday",
-          histories: [
-            {
-              id: "1",
-              name: "Air Conditioner Test",
-              seria: "C02TD0QGFVH3",
-              operator: "Turn on",
-              time: "04:00 pm",
-              note: "...."
-            },
-            {
-              id: "2",
-              name: "Air Conditioner Test",
-              seria: "C02TD0QGFVH3",
-              operator: "Turn off",
-              time: "07:00 am",
-              note: "...."
-            }
-          ]
-        },
-        {
-          date: "Futherday",
-          histories: [
-            {
-              id: "1",
-              name: "Air Conditioner Test",
-              seria: "C02TD0QGFVH3",
-              operator: "Turn on",
-              time: "05:00 pm",
-              note: "...."
-            },
-            {
-              id: "2",
-              name: "Air Conditioner Test",
-              seria: "C02TD0QGFVH3",
-              operator: "Turn off",
-              time: "07:00 am",
-              note: "...."
-            }
-          ]
-        }
-      ],
       roomStatusData: {
         Temperature: {
           title: "Temperature",
@@ -428,27 +301,9 @@ class Header extends Component {
     const token = localStorage.getItem("token");
     this.setState({ isLogin: token !== null });
 
-    this.getCurrentWindow();
     this.handUpdateData();
     this.fetchProfile();
   }
-
-  getCurrentWindow() {
-    const path = window.location.href;
-    const selected = [...this.state.menuItems]
-      .reverse()
-      .find(item => path.includes(item.link));
-
-    this.setState({
-      nameWindow: selected.nameItem
-    });
-  }
-
-  changeWindow = nameWindow => {
-    this.setState({
-      nameWindow: nameWindow
-    });
-  };
 
   render() {
     if (this.state.isLogin === false) return <Redirect to="/" />;
@@ -458,28 +313,15 @@ class Header extends Component {
     return (
       <div className="background-light">
         <div className="menu-horizontal">
-          <Leftbar
-            selected={this.state.nameWindow}
-            menuItems={this.state.menuItems}
-            avatar={this.state.avatar}
-            changeWindow={this.changeWindow}
-          />
+          <Leftbar />
         </div>
         <div className="nav-fixed-top">
-          <Navbar
-            profile={this.state.profile}
-            nameWindow={this.state.nameWindow}
-          ></Navbar>
+          <Navbar profile={this.state.profile}></Navbar>
         </div>
         <div className="dashboard-content">
           <RenderWindow
             username={username}
             timeUpdate={this.state.timeUpdate}
-            nameWindow={this.state.nameWindow}
-            devicesList={this.state.devicesList}
-            devicesScenario={this.state.devicesScenario}
-            devicesHistory={this.state.devicesHistory}
-            roomStatusLabels={this.state.roomStatusLabels}
             roomStatusData={this.state.roomStatusData}
             indexes={this.state.indexes}
             handUpdateData={this.handUpdateData}

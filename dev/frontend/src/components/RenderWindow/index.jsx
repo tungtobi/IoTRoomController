@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, Redirect } from "react-router-dom";
 
 import RoomStatus from "../RoomStatus";
 import ForecastsWindow from "../Forecasts";
@@ -77,7 +77,17 @@ class RenderWindow extends Component {
     // Sort & Filter
     this.sortBy = this.sortBy.bind(this);
     this.updateFilter = this.updateFilter.bind(this);
+    // this.fetchUserList = this.fetchUserList.bind(this);
   }
+
+  // static getDerivedStateFromProps(nextProps, prevState) {
+  //   if (nextProps.profile)
+  //     if (nextProps.profile.role === "admin") this.fetchUserList();
+  //     else if (nextProps.profile.role === "standard")
+  //       return { fetchUsersSuccess: true, filtered: [] };
+
+  //   return null;
+  // }
 
   componentDidMount() {
     this.fetchUserList();
@@ -85,7 +95,13 @@ class RenderWindow extends Component {
 
   // Fetch user list
   async fetchUserList() {
-    await userServices.list(this.handleFetchUsersSuccess, this.handleFailure);
+    if (this.props.isAdmin)
+      await userServices.list(this.handleFetchUsersSuccess, this.handleFailure);
+    else this.handleNoFetch();
+  }
+
+  handleNoFetch() {
+    this.setState({ filtered: [], fetchUsersSuccess: true });
   }
 
   // List users callback function
@@ -291,45 +307,50 @@ class RenderWindow extends Component {
               ></RoomStatus>
             </Route>
             <Route path="/dashboard/accounts">
-              <div className="p-4">
-                <AccountsPanel
-                  list={this.state.filtered.filter(
-                    user => user.username !== this.props.username
-                  )}
-                  response={this.state.response}
-                  process={() => this.process()}
-                  isProcess={this.state.process}
-                  sort={this.sortBy}
-                  filter={this.updateFilter}
-                  default={this.state.filter}
-                  callback={{
-                    onAddSuccess: this.handleAddUserSuccess,
-                    onModifySuccess: this.handleModifyUserSuccess,
-                    onDeleteSuccess: this.handleDeleteUserSuccess,
-                    onLockSuccess: this.handleLockUserSuccess,
-                    onUnlockSuccess: this.handleUnlockUserSuccess,
-                    onFailure: this.handleFailure
-                  }}
-                  show={{
-                    edit: this.showAccountEditorModal,
-                    add: this.showAccountAdditionModal,
-                    changePswd: this.showChangePasswordModal,
-                    alert: () => this.showAlert()
-                  }}
-                  hide={{
-                    edit: this.hideAccountEditorModal,
-                    add: this.hideAccountAdditionModal,
-                    changePswd: this.hideChangePasswordModal,
-                    alert: () => this.hideAlert()
-                  }}
-                  visible={{
-                    edit: this.state.showEditor,
-                    add: this.state.showAddition,
-                    changePswd: this.state.showPassword,
-                    alert: this.state.showAlert
-                  }}
-                />
-              </div>
+              {!this.props.isAdmin ? (
+                <Redirect to="/" />
+              ) : (
+                <div className="p-4">
+                  <AccountsPanel
+                    allow={this.props.isAdmin}
+                    list={this.state.filtered.filter(
+                      user => user.username !== this.props.username
+                    )}
+                    response={this.state.response}
+                    process={() => this.process()}
+                    isProcess={this.state.process}
+                    sort={this.sortBy}
+                    filter={this.updateFilter}
+                    default={this.state.filter}
+                    callback={{
+                      onAddSuccess: this.handleAddUserSuccess,
+                      onModifySuccess: this.handleModifyUserSuccess,
+                      onDeleteSuccess: this.handleDeleteUserSuccess,
+                      onLockSuccess: this.handleLockUserSuccess,
+                      onUnlockSuccess: this.handleUnlockUserSuccess,
+                      onFailure: this.handleFailure
+                    }}
+                    show={{
+                      edit: this.showAccountEditorModal,
+                      add: this.showAccountAdditionModal,
+                      changePswd: this.showChangePasswordModal,
+                      alert: () => this.showAlert()
+                    }}
+                    hide={{
+                      edit: this.hideAccountEditorModal,
+                      add: this.hideAccountAdditionModal,
+                      changePswd: this.hideChangePasswordModal,
+                      alert: () => this.hideAlert()
+                    }}
+                    visible={{
+                      edit: this.state.showEditor,
+                      add: this.state.showAddition,
+                      changePswd: this.state.showPassword,
+                      alert: this.state.showAlert
+                    }}
+                  />
+                </div>
+              )}
             </Route>
             <Route path="/dashboard/forecasts">
               <ForecastsWindow />

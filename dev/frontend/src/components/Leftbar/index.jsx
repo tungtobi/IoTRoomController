@@ -29,7 +29,8 @@ class Leftbar extends Component {
           icon: "fas fa-user-circle",
           nameItem: "Accounts"
         }
-      ]
+      ],
+      selected: "Room Status"
     };
 
     this.changeWindow = this.changeWindow.bind(this);
@@ -57,13 +58,19 @@ class Leftbar extends Component {
   };
 
   render() {
+    const { menuItems } = this.state;
+    const length = menuItems.length;
+
+    const finalMenu =
+      this.props.isAdmin === true ? menuItems : menuItems.slice(0, length - 1);
+
     return (
       <div>
         <div className="leftbar d-none d-md-block">
           <Avatar avatar={this.props.avatar}></Avatar>
           <Menu
             selected={this.state.selected}
-            menuItems={this.state.menuItems}
+            menuItems={finalMenu}
             changeWindow={this.changeWindow}
           ></Menu>
         </div>
@@ -71,7 +78,7 @@ class Leftbar extends Component {
           <div className="small-logo"></div>
           <MenuNoTitle
             selected={this.state.selected}
-            menuItems={this.state.menuItems}
+            menuItems={finalMenu}
             changeWindow={this.changeWindow}
           ></MenuNoTitle>
         </div>

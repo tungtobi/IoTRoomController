@@ -28,6 +28,7 @@ body {
 }
 
 .login-form {
+  max-width: 374px;
 }
 
 @media (max-width: 768px) {

@@ -65,6 +65,8 @@ class Header extends Component {
   }
 
   handleFetchDataFailed(res) {
+    console.log(res);
+
     let failureResponse = "Time out";
 
     if (res) failureResponse = getErrorMessage(res.error_code);
@@ -102,12 +104,16 @@ class Header extends Component {
   render() {
     if (this.state.isLogin === false) return <Redirect to="/" />;
 
-    const username = this.state.profile ? this.state.profile.username : null;
+    const { profile } = this.state;
+
+    const isAdmin = profile ? profile.role === "admin" : null;
+
+    const username = profile ? profile.username : null;
 
     return (
       <div className="background-light">
         <div className="menu-horizontal">
-          <Leftbar />
+          <Leftbar isAdmin={isAdmin} />
         </div>
         <div className="nav-fixed-top">
           <Navbar profile={this.state.profile}></Navbar>
@@ -117,6 +123,7 @@ class Header extends Component {
             initialFetchSuccesss={this.state.fetchSuccess}
             initialFailureResponse={this.state.failureResponse}
             username={username}
+            isAdmin={isAdmin}
             timeUpdate={this.state.timeUpdate}
             handUpdateData={this.handUpdateData}
             iotData={this.state.data}

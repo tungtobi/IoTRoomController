@@ -9,6 +9,7 @@ import * as userServices from "../../services/user";
 import getErrorMessage from "../../services/error";
 
 import "./index.css";
+import Loading from "../Loading";
 
 class Header extends Component {
   constructor(props) {

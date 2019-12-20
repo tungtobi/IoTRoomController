@@ -43,6 +43,17 @@ class ChartsPanel extends Component {
             autoScaleYaxis: true
           },
           toolbar: {
+            show: true,
+            tools: {
+              download: true,
+              selection: false,
+              zoom: true,
+              zoomin: true,
+              zoomout: true,
+              pan: false,
+              reset: false,
+              customIcons: []
+            },
             autoSelected: "zoom"
           }
         },
@@ -92,18 +103,13 @@ class ChartsPanel extends Component {
       index_array--;
     }
 
-    return {
-      Temperature: {
-        series: [{ name: "Temperature", data: indexes2Chart.Temperature }]
-      },
-      AQI: {
-        series: [{ name: "AQI", data: indexes2Chart.AQI }]
-      },
-      Humidity: {
-        series: [{ name: "Humidity", data: indexes2Chart.Humidity }]
-      },
-      options: { xaxis: { categories, labels: { show: false } } }
-    };
+    let prev = { ...state };
+    prev.Temperature.series[0].data = indexes2Chart.Temperature;
+    prev.Humidity.series[0].data = indexes2Chart.Humidity;
+    prev.AQI.series[0].data = indexes2Chart.AQI;
+    prev.options.xaxis.categories = categories;
+
+    return prev;
   }
 
   render() {

@@ -308,7 +308,7 @@ class AccountsPanel extends Component {
           {this.props.list.length === 0 && (
             <div className="text-center glow-red">
               <i className="fas fa-times big-not-found"></i>
-              <h3>Not found!</h3>
+              <h3 className="mb-5">Not found!</h3>
             </div>
           )}
         </Card.Body>

@@ -1,7 +1,8 @@
 import React, { Component } from "react";
-import "./style.css";
 import LoginForm from "../LoginForm";
 import { Redirect } from "react-router-dom";
+
+import "./style.css";
 
 class HomeBanner extends Component {
   constructor(props) {
@@ -23,8 +24,8 @@ class HomeBanner extends Component {
       <section className="home-banner-area">
         <div className="container">
           <div className="row justify-content-end fullscreen">
-            <div className="col-lg-9 col-md-12 home-banner-left d-flex fullscreen align-items-center">
-              <div>
+            <div className="col-lg-10 col-md-12 home-banner-left d-flex fullscreen align-items-center">
+              <div className="">
                 <div className="title">
                   <h1>
                     Smart <span className="blue-text">IoT </span>
@@ -37,7 +38,7 @@ class HomeBanner extends Component {
                 </div>
               </div>
             </div>
-            <div className="col-lg-3 col-md-12" />
+            <div className="col-lg-2 col-md-12" />
           </div>
         </div>
       </section>

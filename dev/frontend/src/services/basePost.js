@@ -8,7 +8,7 @@ function basePost(endpoint, body, onSuccess, onFailure = console.log) {
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
-      Origin: "http://localhost:3000"
+      Origin: "http://localhost"
     },
     body: JSON.stringify(body)
   })

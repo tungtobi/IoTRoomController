@@ -30,6 +30,6 @@ th > button:focus {
 }
 
 .big-not-found {
-  font-size: 350px;
-  margin-bottom: -20px;
+  font-size: 200px;
+  margin-bottom: -10px;
 }

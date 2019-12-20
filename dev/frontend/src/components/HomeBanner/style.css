@@ -12,12 +12,22 @@ body {
   background-size: cover;
 }
 
+.selected-glow {
+  padding: 1rem;
+  border-radius: 0.85rem;
+}
+
+.selected-glow:hover,
+.selected-glow:active,
+.selected-glow:checked {
+  box-shadow: 0 0 10px #4ba0f9;
+}
+
 .fullscreen {
   height: 100vh !important;
 }
 
 .login-form {
-  max-width: 350px;
 }
 
 @media (max-width: 768px) {
@@ -25,7 +35,6 @@ body {
     text-align: center;
   }
 }
-
 
 .home-banner-left h1 {
   color: #000000;

@@ -1,0 +1,6 @@
+.unavailabe-holder {
+  display: flex;
+  min-height: 80vh;
+  flex-direction: column;
+  justify-content: center;
+}

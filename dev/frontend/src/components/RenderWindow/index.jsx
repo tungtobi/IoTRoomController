@@ -77,27 +77,18 @@ class RenderWindow extends Component {
     // Sort & Filter
     this.sortBy = this.sortBy.bind(this);
     this.updateFilter = this.updateFilter.bind(this);
-    // this.fetchUserList = this.fetchUserList.bind(this);
   }
 
-  // static getDerivedStateFromProps(nextProps, prevState) {
-  //   if (nextProps.profile)
-  //     if (nextProps.profile.role === "admin") this.fetchUserList();
-  //     else if (nextProps.profile.role === "standard")
-  //       return { fetchUsersSuccess: true, filtered: [] };
-
-  //   return null;
-  // }
-
-  componentDidMount() {
-    this.fetchUserList();
+  componentDidUpdate(prevProps, prevState) {
+    if (!prevProps.isAdmin && !prevState.fetchUsersSuccess) {
+      if (this.props.isAdmin === true) this.fetchUserList();
+      else if (this.props.isAdmin === false) return this.handleNoFetch();
+    }
   }
 
   // Fetch user list
   async fetchUserList() {
-    if (this.props.isAdmin)
-      await userServices.list(this.handleFetchUsersSuccess, this.handleFailure);
-    else this.handleNoFetch();
+    await userServices.list(this.handleFetchUsersSuccess, this.handleFailure);
   }
 
   handleNoFetch() {

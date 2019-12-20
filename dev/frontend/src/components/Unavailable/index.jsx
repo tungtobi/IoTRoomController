@@ -1,9 +1,10 @@
 import React, { Component } from "react";
+import "./style.css";
 
 class Unavailable extends Component {
   render() {
     return (
-      <div className="loading-holder">
+      <div className="unavailabe-holder">
         <div className="text-center glow-blue">
           <div className="big-not-found">
             <i className="fas fa-unlock-alt" />

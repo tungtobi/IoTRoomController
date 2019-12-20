@@ -6,6 +6,7 @@ import Leftbar from "../Leftbar";
 import RenderWindow from "../RenderWindow";
 
 import * as userServices from "../../services/user";
+import * as iotServices from "../../services/iot";
 import getErrorMessage from "../../services/error";
 
 import "./index.css";
@@ -43,7 +44,7 @@ class Header extends Component {
   }
 
   async fetchData() {
-    await userServices.data(
+    await iotServices.data(
       this.handleFetchDataSuccess,
       this.handleFetchDataSuccess
     );

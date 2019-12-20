@@ -270,7 +270,7 @@ class RenderWindow extends Component {
       sorted = [...this.state.users].sort((a, b) =>
         a[property] < b[property] ? 1 : b[property] < a[property] ? -1 : 0
       );
-    else
+    else if (direct === "down")
       sorted = [...this.state.users].sort((a, b) =>
         a[property] > b[property] ? 1 : b[property] > a[property] ? -1 : 0
       );

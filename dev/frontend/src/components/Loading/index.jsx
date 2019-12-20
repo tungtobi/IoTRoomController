@@ -4,7 +4,7 @@ import { Spinner } from "react-bootstrap";
 class Loading extends Component {
   render() {
     return (
-      <div>
+      <div className="p-4">
         <Spinner
           as="span"
           animation="border"

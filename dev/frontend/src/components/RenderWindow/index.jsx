@@ -269,22 +269,23 @@ class RenderWindow extends Component {
   }
 
   render() {
-    const { fetchUsersSuccess } = this.state;
+    const fetchSuccess =
+      this.state.fetchUsersSuccess && this.props.initialFetchSuccesss;
 
-    return (
-      <div className="window-body">
-        <Switch>
-          <Route exact path="/dashboard">
-            <RoomStatus
-              indexes={this.props.indexes}
-              timeUpdate={this.props.timeUpdate}
-              roomStatusData={this.props.roomStatusData}
-              handUpdateData={this.props.handUpdateData}
-            ></RoomStatus>
-          </Route>
-          <Route path="/dashboard/accounts">
-            <div className="p-4">
-              {fetchUsersSuccess === true ? (
+    if (fetchSuccess === true)
+      return (
+        <div className="window-body">
+          <Switch>
+            <Route exact path="/dashboard">
+              <RoomStatus
+                data={this.props.iotData}
+                indexes={this.props.indexes}
+                timeUpdate={this.props.timeUpdate}
+                handUpdateData={this.props.handUpdateData}
+              ></RoomStatus>
+            </Route>
+            <Route path="/dashboard/accounts">
+              <div className="p-4">
                 <AccountsPanel
                   list={this.state.filtered.filter(
                     user => user.username !== this.props.username
@@ -322,19 +323,18 @@ class RenderWindow extends Component {
                     alert: this.state.showAlert
                   }}
                 />
-              ) : fetchUsersSuccess === false ? (
-                <FailureAlert message={this.state.response} />
-              ) : (
-                <Loading />
-              )}
-            </div>
-          </Route>
-          <Route path="/dashboard/forecasts">
-            <ForecastsWindow />
-          </Route>
-        </Switch>
-      </div>
-    );
+              </div>
+            </Route>
+            <Route path="/dashboard/forecasts">
+              <ForecastsWindow />
+            </Route>
+          </Switch>
+        </div>
+      );
+    else if (fetchSuccess === false) {
+      const message = this.props.initialFailureResponse && this.state.response;
+      return <FailureAlert message={message} />;
+    } else return <Loading />;
   }
 }
 

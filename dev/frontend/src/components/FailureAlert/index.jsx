@@ -4,7 +4,7 @@ import { Alert } from "react-bootstrap";
 class FailureAlert extends Component {
   render() {
     return (
-      <Alert variant="danger">
+      <Alert variant="danger" className="m-4">
         <Alert.Heading>Oh snap! You got an error!</Alert.Heading>
         <p>
           Check your connection and try again.

@@ -44,7 +44,7 @@ class Navbar extends Component {
   }
 
   showProfileEditorModal() {
-    this.setState({ showProfileEditor: true });
+    if (this.props.profile) this.setState({ showProfileEditor: true });
   }
 
   hideChangePasswordModal() {
@@ -52,7 +52,7 @@ class Navbar extends Component {
   }
 
   showChangePasswordModal() {
-    this.setState({ showChangePassword: true });
+    if (this.props.profile) this.setState({ showChangePassword: true });
   }
 
   showFailureAlert() {

@@ -32,7 +32,7 @@ export default function convertIndexesToChart(data) {
         Humidity: 0,
         Temperature: 0,
         Date:
-          currentDate.toLocaleDateString() +
+          currentDate.toISOString().substring(0, 10) +
           " " +
           currentDate.toLocaleTimeString()
       };

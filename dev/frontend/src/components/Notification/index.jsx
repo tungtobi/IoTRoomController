@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import "./style.css";
 import { Row, Image, Popover, Button } from "react-bootstrap";
 import { getDate } from "../../logic/forecast";
+import logo from "../../img/logo.png";
 
 const MAX_CONTENT_LENGTH = 35;
 
@@ -74,7 +75,7 @@ class Notification extends Component {
               <div
                 key={idx}
                 className={
-                  "notify-item" + (notify.seen === "true" ? " readed" : "")
+                  "notify-item readed" // + (notify.seen === "true" ? " readed" : "")
                 }
                 onClick={() => this.handleSelect(idx)}
               >
@@ -83,7 +84,7 @@ class Notification extends Component {
                     <Image
                       roundedCircle
                       className="notify-thumbnail"
-                      src="https://yt3.ggpht.com/a/AGF-l7-rOqnsoRaW8LTM75Y2vuElIySnOe18OPUNnA=s900-c-k-c0xffffffff-no-rj-mo"
+                      src={logo}
                     />
                   </div>
                   <div className="notify-text-container">

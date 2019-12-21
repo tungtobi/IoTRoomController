@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import ChartStatus from "../ChartStatus/index";
+import { current } from "../../services/iot";
 
 class ChartsPanel extends Component {
   constructor(props) {
@@ -85,25 +86,42 @@ class ChartsPanel extends Component {
       Temperature: []
     };
 
-    const RES_STEP = 1; // 1 minute
-
-    const X_STEP = 60; // 1 hour
-
-    const DELTA_STEP = 1; //Math.floor(X_STEP / RES_STEP);
-
-    const NUM_XAXIS = Math.ceil(data.length / DELTA_STEP);
-
     let categories = [];
 
-    for (var i = NUM_XAXIS - 1; i >= 0; i--) {
-      let idx = i * DELTA_STEP;
+    const LASTEST = new Date(data[data.length - 1].Date);
 
-      if (i === NUM_XAXIS - 1) idx = Math.max(i * DELTA_STEP, data.length - 1);
+    const STEP = 3; // 3 minutes;
 
-      indexes2Chart.AQI[i] = data[idx].AQI;
-      indexes2Chart.Humidity[i] = data[idx].Humidity;
-      indexes2Chart.Temperature[i] = data[idx].Temperature;
-      categories[i] = data[idx].Date;
+    let currentTime = new Date(data[0].Date).getTime();
+
+    let index = 0;
+
+    while (currentTime <= LASTEST.getTime()) {
+      const currentDate = new Date(currentTime);
+      let currentData = data.find(d => {
+        const tmpDate = new Date(d.Date);
+        return (
+          tmpDate.getHours() === currentDate.getHours() &&
+          tmpDate.getMinutes() === currentDate.getMinutes()
+        );
+      });
+
+      if (!currentData) {
+        currentData = {
+          AQI: indexes2Chart.AQI[index - 1],
+          Humidity: indexes2Chart.Humidity[index - 1],
+          Temperature: indexes2Chart.Temperature[index - 1],
+          Date: categories[index - 1]
+        };
+      }
+
+      indexes2Chart.AQI[index] = currentData.AQI;
+      indexes2Chart.Humidity[index] = currentData.Humidity;
+      indexes2Chart.Temperature[index] = currentData.Temperature;
+      categories[index] = currentData.Date;
+
+      index++;
+      currentTime += STEP * 60000;
     }
 
     let prev = { ...state };

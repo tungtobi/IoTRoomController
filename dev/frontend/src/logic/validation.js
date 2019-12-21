@@ -26,7 +26,11 @@ export default function handleInput(name, value, targetValue = null) {
         : false;
       break;
     case "phone_number":
-      valid = value.match(/^[0-9 ]$/) ? true : false || value.startsWith("+");
+      valid = value.match(
+        /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/
+      )
+        ? true
+        : false || value.startsWith("+");
       break;
     case "address":
       valid = value.match(/^[a-zA-Z0-9,/ .\-_$@*!]{3,30}$/) ? true : false;

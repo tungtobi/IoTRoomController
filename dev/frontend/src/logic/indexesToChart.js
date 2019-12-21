@@ -9,7 +9,8 @@ export default function convertIndexesToChart(data) {
 
   const LASTEST = new Date(data[data.length - 1].Date);
 
-  const STEP = 3; // 3 minutes;
+  const STEP = 20; // minutes;
+  const MINUTE_TO_MILLISECOND = 60000;
 
   let currentTime = new Date(data[0].Date).getTime();
 
@@ -40,7 +41,7 @@ export default function convertIndexesToChart(data) {
     categories[index] = currentData.Date;
 
     index++;
-    currentTime += STEP * 60000;
+    currentTime += STEP * MINUTE_TO_MILLISECOND;
   }
 
   return {

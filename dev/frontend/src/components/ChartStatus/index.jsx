@@ -28,20 +28,25 @@ class ChartStatus extends Component {
           },
           autoSelected: "zoom"
         }
-      },
-      xaxis: {
-        categories: [],
-        labels: { show: false }
       }
     };
 
+    const { series, theme, categories, title } = this.props;
+
     return (
       <Card className="panel-item app devices mixed-chart">
-        <Card.Title>{this.props.title}</Card.Title>
+        <Card.Title>{title}</Card.Title>
         <Card.Body>
           <Chart
-            options={{ ...options, theme: this.props.theme }}
-            series={this.props.series}
+            options={{
+              ...options,
+              theme,
+              xaxis: {
+                categories,
+                labels: { show: false }
+              }
+            }}
+            series={series}
             type="area"
             width="100%"
           />

@@ -62,6 +62,7 @@ class ChartsPanel extends Component {
       <div className="panel">
         {["AQI", "Humidity", "Temperature"].map((item, idx) => {
           const { color, title, series } = this.state[item];
+          const { categories } = this.state;
           return (
             <ChartStatus
               key={idx}
@@ -76,6 +77,7 @@ class ChartsPanel extends Component {
               }}
               title={title}
               series={series}
+              categories={categories}
             />
           );
         })}

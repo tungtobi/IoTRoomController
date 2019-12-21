@@ -137,10 +137,6 @@ class AccountAdditionModal extends CenteredModal {
   }
 
   getBody() {
-    // console.log(this.state);
-
-    console.log(this.state.validation);
-
     return (
       <div>
         <AccountAdditionForm

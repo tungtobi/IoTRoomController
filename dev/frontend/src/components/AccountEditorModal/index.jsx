@@ -83,12 +83,12 @@ class AccountEditorModal extends CenteredModal {
     } = this.state.validation;
 
     return (
-      username === true &&
-      first_name === true &&
-      last_name === true &&
-      phone_number === true &&
-      email === true &&
-      address === true
+      username !== false &&
+      first_name !== false &&
+      last_name !== false &&
+      phone_number !== false &&
+      email !== false &&
+      address !== false
     );
   }
 
@@ -144,6 +144,8 @@ class AccountEditorModal extends CenteredModal {
   }
 
   getBody() {
+    console.log(this.state.validation);
+
     return (
       <div>
         <AccountEditorForm

@@ -104,8 +104,8 @@ class LoginForm extends Component {
             required
           />
           <Form.Control.Feedback type="invalid">
-            Username must be 3-30 characters long and cannot contain special
-            characters
+            Username is between 5 and 10 characters long and do not contain
+            special characters
           </Form.Control.Feedback>
         </Form.Group>
         <Form.Group>
@@ -119,7 +119,8 @@ class LoginForm extends Component {
             required
           />
           <Form.Control.Feedback type="invalid">
-            Mật khẩu có đội dài tối thiểu 5 ký tự
+            Password is between 5 and 15 characters long and do not contain
+            space
           </Form.Control.Feedback>
         </Form.Group>
         <Form.Group>

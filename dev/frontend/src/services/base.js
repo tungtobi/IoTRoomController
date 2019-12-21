@@ -14,6 +14,8 @@ export const post = (endpoint, body, onSuccess, onFailure) => {
   })
     .then(res => res.json())
     .then(data => {
+      console.log(data);
+
       if (data.error_code === 0) onSuccess(data, body);
       else onFailure(data);
     })
@@ -33,6 +35,8 @@ export const get = (endpoint, onSuccess, onFailure) => {
   })
     .then(res => res.json())
     .then(data => {
+      console.log(data);
+
       if (data.error_code === 0) onSuccess(data);
       else onFailure(data);
     })

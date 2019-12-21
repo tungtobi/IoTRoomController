@@ -1,11 +1,11 @@
-import basePost from "./basePost";
+import { post } from "./base";
 
 export const list = (onSuccess, onFailure) => {
   const body = {
     token: localStorage.getItem("token")
   };
 
-  basePost("/admin/list-user", body, onSuccess, onFailure);
+  post("/admin/list-user", body, onSuccess, onFailure);
 };
 
 export const add = (user, onSuccess, onFailure) => {
@@ -16,7 +16,7 @@ export const add = (user, onSuccess, onFailure) => {
 
   console.log(body);
 
-  basePost("/admin/add-user", body, onSuccess, onFailure);
+  post("/admin/add-user", body, onSuccess, onFailure);
 };
 
 export const remove = (username, onSuccess, onFailure) => {
@@ -25,7 +25,7 @@ export const remove = (username, onSuccess, onFailure) => {
     username
   };
 
-  basePost("/admin/delete-user", body, onSuccess, onFailure);
+  post("/admin/delete-user", body, onSuccess, onFailure);
 };
 
 export const view = (onSuccess, onFailure) => {
@@ -33,7 +33,7 @@ export const view = (onSuccess, onFailure) => {
     token: localStorage.getItem("token")
   };
 
-  basePost("/user/info", body, onSuccess, onFailure);
+  post("/user/info", body, onSuccess, onFailure);
 };
 
 export const modify = (info, onSuccess, onFailure) => {
@@ -42,7 +42,7 @@ export const modify = (info, onSuccess, onFailure) => {
     ...info
   };
 
-  basePost("/admin/modify-user", body, onSuccess, onFailure);
+  post("/admin/modify-user", body, onSuccess, onFailure);
 };
 
 export const modifySelf = (info, onSuccess, onFailure) => {
@@ -51,7 +51,7 @@ export const modifySelf = (info, onSuccess, onFailure) => {
     ...info
   };
 
-  basePost("/user/modify-user", body, onSuccess, onFailure);
+  post("/user/modify-user", body, onSuccess, onFailure);
 };
 
 export const changePassword = (username, password, onSuccess, onFailure) => {
@@ -61,7 +61,7 @@ export const changePassword = (username, password, onSuccess, onFailure) => {
     password
   };
 
-  basePost("/admin/modify-user", body, onSuccess, onFailure);
+  post("/admin/modify-user", body, onSuccess, onFailure);
 };
 
 export const changeSelfPassword = (password, onSuccess, onFailure) => {
@@ -70,7 +70,7 @@ export const changeSelfPassword = (password, onSuccess, onFailure) => {
     password
   };
 
-  basePost("/user/modify-user", body, onSuccess, onFailure);
+  post("/user/modify-user", body, onSuccess, onFailure);
 };
 export const lock = (username, onSuccess, onFailure) => {
   const body = {
@@ -78,7 +78,7 @@ export const lock = (username, onSuccess, onFailure) => {
     username
   };
 
-  basePost("/admin/lock-user", body, onSuccess, onFailure);
+  post("/admin/lock-user", body, onSuccess, onFailure);
 };
 
 export const unlock = (username, onSuccess, onFailure) => {
@@ -87,7 +87,7 @@ export const unlock = (username, onSuccess, onFailure) => {
     username
   };
 
-  basePost("/admin/unlock-user", body, onSuccess, onFailure);
+  post("/admin/unlock-user", body, onSuccess, onFailure);
 };
 
 export const data = (onSuccess, onFailure) => {
@@ -95,5 +95,5 @@ export const data = (onSuccess, onFailure) => {
     token: localStorage.getItem("token")
   };
 
-  basePost("/iot/data", body, onSuccess, onFailure);
+  post("/iot/data", body, onSuccess, onFailure);
 };

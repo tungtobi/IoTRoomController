@@ -8,7 +8,8 @@ class HomeBanner extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isLogin: null
+      isLogin: null,
+      showAlert: false
     };
   }
 

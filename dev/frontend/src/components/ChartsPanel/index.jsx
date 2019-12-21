@@ -85,22 +85,25 @@ class ChartsPanel extends Component {
       Temperature: []
     };
 
-    const lengthData = data.length - 1;
-    var index_array = lengthData;
-    var deltaTime = 1;
-    var num_xaxis = Math.floor(lengthData / deltaTime);
+    const RES_STEP = 1; // 1 minute
+
+    const X_STEP = 60; // 1 hour
+
+    const DELTA_STEP = 1; //Math.floor(X_STEP / RES_STEP);
+
+    const NUM_XAXIS = Math.ceil(data.length / DELTA_STEP);
 
     let categories = [];
 
-    for (var i = num_xaxis; i >= 0; i--) {
-      // Chi so de tao chart
-      indexes2Chart.AQI[index_array] = data[i * deltaTime].AQI;
-      indexes2Chart.Humidity[index_array] = data[i * deltaTime].Humidity;
-      indexes2Chart.Temperature[index_array] = data[i * deltaTime].Temperature;
+    for (var i = NUM_XAXIS - 1; i >= 0; i--) {
+      let idx = i * DELTA_STEP;
 
-      categories[index_array] = data[i * deltaTime].Date;
+      if (i === NUM_XAXIS - 1) idx = Math.max(i * DELTA_STEP, data.length - 1);
 
-      index_array--;
+      indexes2Chart.AQI[i] = data[idx].AQI;
+      indexes2Chart.Humidity[i] = data[idx].Humidity;
+      indexes2Chart.Temperature[i] = data[idx].Temperature;
+      categories[i] = data[idx].Date;
     }
 
     let prev = { ...state };

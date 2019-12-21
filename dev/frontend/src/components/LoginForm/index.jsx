@@ -1,10 +1,12 @@
 import React, { Component } from "react";
 import { Form, Button, Spinner, Alert } from "react-bootstrap";
 import { Redirect } from "react-router-dom";
+
+import CenteredAlert from "../CenteredAlert";
+
 import handleInput from "../../logic/validation";
 import * as sessionServices from "../../services/session";
 
-import "../HomeBanner/style.css";
 import "./style.css";
 
 import getErrorMessage from "../../services/error";
@@ -20,7 +22,8 @@ class LoginForm extends Component {
       passwordValid: null,
       isAuthening: null,
       success: null,
-      response: null
+      response: null,
+      showAlert: false
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -28,6 +31,17 @@ class LoginForm extends Component {
 
     this.handleLoginFailure = this.handleLoginFailure.bind(this);
     this.handleLoginSuccess = this.handleLoginSuccess.bind(this);
+
+    this.hideAlert = this.hideAlert.bind(this);
+    this.showAlert = this.showAlert.bind(this);
+  }
+
+  hideAlert() {
+    this.setState({ showAlert: false });
+  }
+
+  showAlert() {
+    this.setState({ showAlert: true });
   }
 
   handleChange(event) {
@@ -140,15 +154,26 @@ class LoginForm extends Component {
                   role="status"
                   aria-hidden="true"
                 />{" "}
-                Submitting
+                Processing
               </div>
             ) : (
-              "Submit"
+              "Sign in"
             )}
           </Button>
         </Form.Group>
 
-        <a href="/dashboard">Forgot your password?</a>
+        <a href="#forgot-pswd" onClick={this.showAlert}>
+          Forgot your password?
+        </a>
+        <CenteredAlert
+          show={this.state.showAlert}
+          onHide={this.hideAlert}
+          title="Forgot Your Password?"
+          button_name="OK"
+          onSubmit={this.hideAlert}
+        >
+          Please contact administrator to reset your password.
+        </CenteredAlert>
       </Form>
     );
   }

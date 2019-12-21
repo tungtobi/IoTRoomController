@@ -1,4 +1,4 @@
-import basePost from "./basePost";
+import { post } from "./base";
 
 export const login = (username, password, onSuccess, onFailure) => {
   const body = {
@@ -6,7 +6,7 @@ export const login = (username, password, onSuccess, onFailure) => {
     password
   };
 
-  basePost("/login", body, onSuccess, onFailure);
+  post("/login", body, onSuccess, onFailure);
 };
 
 export const logout = () => {
@@ -14,5 +14,5 @@ export const logout = () => {
     token: localStorage.getItem("token")
   };
 
-  basePost("/logout", body, () => {});
+  post("/logout", body, () => {});
 };

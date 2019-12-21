@@ -1,7 +1,8 @@
 export const PROXY = "https://cors-anywhere.herokuapp.com/";
-export const BASE = "http://54.237.117.36:3000";
+export const BASE = "http://54.237.117.36";
 
 export const POST = "POST";
+export const GET = "GET";
 
 export const ERRORS = {
   C1: "Unknown Error",

@@ -1,11 +1,11 @@
-import basePost from "./basePost";
+import { post } from "./base";
 
 export const list = onSuccess => {
   const body = {
     token: localStorage.getItem("token")
   };
 
-  basePost("/notifications/get", body, onSuccess);
+  post("/notifications/get", body, onSuccess);
 };
 
 export const read = () => {};

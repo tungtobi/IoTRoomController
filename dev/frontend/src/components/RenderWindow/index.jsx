@@ -152,7 +152,7 @@ class RenderWindow extends Component {
     var current = new Date();
 
     this.setState({
-      iotCurrent: data,
+      iotCurrent: data.result,
       timeUpdate: {
         seconds: current.get,
         minutes: current.getMinutes,
@@ -370,6 +370,13 @@ class RenderWindow extends Component {
       this.state.fetchUsersSuccess &&
       this.state.fetchIoTChartSuccess &&
       this.state.fetchIoTCurrentSuccess;
+
+    console.log(
+      `Fetch user profile: ${this.props.fetchProfileSuccess}\n`,
+      `Fetch user list for admin: ${this.state.fetchUsersSuccess}\n`,
+      `Fetch iot data for graph: ${this.state.fetchIoTChartSuccess}\n`,
+      `Fetch real-time iot data: ${this.state.fetchIoTCurrentSuccess}`
+    );
 
     if (fetchSuccess === true)
       return (

@@ -1,9 +1,9 @@
 const calcTimeUpdated = past => {
   const current = new Date();
 
-  const deltaHour = current.getHours - past.hours;
-  const deltaMinutes = current.getMinutes - past.minutes;
-  const deltaSecond = current.getSeconds - past.seconds;
+  const deltaHour = current.getHours() - past.hours;
+  const deltaMinutes = current.getMinutes() - past.minutes;
+  const deltaSecond = current.getSeconds() - past.seconds;
 
   let text;
 

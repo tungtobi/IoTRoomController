@@ -154,9 +154,9 @@ class RenderWindow extends Component {
     this.setState({
       iotCurrent: data.result,
       timeUpdate: {
-        seconds: current.get,
-        minutes: current.getMinutes,
-        hours: current.getHours
+        seconds: current.getSeconds(),
+        minutes: current.getMinutes(),
+        hours: current.getHours()
       },
       fetchIoTCurrentSuccess: true
     });

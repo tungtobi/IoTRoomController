@@ -28,10 +28,13 @@ export default function convertIndexesToChart(data) {
 
     if (!currentData) {
       currentData = {
-        AQI: indexes2Chart.AQI[index - 1],
-        Humidity: indexes2Chart.Humidity[index - 1],
-        Temperature: indexes2Chart.Temperature[index - 1],
-        Date: categories[index - 1]
+        AQI: 0,
+        Humidity: 0,
+        Temperature: 0,
+        Date:
+          currentDate.toLocaleDateString() +
+          " " +
+          currentDate.toLocaleTimeString()
       };
     }
 

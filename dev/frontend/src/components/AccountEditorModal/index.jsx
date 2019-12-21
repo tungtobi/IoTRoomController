@@ -7,6 +7,8 @@ import * as userServices from "../../services/user";
 
 import getErrorMessage from "../../services/error";
 
+import handleInput from "../../logic/validation";
+
 class AccountEditorModal extends CenteredModal {
   constructor(props) {
     super(props);
@@ -14,6 +16,7 @@ class AccountEditorModal extends CenteredModal {
     this.state = {
       profile: { ...props.profile },
       prevProfile: props.profile,
+      validation: {},
       process: false,
       showAlert: false,
       change: false,
@@ -59,25 +62,34 @@ class AccountEditorModal extends CenteredModal {
       change: isChange(this.getChange())
     });
 
-    // if (name === "password" || name === "cfPassword") {
-    //   this.setState({
-    //     [name]: value
-    //   });
+    const valid = handleInput(name, value);
 
-    //   let target;
-    //   if (name === "password") target = this.state.cfPassword;
-    //   else target = this.state.password;
+    const validation = { ...this.state.validation };
+    validation[name] = valid;
 
-    //   this.setState({
-    //     cfPasswordValid: value === target
-    //   });
-    // }
+    this.setState({
+      validation
+    });
+  }
 
-    // const valid = handleInput(name, value, this.state.password);
+  isFormValid() {
+    const {
+      username,
+      first_name,
+      last_name,
+      phone_number,
+      email,
+      address
+    } = this.state.validation;
 
-    // this.setState({
-    //   [name + "Valid"]: valid
-    // });
+    return (
+      username === true &&
+      first_name === true &&
+      last_name === true &&
+      phone_number === true &&
+      email === true &&
+      address === true
+    );
   }
 
   async onSubmit() {
@@ -139,6 +151,7 @@ class AccountEditorModal extends CenteredModal {
           onSubmit={this.onSubmit}
           handleChange={this.handleChange}
           self={this.props.self}
+          validation={this.state.validation}
         />
         <Alert
           variant="danger p-2 mb-2 mt-1"
@@ -156,13 +169,14 @@ class AccountEditorModal extends CenteredModal {
 
   getFooter() {
     const { process, change } = this.state;
+    const valid = this.isFormValid();
 
     return (
       <ButtonToolbar>
         <Button onClick={this.props.onHide} variant="light" disabled={process}>
           Close
         </Button>
-        <Button onClick={this.onSubmit} disabled={process || !change}>
+        <Button onClick={this.onSubmit} disabled={process || !change || !valid}>
           {process === true ? (
             <>
               <Spinner

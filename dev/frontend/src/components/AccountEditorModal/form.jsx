@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import { Form, Col } from "react-bootstrap";
-import handleInput from "../../logic/validation";
 
 class AccountEditorForm extends Component {
   render() {
     let prev = this.props.profile;
+    const { validation } = this.props;
 
     if (!prev) return <p>Fail to fetch!</p>;
     else
@@ -28,8 +28,11 @@ class AccountEditorForm extends Component {
                   name="first_name"
                   defaultValue={prev.first_name}
                   onChange={this.props.handleChange}
-                  // isInvalid={!this.state.first_nameValid}
+                  isInvalid={validation.first_name === false}
                 />
+                <Form.Control.Feedback type="invalid">
+                  Invalid first name
+                </Form.Control.Feedback>
               </Form.Group>
             </Col>
             <Col>
@@ -40,8 +43,11 @@ class AccountEditorForm extends Component {
                   name="last_name"
                   defaultValue={prev.last_name}
                   onChange={this.props.handleChange}
-                  // isInvalid={!this.state.last_nameValid}
+                  isInvalid={validation.last_name === false}
                 />
+                <Form.Control.Feedback type="invalid">
+                  Invalid last name
+                </Form.Control.Feedback>
               </Form.Group>
             </Col>
           </Form.Row>
@@ -52,32 +58,29 @@ class AccountEditorForm extends Component {
               name="email"
               defaultValue={prev.email}
               onChange={this.props.handleChange}
-              // isInvalid={!this.state.emailValid}
+              isInvalid={validation.email === false}
             />
             <Form.Control.Feedback type="invalid">
               Invalid email address
             </Form.Control.Feedback>
           </Form.Group>
-          <Form.Group controlId="email">
+          <Form.Group controlId="address">
             <Form.Label>Address</Form.Label>
             <Form.Control
               type="text"
               name="address"
               defaultValue={prev.address}
               onChange={this.props.handleChange}
+              isInvalid={validation.address === false}
             />
+            <Form.Control.Feedback type="invalid">
+              Invalid address
+            </Form.Control.Feedback>
           </Form.Group>
           <Form.Row>
             <Col>
               <Form.Group controlId="gender">
                 <Form.Label>Gender</Form.Label>
-                {/* <Form.Control
-                  type="text"
-                  name="gender"
-                  defaultValue={prev.gender}
-                  onChange={this.props.handleChange}
-                  // isInvalid={!this.state.genderValid}
-                /> */}
                 <Form.Control
                   as="select"
                   name="gender"
@@ -98,19 +101,16 @@ class AccountEditorForm extends Component {
                   name="phone_number"
                   defaultValue={prev.phone_number}
                   onChange={this.props.handleChange}
-                  // isInvalid={!this.state.phone_numberValid}
+                  isInvalid={validation.phone_number === false}
                 />
+                <Form.Control.Feedback type="invalid">
+                  Invalid phone number
+                </Form.Control.Feedback>
               </Form.Group>
             </Col>
             <Col>
               <Form.Group controlId="role">
                 <Form.Label>Role</Form.Label>
-                {/* <Form.Control
-                  type="text"
-                  name="role"
-                  defaultValue={prev.role}
-                  disabled={this.props.self}
-                /> */}
                 <Form.Control
                   as="select"
                   name="role"

@@ -6,6 +6,7 @@ import HomeBanner from "./components/HomeBanner/index";
 import Header from "./components/Header";
 
 import "bootstrap/dist/css/bootstrap.min.css";
+import AccountAdditionModal from "./components/AccountAdditionModal";
 
 //Store
 // import { createStore } from "redux";
@@ -15,6 +16,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 // const store = createStore(reducer);
 
 ReactDOM.render(
+  // <AccountAdditionModal show={true} />,
   // <Provider store={store}>
   <Router>
     <Switch>

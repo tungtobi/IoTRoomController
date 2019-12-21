@@ -1,9 +1,10 @@
 import React, { Component } from "react";
 import { Form, Col } from "react-bootstrap";
-import handleInput from "../../logic/validation";
 
 class AccountAdditionForm extends Component {
   render() {
+    const { validation } = this.props;
+
     return (
       <Form>
         <Form.Group controlId="username">
@@ -12,7 +13,12 @@ class AccountAdditionForm extends Component {
             type="text"
             name="username"
             onChange={this.props.handleChange}
+            isInvalid={validation.username === false}
           />
+          <Form.Control.Feedback type="invalid">
+            Username is between 5 and 10 characters long and do not contain
+            special characters
+          </Form.Control.Feedback>
         </Form.Group>
         <Form.Row>
           <Col>
@@ -22,7 +28,12 @@ class AccountAdditionForm extends Component {
                 type="password"
                 name="password"
                 onChange={this.props.handleChange}
+                isInvalid={validation.password === false}
               />
+              <Form.Control.Feedback type="invalid">
+                Password is between 5 and 15 characters long and do not contain
+                space
+              </Form.Control.Feedback>
             </Form.Group>
           </Col>
           <Col>
@@ -32,7 +43,11 @@ class AccountAdditionForm extends Component {
                 type="password"
                 name="cfPassword"
                 onChange={this.props.handleChange}
+                isInvalid={validation.cfPassword === false}
               />
+              <Form.Control.Feedback type="invalid">
+                Retype wrong password
+              </Form.Control.Feedback>
             </Form.Group>
           </Col>
         </Form.Row>
@@ -44,8 +59,11 @@ class AccountAdditionForm extends Component {
                 type="text"
                 name="first_name"
                 onChange={this.props.handleChange}
-                // isInvalid={!this.state.first_nameValid}
+                isInvalid={validation.first_name === false}
               />
+              <Form.Control.Feedback type="invalid">
+                Invalid first name
+              </Form.Control.Feedback>
             </Form.Group>
           </Col>
           <Col>
@@ -55,8 +73,11 @@ class AccountAdditionForm extends Component {
                 type="text"
                 name="last_name"
                 onChange={this.props.handleChange}
-                // isInvalid={!this.state.last_nameValid}
+                isInvalid={validation.last_name === false}
               />
+              <Form.Control.Feedback type="invalid">
+                Invalid last name
+              </Form.Control.Feedback>
             </Form.Group>
           </Col>
         </Form.Row>
@@ -66,7 +87,7 @@ class AccountAdditionForm extends Component {
             type="email"
             name="email"
             onChange={this.props.handleChange}
-            // isInvalid={!this.state.emailValid}
+            isInvalid={validation.email === false}
           />
           <Form.Control.Feedback type="invalid">
             Invalid email address
@@ -78,7 +99,11 @@ class AccountAdditionForm extends Component {
             type="text"
             name="address"
             onChange={this.props.handleChange}
+            isInvalid={validation.address === false}
           />
+          <Form.Control.Feedback type="invalid">
+            Invalid address
+          </Form.Control.Feedback>
         </Form.Group>
         <Form.Row>
           <Col>
@@ -103,19 +128,16 @@ class AccountAdditionForm extends Component {
                 type="text"
                 name="phone_number"
                 onChange={this.props.handleChange}
-                // isInvalid={!this.state.phone_numberValid}
+                isInvalid={validation.phone_number === false}
               />
+              <Form.Control.Feedback type="invalid">
+                Invalid phone number
+              </Form.Control.Feedback>
             </Form.Group>
           </Col>
           <Col>
             <Form.Group controlId="role">
               <Form.Label>Role</Form.Label>
-              {/* <Form.Control
-                  type="text"
-                  name="role"
-                  defaultValue={prev.role}
-                  disabled={this.props.self}
-                /> */}
               <Form.Control
                 as="select"
                 name="role"

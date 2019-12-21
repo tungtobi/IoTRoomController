@@ -7,6 +7,8 @@ import * as userServices from "../../services/user";
 
 import getErrorMessage from "../../services/error";
 
+import handleInput from "../../logic/validation";
+
 class AccountAdditionModal extends CenteredModal {
   constructor(props) {
     super(props);
@@ -14,6 +16,7 @@ class AccountAdditionModal extends CenteredModal {
     this.state = {
       username: null,
       password: null,
+      cfPassword: null,
       first_name: null,
       last_name: null,
       phone_number: null,
@@ -21,7 +24,7 @@ class AccountAdditionModal extends CenteredModal {
       gender: "Male",
       address: null,
       role: "standard",
-
+      validation: {},
       showAlert: false,
       process: false,
       response: null
@@ -50,25 +53,21 @@ class AccountAdditionModal extends CenteredModal {
       [name]: value
     });
 
-    // if (name === "password" || name === "cfPassword") {
-    //   this.setState({
-    //     [name]: value
-    //   });
+    const valid = handleInput(name, value, this.state.password);
 
-    //   let target;
-    //   if (name === "password") target = this.state.cfPassword;
-    //   else target = this.state.password;
+    const validation = { ...this.state.validation };
+    validation[name] = valid;
 
-    //   this.setState({
-    //     cfPasswordValid: value === target
-    //   });
-    // }
+    if (name === "password" && this.state.cfPassword)
+      validation["cfPassword"] = handleInput(
+        "cfPassword",
+        this.state.cfPassword,
+        value
+      );
 
-    // const valid = handleInput(name, value, this.state.password);
-
-    // this.setState({
-    //   [name + "Valid"]: valid
-    // });
+    this.setState({
+      validation
+    });
   }
 
   async onSubmit() {
@@ -113,12 +112,41 @@ class AccountAdditionModal extends CenteredModal {
     return "Add a new account";
   }
 
+  isFormValid() {
+    const {
+      username,
+      cfPassword,
+      password,
+      first_name,
+      last_name,
+      phone_number,
+      email,
+      address
+    } = this.state.validation;
+
+    return (
+      username === true &&
+      password === true &&
+      cfPassword === true &&
+      first_name === true &&
+      last_name === true &&
+      phone_number === true &&
+      email === true &&
+      address === true
+    );
+  }
+
   getBody() {
+    // console.log(this.state);
+
+    console.log(this.state.validation);
+
     return (
       <div>
         <AccountAdditionForm
           onSubmit={this.onSubmit}
           handleChange={this.handleChange}
+          validation={this.state.validation}
         />
         <Alert
           variant="danger p-2 mb-2 mt-1"
@@ -136,13 +164,14 @@ class AccountAdditionModal extends CenteredModal {
 
   getFooter() {
     const { process } = this.state;
+    const valid = this.isFormValid();
 
     return (
       <ButtonToolbar>
         <Button onClick={this.props.onHide} variant="light" disabled={process}>
           Close
         </Button>
-        <Button onClick={this.onSubmit} disabled={process}>
+        <Button onClick={this.onSubmit} disabled={process || !valid}>
           {process === true ? (
             <>
               <Spinner

@@ -49,8 +49,7 @@ class Navbar extends Component {
   handleSelectNotify(key) {
     const newList = this.state.notify.map((noti, idx) => {
       if (idx === key) {
-        if (noti.seen !== "true") noti.seen = "true";
-        else noti.seen = "false";
+        noti.seen = "true";
       }
 
       return noti;

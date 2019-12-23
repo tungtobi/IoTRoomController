@@ -33,7 +33,7 @@ export default function handleInput(name, value, targetValue = null) {
         : false || value.startsWith("+");
       break;
     case "address":
-      valid = value.match(/^[a-zA-Z0-9,/ .\-_$@*!]{3,30}$/) ? true : false;
+      valid = value.match(/^[a-zA-Z0-9,/ .\-_$@*!]{3,100}$/) ? true : false;
       break;
     default:
       return null;

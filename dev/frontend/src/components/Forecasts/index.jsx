@@ -99,7 +99,7 @@ class ForecastsWindow extends Component {
         <Card>
           <Card.Title>Locate Your City</Card.Title>
           <Card.Body>
-            <Row className="panel">
+            <Row>
               <Col>
                 <Select
                   name="devices"

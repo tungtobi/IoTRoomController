@@ -3,6 +3,11 @@
   min-height: 72px;
 }
 
+.navbar.nav-fixed-top {
+  padding-left: 0px !important;
+  padding-right: 0px !important;
+}
+
 .navbar-icon {
   font-size: 160%;
   color: #c6c6c6;

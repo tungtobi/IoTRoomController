@@ -101,7 +101,7 @@ class Navbar extends Component {
     const { username } = this.props.profile ? this.props.profile : {};
 
     return (
-      <nav className="navbar navbar-white nav-fixed-top px-0">
+      <nav className="navbar navbar-white nav-fixed-top">
         <span className="navbar-brand pl-4">
           <h3 className="navbar-title">Dashboard</h3>
         </span>

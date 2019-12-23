@@ -80,7 +80,7 @@ class Navbar extends Component {
   }
 
   handleModifyProfileSuccess(res, req) {
-    const { profile } = this.state;
+    const { profile } = this.props;
 
     for (var key in req) {
       if (key !== "username" && key !== "token") {

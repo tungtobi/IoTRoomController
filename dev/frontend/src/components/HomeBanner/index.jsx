@@ -30,8 +30,7 @@ class HomeBanner extends Component {
                 <div className="title">
                   <h1>
                     Smart <span className="blue-text">IoT </span>
-                    <br />
-                    Room <span className="blue-text">Controller</span>
+                    Eco
                   </h1>
                 </div>
                 <div className="login-form">

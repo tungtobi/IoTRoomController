@@ -30,14 +30,9 @@
 
 .home-banner-left h1 {
   color: #000000;
-  font-size: 48px;
+  font-size: 74px;
   margin-bottom: 50px;
   font-weight: bold;
-}
-
-.home-banner-left h2 {
-  font-size: 30px;
-  margin-bottom: 0px;
 }
 
 .blue-text {
@@ -48,41 +43,22 @@
   .home-banner-left h1 br {
     display: none;
   }
-
-  .home-banner-left h2 br {
-    display: none;
-  }
 }
 
 @media (max-width: 992px) {
   .home-banner-left h1 {
-    font-size: 45px;
-  }
-
-  .home-banner-left h2 {
-    font-size: 36px;
+    font-size: 60px;
   }
 }
 
 @media (max-width: 768px) {
   .home-banner-left h1 {
-    font-size: 36px;
-  }
-
-  .home-banner-left h2 {
-    font-size: 30px;
+    font-size: 54px;
   }
 }
 
 @media (max-width: 414px) {
   .home-banner-left h1 {
-    font-size: 30px;
-  }
-
-  .home-banner-left h2 {
-    font-size: 24px;
+    font-size: 48px;
   }
 }
-
-/* =================================== */
-/*  End Banner Area CSS */

@@ -9,13 +9,24 @@ import ChangePasswordModal from "../ChangePasswordModal";
 import * as notifyServices from "../../services/notify";
 
 import "./index.css";
+import CenteredAlert from "../CenteredAlert";
 
 class Navbar extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      notify: null,
+      notify: [
+        {
+          for_user: "me",
+          message:
+            "Today's weather is quite cold, you should wear warm clothes when going out.",
+          time: new Date().toDateString(),
+          seen: "false"
+        }
+      ],
+      selectedNotify: null,
+      showNotifyAlert: false,
       showProfileEditor: false,
       showChangePassword: false,
       showFailAlert: false,
@@ -33,10 +44,48 @@ class Navbar extends Component {
     this.handleModifyProfileSuccess = this.handleModifyProfileSuccess.bind(
       this
     );
+
+    this.handleSelectNotify = this.handleSelectNotify.bind(this);
+    this.hideNotifyAlert = this.hideNotifyAlert.bind(this);
+    this.markAllAsRead = this.markAllAsRead.bind(this);
   }
 
   componentDidMount() {
     this.fetchNotifications();
+  }
+
+  handleSelectNotify(key) {
+    const newList = this.state.notify.map((noti, idx) => {
+      if (idx === key) {
+        if (noti.seen !== "true") noti.seen = "true";
+        else noti.seen = "false";
+      }
+
+      return noti;
+    });
+
+    this.setState({
+      notify: newList,
+      selectedNotify: newList[key],
+      showNotifyAlert: true
+    });
+
+    this.refs.notifyOverlay.hide();
+  }
+
+  hideNotifyAlert() {
+    this.setState({ showNotifyAlert: false });
+  }
+
+  markAllAsRead() {
+    const newList = this.state.notify.map(noti => {
+      noti.seen = "true";
+      return noti;
+    });
+
+    this.setState({
+      notify: newList
+    });
   }
 
   hideProfileEditorModal() {
@@ -110,9 +159,14 @@ class Navbar extends Component {
             rootClose
             trigger="click"
             placement="bottom"
+            ref="notifyOverlay"
             overlay={
               <Popover className="notify-panel">
-                <Notification list={this.state.notify} />
+                <Notification
+                  list={this.state.notify}
+                  handleSelect={this.handleSelectNotify}
+                  markAllAsRead={this.markAllAsRead}
+                />
               </Popover>
             }
           >
@@ -159,6 +213,21 @@ class Navbar extends Component {
           show={this.state.showChangePassword}
           onHide={this.hideChangePasswordModal}
         />
+        {this.state.showNotifyAlert && (
+          <CenteredAlert
+            show={this.state.showNotifyAlert}
+            onHide={this.hideNotifyAlert}
+            title="Notification"
+            button_name="OK"
+            onSubmit={this.hideNotifyAlert}
+          >
+            <h4 className="mb-3">
+              {this.state.selectedNotify.title || "Test Notification"}
+            </h4>
+            <small>{this.state.selectedNotify.time}</small>
+            <p className="mb-0">{this.state.selectedNotify.message}</p>
+          </CenteredAlert>
+        )}
       </nav>
     );
   }

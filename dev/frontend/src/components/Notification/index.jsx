@@ -20,32 +20,6 @@ class Notification extends Component {
     };
   }
 
-  handleSelect(key) {
-    const newList = this.state.list.map((notify, idx) => {
-      if (idx === key) {
-        if (notify.seen !== "true") notify.seen = "true";
-        else notify.seen = "false";
-      }
-
-      return notify;
-    });
-
-    this.setState({
-      list: newList
-    });
-  }
-
-  markAllAsRead() {
-    const newList = this.state.list.map(notify => {
-      notify.seen = "true";
-      return notify;
-    });
-
-    this.setState({
-      list: newList
-    });
-  }
-
   render() {
     const { list } = this.state;
 
@@ -56,7 +30,7 @@ class Notification extends Component {
           <Button
             variant="link p-0"
             className="popover-title-button"
-            onClick={() => this.markAllAsRead()}
+            onClick={this.props.markAllAsRead}
           >
             Mark all as read
           </Button>
@@ -71,13 +45,13 @@ class Notification extends Component {
               You don't have any notification!
             </div>
           ) : (
-            list.map((notify, idx) => (
+            list.slice(0, 5).map((notify, idx) => (
               <div
                 key={idx}
                 className={
                   "notify-item readed" // + (notify.seen === "true" ? " readed" : "")
                 }
-                onClick={() => this.handleSelect(idx)}
+                onClick={() => this.props.handleSelect(idx)}
               >
                 <Row>
                   <div className="notify-thumbnail-container">

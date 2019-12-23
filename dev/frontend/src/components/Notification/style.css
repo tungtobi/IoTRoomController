@@ -3,6 +3,12 @@
   transform: translate(18px, 16px);
 }
 
+.notify-scroll-list {
+  max-height: 500px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
 .notify-item {
   padding: 0.75rem 0.75rem;
   background-color: rgba(0, 0, 0, 0.05);

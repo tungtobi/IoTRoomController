@@ -36,49 +36,51 @@ class Notification extends Component {
           </Button>
         </Popover.Title>
         <Popover.Content className="p-0">
-          {!list ? (
-            <div className="myaccount-menu-item">
-              Fail to fetch notification!
-            </div>
-          ) : list.length === 0 ? (
-            <div className="myaccount-menu-item">
-              You don't have any notification!
-            </div>
-          ) : (
-            list.slice(0, 5).map((notify, idx) => (
-              <div
-                key={idx}
-                className={
-                  "notify-item readed" // + (notify.seen === "true" ? " readed" : "")
-                }
-                onClick={() => this.props.handleSelect(idx)}
-              >
-                <Row>
-                  <div className="notify-thumbnail-container">
-                    <Image
-                      roundedCircle
-                      className="notify-thumbnail"
-                      src={logo}
-                    />
-                  </div>
-                  <div className="notify-text-container">
-                    <h5>Something for {notify.for_user}</h5>
-                    <div>
-                      {notify.message.length > MAX_CONTENT_LENGTH
-                        ? notify.message.substring(
-                            0,
-                            notify.seen === true
-                              ? MAX_CONTENT_LENGTH + 2
-                              : MAX_CONTENT_LENGTH + 1
-                          ) + "..."
-                        : notify.message}
-                    </div>
-                    <i className="text-muted">{getDate(notify.time)}</i>
-                  </div>
-                </Row>
+          <div className="notify-scroll-list">
+            {!list ? (
+              <div className="myaccount-menu-item">
+                Fail to fetch notification!
               </div>
-            ))
-          )}
+            ) : list.length === 0 ? (
+              <div className="myaccount-menu-item">
+                You don't have any notification!
+              </div>
+            ) : (
+              list.map((notify, idx) => (
+                <div
+                  key={idx}
+                  className={
+                    "notify-item readed" // + (notify.seen === "true" ? " readed" : "")
+                  }
+                  onClick={() => this.props.handleSelect(idx)}
+                >
+                  <Row>
+                    <div className="notify-thumbnail-container">
+                      <Image
+                        roundedCircle
+                        className="notify-thumbnail"
+                        src={logo}
+                      />
+                    </div>
+                    <div className="notify-text-container">
+                      <h5>{notify.title}</h5>
+                      <div>
+                        {notify.message.length > MAX_CONTENT_LENGTH
+                          ? notify.message.substring(
+                              0,
+                              notify.seen === true
+                                ? MAX_CONTENT_LENGTH + 2
+                                : MAX_CONTENT_LENGTH + 1
+                            ) + "..."
+                          : notify.message}
+                      </div>
+                      <i className="text-muted">{getDate(notify.time)}</i>
+                    </div>
+                  </Row>
+                </div>
+              ))
+            )}
+          </div>
           <div className="popover-footer">
             <Button variant="link p-0">See All</Button>
           </div>

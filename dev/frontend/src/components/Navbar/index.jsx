@@ -16,15 +16,7 @@ class Navbar extends Component {
     super(props);
 
     this.state = {
-      notify: [
-        {
-          for_user: "me",
-          message:
-            "Today's weather is quite cold, you should wear warm clothes when going out.",
-          time: new Date().toDateString(),
-          seen: "false"
-        }
-      ],
+      notify: null,
       selectedNotify: null,
       showNotifyAlert: false,
       showProfileEditor: false,
@@ -65,7 +57,7 @@ class Navbar extends Component {
     });
 
     this.setState({
-      notify: newList,
+      notify: newList.filter(n => n.seen !== "true"),
       selectedNotify: newList[key],
       showNotifyAlert: true
     });
@@ -84,7 +76,7 @@ class Navbar extends Component {
     });
 
     this.setState({
-      notify: newList
+      notify: newList.filter(n => n.seen !== "true")
     });
   }
 
@@ -125,7 +117,9 @@ class Navbar extends Component {
       if (propName.startsWith("notification_"))
         notifications.push(res[propName]);
 
-    this.setState({ notify: notifications.reverse() });
+    this.setState({
+      notify: notifications.reverse().filter(n => n.seen !== "true")
+    });
   }
 
   handleModifyProfileSuccess(res, req) {

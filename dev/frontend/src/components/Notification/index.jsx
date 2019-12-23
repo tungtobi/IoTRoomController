@@ -4,7 +4,7 @@ import { Row, Image, Popover, Button } from "react-bootstrap";
 import { getDate } from "../../logic/forecast";
 import logo from "../../img/logo.png";
 
-const MAX_CONTENT_LENGTH = 35;
+const MAX_CONTENT_LENGTH = 33;
 
 class Notification extends Component {
   constructor(props) {
@@ -50,7 +50,7 @@ class Notification extends Component {
                 <div
                   key={idx}
                   className={
-                    "notify-item readed" // + (notify.seen === "true" ? " readed" : "")
+                    "notify-item" + (notify.seen === "true" ? " readed" : "")
                   }
                   onClick={() => this.props.handleSelect(idx)}
                 >
@@ -69,8 +69,8 @@ class Notification extends Component {
                           ? notify.message.substring(
                               0,
                               notify.seen === true
-                                ? MAX_CONTENT_LENGTH + 2
-                                : MAX_CONTENT_LENGTH + 1
+                                ? MAX_CONTENT_LENGTH
+                                : MAX_CONTENT_LENGTH
                             ) + "..."
                           : notify.message}
                       </div>

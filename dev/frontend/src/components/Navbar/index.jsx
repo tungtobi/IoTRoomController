@@ -57,7 +57,7 @@ class Navbar extends Component {
     });
 
     this.setState({
-      notify: newList.filter(n => n.seen !== "true"),
+      notify: newList, //.filter(n => n.seen !== "true"),
       selectedNotify: newList[key],
       showNotifyAlert: true
     });
@@ -76,7 +76,7 @@ class Navbar extends Component {
     });
 
     this.setState({
-      notify: newList.filter(n => n.seen !== "true")
+      notify: newList //.filter(n => n.seen !== "true")
     });
   }
 
@@ -118,7 +118,7 @@ class Navbar extends Component {
         notifications.push(res[propName]);
 
     this.setState({
-      notify: notifications.reverse().filter(n => n.seen !== "true")
+      notify: notifications.reverse() //.filter(n => n.seen !== "true")
     });
   }
 

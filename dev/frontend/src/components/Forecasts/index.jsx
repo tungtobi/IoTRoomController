@@ -153,7 +153,7 @@ class ForecastsWindow extends Component {
           </Card.Body>
         </Card>
         {list && (
-          <Card className="panel mt-4" ref={this.myRef}>
+          <Card className="mt-4" ref={this.myRef}>
             <Card.Title>5-day Wearther Forecast</Card.Title>
             <Card.Body>
               <Accordion>

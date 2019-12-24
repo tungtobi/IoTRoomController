@@ -3,8 +3,8 @@
 ## Thử nghiệm bản thử nghiệm tại [DEMO](http://54.237.117.36)
 
 ## Mục lục
-1. [Tổng quan]
-2. [Các tính năng chính]
+1. Tổng quan
+2. Các tính năng chính
     * [Room Status](#room-status)
     * [Weather Forecast](#weather-forecast)
     * [Account Manager](#account-manager)

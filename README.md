@@ -34,6 +34,5 @@ Chức năng chỉ dành cho tài khoản mang quyền admin, có thể thêm, s
 ### Others
 Ngoài ra còn các chức năng khác bạn có thể trải nghiệm thông qua bản Demo.
 
-<br/>
 ### Reference component
-    - ApexCharts : https://github.com/apexcharts/react-apexcharts
+- ApexCharts : https://github.com/apexcharts/react-apexcharts

@@ -3,8 +3,8 @@
 ## Thử nghiệm bản thử nghiệm tại [DEMO](http://54.237.117.36)
 
 ## Mục lục
-1. [Tổng quan](#overview)
-2. [Các tính năng chính](#main-features)
+1. [Tổng quan]
+2. [Các tính năng chính]
     * [Room Status](#room-status)
     * [Weather Forecast](#weather-forecast)
     * [Account Manager](#account-manager)
@@ -34,6 +34,6 @@ Chức năng chỉ dành cho tài khoản mang quyền admin, có thể thêm, s
 ### Others
 Ngoài ra còn các chức năng khác bạn có thể trải nghiệm thông qua bản Demo.
 
-### Reference component
 <br/>
+### Reference component
     - ApexCharts : https://github.com/apexcharts/react-apexcharts

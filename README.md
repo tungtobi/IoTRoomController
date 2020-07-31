@@ -1,7 +1,5 @@
 # Smart Iot Eco Documentation
  
-## Thử nghiệm bản [DEMO](http://54.237.117.36)
-
 ## Table of contents
 1. [Overview](#overview)
 2. [Main features](#main-features)
